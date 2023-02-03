@@ -38,4 +38,11 @@ public class User {
 
     @Column(name = "active_state", columnDefinition = "TINYINT default 1")
     private boolean activeState;
+
+    public User(String customerName, double customerSalarry, ArrayList contactNumber, boolean activeState) {
+        this.customerName = customerName;
+        this.customerSalarry = customerSalarry;
+        this.contactNumber = contactNumber;
+        this.activeState = activeState;
+    }
 }
