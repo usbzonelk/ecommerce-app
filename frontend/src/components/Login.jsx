@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react'
-import { AuthContext } from '../utils/AuthContext'
+import { AuthContext } from '../utils/Context'
+import { useNavigate } from 'react-router-dom';
  
 const Login = () => {
-    const { Auth, setAuth } = useContext(AuthContext)
+    const { setAuth } = useContext(AuthContext);
+    const nav = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,6 +22,8 @@ const Login = () => {
         if (email != null && password != null) {
             if (email == "root" && password == "toor") {
                 setAuth(true);
+                nav('/');
+                console.log("ss");
             }    
         }
     };

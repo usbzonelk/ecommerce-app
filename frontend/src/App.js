@@ -2,7 +2,7 @@ import React from 'react'
 import Login from './components/Login';
 import SignUp from './components/SignUp'
 import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './utils/AuthContext'
+import { AuthProvider } from './utils/Context'
 import Protected from './components/Protected'
 import HomePage from './pages/HomePage';
 
