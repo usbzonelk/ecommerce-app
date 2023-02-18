@@ -1,5 +1,45 @@
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
+:root {
+    --bg-color: white;
+    --text-color: white;
+    --icon-color: white;
+
+    --transition-timing: 0.7s;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Poppins", sans-serif;
+    overscroll-behavior: contain;
+}
+
+body {
+    background: var(--bg-color);
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+button {
+    background: none;
+    font: inherit;
+    border: none;
+    cursor: pointer;
+}
+
 .signup {
     width: 80vw;
     display: flex;
@@ -9,5 +49,77 @@
 
 .forgot-password-btn {
     text-decoration: none;
-    
+}
+
+.header-top {
+    background-color: #333333;
+}
+
+.header-top .container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 7px;
+}
+
+.header-social-container {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    gap: 5px;
+}
+
+.header-social-container .social-link {
+    color: var(--icon-color);
+    padding: 5px;
+    transition: var(--transition-timing);
+}
+
+.header-social-container .social-link:hover {
+    color: hsl(0, 0%, 50%);
+}
+
+.header-alert-news {
+    color: var(--text-color);
+    font-size: 12pt;
+    text-transform: uppercase;
+}
+
+.header-alert-news p {
+    align-self: center;
+    margin: 0 auto;
+}
+
+.header-alert-news b {
+    font-weight: 500;
+}
+
+.header-user-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-user-actions .action-btn {
+    position: relative;
+    font-size: 12pt;
+    font-weight: 500;
+    color: var(--icon-color);
+    padding: 5px;
+    transition: var(--transition-timing);
+}
+
+.header-user-actions .action-btn:hover {
+    color: hsl(0, 0%, 50%);
+}
+
+.header-user-actions .count {
+    position: absolute;
+    top: -2px;
+    right: -3px;
+    color: var(--icon-color);
+    font-size: 8pt;
+    font-weight: 500;
+    line-height: 1;
+    padding: 2px 4px;
 }
