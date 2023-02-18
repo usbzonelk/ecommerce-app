@@ -53,13 +53,13 @@ button {
 
 .header-top {
     background-color: #333333;
-}
 
-.header-top .container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 7px;
+    .container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 7px;
+    }
 }
 
 .header-social-container {
@@ -67,59 +67,60 @@ button {
     align-items: center;
     margin: 0;
     gap: 5px;
-}
 
-.header-social-container .social-link {
-    color: var(--icon-color);
-    padding: 5px;
-    transition: var(--transition-timing);
-}
+    .social-link {
+        color: var(--icon-color);
+        padding: 5px;
+        transition: var(--transition-timing);
+    }
 
-.header-social-container .social-link:hover {
-    color: hsl(0, 0%, 50%);
+    .social-link:hover {
+        color: hsl(0, 0%, 50%);
+    }
 }
 
 .header-alert-news {
     color: var(--text-color);
     font-size: 12pt;
     text-transform: uppercase;
-}
 
-.header-alert-news p {
-    align-self: center;
-    margin: 0 auto;
-}
+    p {
+        align-self: center;
+        margin: 0 auto;
+    }
 
-.header-alert-news b {
-    font-weight: 500;
+    b {
+        font-weight: 500;
+    }
+    
 }
 
 .header-user-actions {
     display: flex;
     align-items: center;
     gap: 15px;
-}
 
-.header-user-actions .action-btn {
-    position: relative;
-    font-size: 12pt;
-    font-weight: 500;
-    color: var(--icon-color);
-    padding: 5px;
-    transition: var(--transition-timing);
-}
+    .action-btn {
+        position: relative;
+        font-size: 12pt;
+        font-weight: 500;
+        color: var(--icon-color);
+        padding: 5px;
+        transition: var(--transition-timing);
+    }
 
-.header-user-actions .action-btn:hover {
-    color: hsl(0, 0%, 50%);
-}
+    .action-btn:hover {
+        color: hsl(0, 0%, 50%);
+    }
 
-.header-user-actions .count {
-    position: absolute;
-    top: -2px;
-    right: -3px;
-    color: var(--icon-color);
-    font-size: 8pt;
-    font-weight: 500;
-    line-height: 1;
-    padding: 2px 4px;
+    .count {
+        position: absolute;
+        top: -2px;
+        right: -3px;
+        color: var(--icon-color);
+        font-size: 8pt;
+        font-weight: 500;
+        line-height: 1;
+        padding: 2px 4px;
+    }
 }
