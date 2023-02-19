@@ -1,15 +1,15 @@
-import React from 'react'
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-import {IoPersonOutline, IoHeartOutline, IoBagHandleOutline} from 'react-icons/io5';
-const HomePage = () => {
+import React from 'react';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch } from 'react-icons/fa';
+import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline } from 'react-icons/io5';
+import BrandLogo from '../images/brand-logo.png';
 
+const HomePage = () => {
   return (
     <div className="home-page">
       <header>
         <div className="header-top">
           <div className="container">
             <ul class="header-social-container">
-
               <li>
                 <a href="#" class="social-link">
                   <FaFacebook />
@@ -33,36 +33,70 @@ const HomePage = () => {
                   <FaLinkedinIn />
                 </a>
               </li>
-
             </ul>
 
             <div class="header-alert-news">
               <p>
                 <b>Latest </b>
-                Laptop Models Now Available! 
+                Laptop Models Now Available!
               </p>
             </div>
 
             <div class="header-user-actions">
-
               <button class="action-btn">
-                <IoPersonOutline/>
+                <IoPersonOutline />
               </button>
 
               <button class="action-btn">
-                <IoHeartOutline/>
+                <IoHeartOutline />
                 <span class="count">0</span>
               </button>
 
               <button class="action-btn">
-                <IoBagHandleOutline/>
+                <IoBagHandleOutline />
                 <span class="count">0</span>
               </button>
-
             </div>
-
           </div>
         </div>
+
+        <div className="header-main">
+          <div className="container">
+            <a href="#" class="header-logo">
+              <img src={BrandLogo} alt="Anon's logo" width="180" height="80" />
+            </a>
+
+            <nav class="nav-menu">
+              <div class="container">
+                <ul class="menu-category-list">
+                  <li class="menu-category">
+                    <a href="#" class="menu-title">Home</a>
+                  </li>
+
+                  <li class="menu-category">
+                    <a href="#" class="menu-title">Shop</a>
+                  </li>
+
+                  <li class="menu-category">
+                    <a href="#" class="menu-title">Contact</a>
+                  </li>
+
+                  <li class="menu-category">
+                    <a href="#" class="menu-title">About Us</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+
+            <div class="search-container">
+              <input type="search" name="search" class="search-field" placeholder="Search"/>
+                <button class="search-btn">
+                  <FaSearch/>
+                </button>
+            </div>
+          </div>
+        </div>
+
       </header>
     </div>
   );
