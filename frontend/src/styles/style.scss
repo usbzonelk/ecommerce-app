@@ -178,3 +178,41 @@ button {
         }
     }
 }
+
+.banner {
+    margin-top: 20px;
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+
+        .banner-content {
+            display: flex;
+            flex-direction: column;
+            width: 30vw;
+            padding: 20px;
+
+            .banner-text {
+                margin-top: 10px;
+            }
+
+            .banner-btn {
+                width: 120px;
+                background-color: #333333;
+                color: white;
+                font-weight: 500;
+                text-decoration: none;
+                padding: 10px 20px;
+                border-radius: 20px;
+            }
+        }
+
+        .banner-img {
+            width: 30vw;
+            height: 60vh;
+            
+        }
+    }
+}

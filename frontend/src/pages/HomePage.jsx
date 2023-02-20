@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch } from 'react-icons/fa';
 import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline } from 'react-icons/io5';
+import Banner from '../components/Banner';
 import BrandLogo from '../images/brand-logo.png';
 
 const HomePage = () => {
@@ -96,8 +97,11 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-
       </header>
+
+      <main>
+        <Banner/>
+      </main>
     </div>
   );
 }
