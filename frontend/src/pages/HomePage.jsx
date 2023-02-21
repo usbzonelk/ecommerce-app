@@ -1,7 +1,9 @@
 import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch } from 'react-icons/fa';
 import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline } from 'react-icons/io5';
+import Accessories from '../components/Accessories';
 import Banner from '../components/Banner';
+import Laptops from '../components/Laptops';
 import LatestProducts from '../components/LatestProducts';
 import BrandLogo from '../images/brand-logo.png';
 
@@ -91,20 +93,22 @@ const HomePage = () => {
             </nav>
 
             <div class="search-container">
-              <input type="search" name="search" class="search-field" placeholder="Search"/>
-                <button class="search-btn">
-                  <FaSearch/>
-                </button>
+              <input type="search" name="search" class="search-field" placeholder="Search" />
+              <button class="search-btn">
+                <FaSearch />
+              </button>
             </div>
           </div>
-        </div>
-      </header>
+        </div >
+      </header >
 
       <main>
-        <Banner/>
-        <LatestProducts/>
+        <Banner />
+        <LatestProducts />
+        <Laptops />
+        <Accessories />
       </main>
-    </div>
+    </div >
   );
 }
 

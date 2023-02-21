@@ -3,7 +3,7 @@ import LatestProductsSlider from './LatestProductsSlider';
 
 const LatestProducts = () => {
     return (
-        <div className='latest-products'>
+        <div className='products'>
             <div className="container">
                 <div className="title">
                     <h5>Latest Products</h5>
