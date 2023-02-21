@@ -2,6 +2,7 @@ import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch } from 'react-icons/fa';
 import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline } from 'react-icons/io5';
 import Banner from '../components/Banner';
+import LatestProducts from '../components/LatestProducts';
 import BrandLogo from '../images/brand-logo.png';
 
 const HomePage = () => {
@@ -101,6 +102,7 @@ const HomePage = () => {
 
       <main>
         <Banner/>
+        <LatestProducts/>
       </main>
     </div>
   );

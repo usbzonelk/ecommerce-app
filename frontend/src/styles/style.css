@@ -10922,4 +10922,74 @@ button {
   margin-left: 7px;
 }
 
+.banner {
+  margin-top: 20px;
+}
+.banner .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+.banner .container .banner-content {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  padding: 20px;
+}
+.banner .container .banner-content .banner-text {
+  margin-top: 10px;
+}
+.banner .container .banner-content .banner-btn {
+  width: 120px;
+  background-color: #333333;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+.banner .container .banner-img {
+  width: 30vw;
+  height: 60vh;
+}
+
+.latest-products .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+.latest-products .container .title {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  background-color: #333333;
+  border-radius: 10px;
+  padding: 5px;
+}
+.latest-products .container .title h5, .latest-products .container .title .h5 {
+  text-transform: uppercase;
+  color: white;
+  font-weight: 500;
+  margin: 0;
+}
+.latest-products .container .slider-container {
+  width: 100%;
+}
+.latest-products .container .slider-container .slide {
+  text-align: center;
+}
+.latest-products .container .slider-container .slide .slide img {
+  max-width: 100%;
+}
+.latest-products .container .slider-container .slide .slide h3, .latest-products .container .slider-container .slide .slide .h3 {
+  margin-top: 10px;
+}
+.latest-products .container .slider-container .slide .slide p {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
 /*# sourceMappingURL=style.css.map */
