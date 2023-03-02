@@ -40,13 +40,13 @@ public class User {
     @Column(name = "active_state", columnDefinition = "TINYINT default 1")
     private boolean activeState;
 
-    @Column(name = "password", columnDefinition = "TINYINT default 1")
+    @Column(name = "password", nullable = false , length = 200)
     private boolean password;
 
-    @Column(name = "salt", columnDefinition = "TINYINT default 1")
+    @Column(name = "salt", nullable = false , length = 200)
     private boolean salt;
 
-    @Column(name = "address", columnDefinition = "TINYINT default 1")
+    @Column(name = "address", nullable = false , length = 200)
     private boolean address;
 
 
