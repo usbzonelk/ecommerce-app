@@ -30,7 +30,7 @@ public class UserController {
                         ), HttpStatus.CREATED);
     }
 
-    @GetMapping(path = "/getUserID/{id}")
+    @DeleteMapping (path = "/getUserID/{id}")
     public ResponseEntity<StandardResponse> getUserByID(@PathVariable (value = "id") int id) throws NotFoundException {
         UserResponseDTO userResponseDTO = userService.getUserUsingID(id);
         return new ResponseEntity<StandardResponse>(
