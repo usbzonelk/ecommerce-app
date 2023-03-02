@@ -39,7 +39,7 @@ const Login = () => {
 
                         <div className="form-outline mb-4">
                             <input type="email" id="email" className="form-control form-control-lg" 
-                                placeholder='Email' onChange={handleEmailChange} />
+                                placeholder='Email or username' onChange={handleEmailChange} />
 
                         </div>
 
