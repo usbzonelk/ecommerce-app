@@ -22,16 +22,16 @@ import java.util.ArrayList;
 })
 public class Admin {
     @Id
-    @Column(name = "user_id", length = 40)
+    @Column(name = "admin_id", length = 40)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int customerId;
+    private int adminId;
 
 
-    @Column(name = "user_name", length = 56)
-    private String customerName;
+    @Column(name = "admin_name", length = 56)
+    private String adminName;
 
     @Column(name = "email", length = 10, nullable = false)
-    private double customerSalarry;
+    private String email;
 
     @Type(type = "json")
     @Column(name = "contact_number", columnDefinition = "json", unique = true)
@@ -42,15 +42,24 @@ public class Admin {
     private boolean activeState;
 
     @Column(name = "password", nullable = false , length = 200)
-    private boolean password;
+    private String  password;
 
     @Column(name = "salt", nullable = false , length = 200)
-    private boolean salt;
+    private String salt;
 
     @Column(name = "address", nullable = false , length = 200)
-    private boolean address;
+    private String address;
 
-    @Column(name = "privilage", nullable = false , length = 20)
-    private boolean privilage;
+    @Column(name = "privilage",  length = 20)
+    private String privilage;
 
+    public Admin(String adminName, String email, ArrayList contactNumber, boolean activeState, String password, String salt, String address) {
+        this.adminName = adminName;
+        this.email = email;
+        this.contactNumber = contactNumber;
+        this.activeState = activeState;
+        this.password = password;
+        this.salt = salt;
+        this.address = address;
+    }
 }
