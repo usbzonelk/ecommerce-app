@@ -5,7 +5,9 @@ import com.example.backend.entity.Item;
 import com.example.backend.service.ItemService;
 import com.example.backend.service.UserService;
 import com.example.backend.util.StandardResponse;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +20,11 @@ import java.util.List;
 public class ItemController {
     @Autowired
     private ItemService itemService;
-    @GetMapping(path = "/search/{searchString}")
-    public ResponseEntity<StandardResponse> getItemsBySearch(@PathVariable(value = "searchString") String searchString){
+    @GetMapping(
+            path = "/search",
+            params = "searchString"
+    )
+    public ResponseEntity<StandardResponse> getItemsBySearch(@Param(value = "searchString") String searchString) throws NotFoundException {
         List<ItemDTO> items = itemService.getItemsBySearch(searchString);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse
