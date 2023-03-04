@@ -2,7 +2,6 @@ package com.example.backend.controller;
 
 import com.example.backend.DTO.RequestDTO.UserRegRequestDTO;
 import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
-import com.example.backend.DTO.UserDTO;
 import com.example.backend.service.UserService;
 import com.example.backend.util.StandardResponse;
 import javassist.NotFoundException;
@@ -30,7 +29,7 @@ public class UserController {
                         ), HttpStatus.CREATED);
     }
 
-    @DeleteMapping (path = "/getUserID/{id}")
+    @GetMapping (path = "/getUserID/{id}")
     public ResponseEntity<StandardResponse> getUserByID(@PathVariable (value = "id") int id) throws NotFoundException {
         UserResponseDTO userResponseDTO = userService.getUserUsingID(id);
         return new ResponseEntity<StandardResponse>(
