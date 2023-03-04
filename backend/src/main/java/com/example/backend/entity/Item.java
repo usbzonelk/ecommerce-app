@@ -38,27 +38,27 @@ public class Item {
     @Column(name = "dis_price", length = 10, nullable = false)
     private double disPrice;
 
-    @Column(name = "availability", length = 10, nullable = false)
-    private double availability;
+    @Column(name = "availability", length = 100, nullable = false)
+    private String availability;
 
     @Type(type = "json")
     @Column(name = "images", columnDefinition = "json", unique = true)
     private ArrayList images;
 
-    @Column(name = "processor", length = 10, nullable = false)
-    private double processor;
+    @Column(name = "processor", length = 100, nullable = false)
+    private String processor;
 
     @Column(name = "brand", length = 10, nullable = false)
-    private double brand;
+    private String brand;
 
     @Column(name = "ssd", length = 10, nullable = false)
-    private double ssd;
+    private String ssd;
 
     @Column(name = "ram", length = 10, nullable = false)
-    private double ram;
+    private String ram;
 
     @Column(name = "screen_size", length = 10, nullable = false)
-    private double screenSize;
+    private String screenSize;
 
 
 }
