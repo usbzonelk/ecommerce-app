@@ -21,16 +21,19 @@ public class UserServiceIMPL implements UserService {
     @Override
     public String regUser(UserRegRequestDTO userRegRequestDTO) {
         User user = new User(
-                userRegRequestDTO.getCustomerName(),
-                userRegRequestDTO.getCustomerSalarry(),
+                userRegRequestDTO.getUserName(),
+                userRegRequestDTO.getEmail(),
                 userRegRequestDTO.getContactNumber(),
-                true
+                true,
+                userRegRequestDTO.getPassword(),
+                userRegRequestDTO.getSalt(),
+                userRegRequestDTO.getAddress()
         );
-        if(!userRepo.existsById(user.getCustomerId())){
+        if(!userRepo.existsById(user.getUserId())){
                 userRepo.save(user);
-                return user.getCustomerName()+" is saved " ;
+                return user.getUserName()+" is saved " ;
         }else{
-            return user.getCustomerName()+" is already registered " ;
+            return user.getUserName()+" is already registered " ;
         }
     }
 
@@ -39,9 +42,8 @@ public class UserServiceIMPL implements UserService {
         if(userRepo.existsById(id)){
             User user = userRepo.getById(id);
             UserResponseDTO userResponseDTO = new UserResponseDTO(
-                    user.getCustomerId(),
-                    user.getCustomerName(),
-                    user.getCustomerSalarry(),
+                    user.getUserId(),
+                    user.getUserName(),
                     user.getContactNumber()
             );
             return userResponseDTO ;
