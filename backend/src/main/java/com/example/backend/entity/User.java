@@ -23,14 +23,13 @@ public class User {
     @Id
     @Column(name = "user_id", length = 40)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int customerId;
-
+    private int userId;
 
     @Column(name = "user_name", length = 56)
-    private String customerName;
+    private String userName;
 
     @Column(name = "email", length = 10, nullable = false)
-    private double customerSalarry;
+    private String email;
 
     @Type(type = "json")
     @Column(name = "contact_number", columnDefinition = "json", unique = true)
@@ -41,19 +40,21 @@ public class User {
     private boolean activeState;
 
     @Column(name = "password", nullable = false , length = 200)
-    private boolean password;
+    private String password;
 
     @Column(name = "salt", nullable = false , length = 200)
-    private boolean salt;
+    private String salt;
 
     @Column(name = "address", nullable = false , length = 200)
-    private boolean address;
+    private String address;
 
-
-    public User(String customerName, double customerSalarry, ArrayList contactNumber, boolean activeState) {
-        this.customerName = customerName;
-        this.customerSalarry = customerSalarry;
+    public User(String userName, String email, ArrayList contactNumber, boolean activeState, String password, String salt, String address) {
+        this.userName = userName;
+        this.email = email;
         this.contactNumber = contactNumber;
         this.activeState = activeState;
+        this.password = password;
+        this.salt = salt;
+        this.address = address;
     }
 }
