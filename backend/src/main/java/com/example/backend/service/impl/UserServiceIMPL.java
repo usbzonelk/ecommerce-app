@@ -48,7 +48,7 @@ public class UserServiceIMPL implements UserService {
             );
             return userResponseDTO ;
         }else{
-            throw new NotFoundException("User is not found id = " + "id");
+            throw new NotFoundException("User is not found id = " + id);
         }
     }
 }
