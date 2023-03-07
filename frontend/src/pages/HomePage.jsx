@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch } from 'react-icons/fa';
-import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline } from 'react-icons/io5';
+import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline, IoLocationOutline, IoCallOutline, IoMailOutline } from 'react-icons/io5';
 import Accessories from '../components/Accessories';
 import Banner from '../components/Banner';
 import Laptops from '../components/Laptops';

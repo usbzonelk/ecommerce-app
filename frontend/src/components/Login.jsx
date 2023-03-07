@@ -27,6 +27,7 @@ const Login = () => {
             }    
         }
     };
+
     return (
         <div className=" vh-100 container py-5 h-100">
             <div className="row d-flex align-items-center justify-content-center h-100">
@@ -36,13 +37,11 @@ const Login = () => {
                 </div>
                 <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
                     <form>
-
                         <div className="form-outline mb-4">
                             <input type="email" id="email" className="form-control form-control-lg" 
                                 placeholder='Email' onChange={handleEmailChange} />
 
                         </div>
-
 
                         <div className="form-outline mb-4">
                             <input type="password" id="password" className="form-control form-control-lg" 
@@ -59,9 +58,7 @@ const Login = () => {
                             <a href="#!" className='forgot-password-btn'>Forgot password?</a>
                         </div>
 
-
                         <button type="submit" className="btn btn-primary btn-lg btn-block" onClick={handleSubmit}>Sign in</button>
-
                     </form>
                 </div>
             </div>
