@@ -3,6 +3,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch } from 'reac
 import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline, IoLocationOutline, IoCallOutline, IoMailOutline } from 'react-icons/io5';
 import Accessories from '../components/Accessories';
 import Banner from '../components/Banner';
+import Footer from '../components/Footer';
 import Laptops from '../components/Laptops';
 import LatestProducts from '../components/LatestProducts';
 import BrandLogo from '../images/brand-logo.png';
@@ -108,6 +109,8 @@ const HomePage = () => {
         <Laptops />
         <Accessories />
       </main>
+
+      <Footer/>
     </div >
   );
 }
