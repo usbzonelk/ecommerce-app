@@ -22,26 +22,6 @@ public class UserServiceIMPL implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Override
-    public String regUser(UserRegRequestDTO userRegRequestDTO) {
-        String msg ;
-        String encrptedPassword = bCryptPasswordEncoder.encode(userRegRequestDTO.getPassword());
-        User user = new User(
-                userRegRequestDTO.getUserName(),
-                userRegRequestDTO.getEmail(),
-                userRegRequestDTO.getContactNumber(),
-                true,
-                userRegRequestDTO.getPassword(),
-                encrptedPassword,
-                userRegRequestDTO.getAddress()
-        );
-        if(!userRepo.existsById(user.getUserId())){
-                userRepo.save(user);
-                return user.getUserName()+" is saved " ;
-        }else{
-            return user.getUserName()+" is already registered " ;
-        }
-    }
 
     @Override
     public UserResponseDTO getUserUsingID(int id) throws NotFoundException {
