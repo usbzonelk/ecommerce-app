@@ -8,6 +8,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
-    String regUser(UserRegRequestDTO userRegRequestDTO);
     UserResponseDTO getUserUsingID(int id) throws NotFoundException;
 }
