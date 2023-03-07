@@ -17,17 +17,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService userService;
-    @PutMapping(path = "/regUser")
-    public ResponseEntity<StandardResponse> saveUser(@RequestBody UserRegRequestDTO userRegRequestDTO){
-        String text = userService.regUser(userRegRequestDTO);
-        return new ResponseEntity<StandardResponse>(
-                new StandardResponse
-                        (
-                                201,
-                                "Saved successfully !!",
-                                text
-                        ), HttpStatus.CREATED);
-    }
 
     @GetMapping (path = "/getUserID/{id}")
     public ResponseEntity<StandardResponse> getUserByID(@PathVariable (value = "id") int id) throws NotFoundException {
