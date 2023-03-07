@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch } from 'react-icons/fa';
 import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline, IoLocationOutline, IoCallOutline, IoMailOutline } from 'react-icons/io5';
-import Accessories from '../components/Accessories';
-import Banner from '../components/Banner';
+import HomePageMain from '../components/HomePageMain';
 import Footer from '../components/Footer';
-import Laptops from '../components/Laptops';
-import LatestProducts from '../components/LatestProducts';
 import BrandLogo from '../images/brand-logo.png';
+import Shop from '../components/Shop';
 
 const HomePage = () => {
+  const [navBarClickedPage, setNavBarClickedPage] = useState('');
+
   return (
     <div className="home-page">
       <header>
@@ -75,19 +75,19 @@ const HomePage = () => {
               <div class="container">
                 <ul class="menu-category-list">
                   <li class="menu-category">
-                    <a href="#" class="menu-title">Home</a>
+                    <a href="#" class="menu-title" onClick={setNavBarClickedPage('Home')}>Home</a>
                   </li>
 
                   <li class="menu-category">
-                    <a href="#" class="menu-title">Shop</a>
+                    <a href="#" class="menu-title" onClick={setNavBarClickedPage('Shop')}>Shop</a>
                   </li>
 
                   <li class="menu-category">
-                    <a href="#" class="menu-title">Contact</a>
+                    <a href="#" class="menu-title" onClick={setNavBarClickedPage('Contact')}>Contact</a>
                   </li>
 
                   <li class="menu-category">
-                    <a href="#" class="menu-title">About Us</a>
+                    <a href="#" class="menu-title" onClick={setNavBarClickedPage('AboutUs')}>About Us</a>
                   </li>
                 </ul>
               </div>
@@ -102,13 +102,6 @@ const HomePage = () => {
           </div>
         </div >
       </header >
-
-      <main>
-        <Banner />
-        <LatestProducts />
-        <Laptops />
-        <Accessories />
-      </main>
 
       <Footer/>
     </div >
