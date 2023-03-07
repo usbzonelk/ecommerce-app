@@ -10,6 +10,7 @@ import com.example.backend.util.StandardResponse;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,15 +19,20 @@ import java.util.ArrayList;
 public class UserServiceIMPL implements UserService {
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     public String regUser(UserRegRequestDTO userRegRequestDTO) {
+        String msg ;
+        String encrptedPassword = bCryptPasswordEncoder.encode(userRegRequestDTO.getPassword());
         User user = new User(
                 userRegRequestDTO.getUserName(),
                 userRegRequestDTO.getEmail(),
                 userRegRequestDTO.getContactNumber(),
                 true,
                 userRegRequestDTO.getPassword(),
-                userRegRequestDTO.getSalt(),
+                encrptedPassword,
                 userRegRequestDTO.getAddress()
         );
         if(!userRepo.existsById(user.getUserId())){
