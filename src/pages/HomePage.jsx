@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch } from 'react-icons/fa';
 import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline, IoLocationOutline, IoCallOutline, IoMailOutline } from 'react-icons/io5';
 import HomePageMain from '../components/HomePageMain';
@@ -7,7 +7,7 @@ import BrandLogo from '../images/brand-logo.png';
 import Shop from '../components/Shop';
 
 const HomePage = () => {
-  const [navBarClickedPage, setNavBarClickedPage] = useState('');
+  const [navBarClickedPage, setNavBarClickedPage] = useState('Home');
 
   return (
     <div className="home-page">
@@ -75,19 +75,19 @@ const HomePage = () => {
               <div class="container">
                 <ul class="menu-category-list">
                   <li class="menu-category">
-                    <a href="#" class="menu-title" onClick={setNavBarClickedPage('Home')}>Home</a>
+                    <a class="menu-title" onClick={() => setNavBarClickedPage('Home')}>Home</a>
                   </li>
 
                   <li class="menu-category">
-                    <a href="#" class="menu-title" onClick={setNavBarClickedPage('Shop')}>Shop</a>
+                    <a class="menu-title" onClick={() => setNavBarClickedPage('Shop')}>Shop</a>
                   </li>
 
                   <li class="menu-category">
-                    <a href="#" class="menu-title" onClick={setNavBarClickedPage('Contact')}>Contact</a>
+                    <a class="menu-title" onClick={() => setNavBarClickedPage('Contact')}>Contact</a>
                   </li>
 
                   <li class="menu-category">
-                    <a href="#" class="menu-title" onClick={setNavBarClickedPage('AboutUs')}>About Us</a>
+                    <a class="menu-title" onClick={() => setNavBarClickedPage('AboutUs')}>About Us</a>
                   </li>
                 </ul>
               </div>
@@ -103,7 +103,12 @@ const HomePage = () => {
         </div >
       </header >
 
-      <Footer/>
+      {navBarClickedPage === 'Home' ? <HomePageMain /> :
+        navBarClickedPage === 'Shop' ? <Shop /> :
+          null
+      }
+
+      <Footer />
     </div >
   );
 }

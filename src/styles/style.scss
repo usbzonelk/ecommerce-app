@@ -143,6 +143,7 @@ button {
                 .menu-category {
                     padding: 10px;
                     transition: var(--transition-timing);
+                    cursor: pointer;
 
                     a {
                         color: #333333;
@@ -277,6 +278,34 @@ button {
     }
 }
 
+.shop {
+    margin-top: 20px;
+
+    h5 {
+        font-weight: 500;
+        padding: 10px;
+    }
+
+    .categories-list {
+        list-style: none;
+        margin: 0 10px;
+        padding: 0;
+
+        li {
+            margin: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            color: #333;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    }
+}
+
 footer {
     background-color: #333333;
     margin-top: 45px;
@@ -378,7 +407,8 @@ footer {
             justify-content: center;
             align-items: center;
 
-            p, a {
+            p,
+            a {
                 color: white;
             }
 
