@@ -1,5 +1,5 @@
-import React from 'react'
-import ProductCard from './ProductCard'
+import React from 'react';
+import ProductList from './ProductList';
 
 const Shop = () => {
     return (
@@ -18,7 +18,7 @@ const Shop = () => {
 
                     <div className="col-8">
                         <h5>Products</h5>
-                        <ProductCard/>
+                        <ProductList/>
                     </div>
                 </div>
             </div>
