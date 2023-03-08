@@ -48,12 +48,11 @@ public class User {
     @Column(name = "address", nullable = false , length = 200)
     private String address;
 
-    public User(String userName, String email, ArrayList contactNumber, boolean activeState, String password, String salt, String address) {
+    public User(String userName, String email, ArrayList contactNumber, boolean activeState,  String salt, String address) {
         this.userName = userName;
         this.email = email;
         this.contactNumber = contactNumber;
         this.activeState = activeState;
-        this.password = password;
         this.salt = salt;
         this.address = address;
     }
