@@ -23,7 +23,7 @@ public class JwtUtils {
 
         //optional claims
         claims.put( "type",user);
-        claims.put("email",user.getEmail());
+        claims.put("email",user);
         claims.put("password",user.getPassword());
 
         // genarate jwt using claims
