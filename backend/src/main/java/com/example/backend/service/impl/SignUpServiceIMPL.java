@@ -1,7 +1,10 @@
 package com.example.backend.service.impl;
 
+import com.example.backend.DTO.RequestDTO.AdminRegRequestDTO;
 import com.example.backend.DTO.RequestDTO.UserRegRequestDTO;
+import com.example.backend.entity.Admin;
 import com.example.backend.entity.User;
+import com.example.backend.repo.AdminRepo;
 import com.example.backend.repo.UserRepo;
 import com.example.backend.service.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,9 @@ import java.util.List;
 public class SignUpServiceIMPL implements SignUpService {
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private AdminRepo adminRepo;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder ;
@@ -45,5 +51,24 @@ public class SignUpServiceIMPL implements SignUpService {
         userRepo.save(user);
         msg = "user name = " + userRegRequestDTO.getUserName() + " is sign up successfully";
         return msg ;
+    }
+
+    @Override
+    public String addAdmin(AdminRegRequestDTO adminRegRequestDTO) {
+        Admin admin = new Admin(
+                adminRegRequestDTO.getAdminName(),
+                adminRegRequestDTO.getEmail(),
+                adminRegRequestDTO.getContactNumber(),
+                true,
+                adminRegRequestDTO.getPassword(),
+                adminRegRequestDTO.getSalt(),
+                adminRegRequestDTO.getAddress()
+        );
+        if(!adminRepo.existsById(admin.getAdminId())){
+            adminRepo.save(admin);
+            return admin.getAdminName()+" is saved " ;
+        }else{
+            return admin.getAdminName()+" is already registered " ;
+        }
     }
 }
