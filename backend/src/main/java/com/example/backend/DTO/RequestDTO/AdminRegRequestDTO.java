@@ -15,6 +15,5 @@ public class AdminRegRequestDTO {
     private ArrayList contactNumber;
     private boolean activeState;
     private String  password;
-    private String salt;
     private String address;
 }
