@@ -30,7 +30,7 @@ public class Admin {
     @Column(name = "admin_name", length = 56)
     private String adminName;
 
-    @Column(name = "email", length = 10, nullable = false)
+    @Column(name = "email", length = 100, nullable = false)
     private String email;
 
     @Type(type = "json")
@@ -44,7 +44,7 @@ public class Admin {
     @Column(name = "password", nullable = false , length = 200)
     private String  password;
 
-    @Column(name = "salt", nullable = false , length = 200)
+    @Column(name = "salt", nullable = false , length = 1000)
     private String salt;
 
     @Column(name = "address", nullable = false , length = 200)
