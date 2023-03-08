@@ -18,24 +18,6 @@ public class AdminServiceIMPL implements AdminService {
     private ItemRepo itemRepo;
 
     @Override
-    public String addAdmin(AdminRegRequestDTO adminRegRequestDTO) {
-        Admin admin = new Admin(
-                adminRegRequestDTO.getAdminName(),
-                adminRegRequestDTO.getEmail(),
-                adminRegRequestDTO.getContactNumber(),
-                true,
-                adminRegRequestDTO.getPassword(),
-                adminRegRequestDTO.getSalt(),
-                adminRegRequestDTO.getAddress()
-        );
-        if(!adminRepo.existsById(admin.getAdminId())){
-            adminRepo.save(admin);
-            return admin.getAdminName()+" is saved " ;
-        }else{
-            return admin.getAdminName()+" is already registered " ;
-        }
-    }
-    @Override
     public String addItem(ItemAddRequestDTO itemAddRequestDTO) {
         Item item = new Item(
                 itemAddRequestDTO.getDescription(),
