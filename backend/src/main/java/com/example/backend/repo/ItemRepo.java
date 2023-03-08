@@ -11,7 +11,8 @@ import java.util.List;
 @EnableJpaRepositories
 @Repository
 public interface ItemRepo extends JpaRepository<Item,Integer> {
-    @Query(value = "SELECT * FROM item WHERE brand LIKE '%?1%' OR description LIKE '%?1%'" ,nativeQuery=true)
+    @Query(value = "SELECT i FROM Item i WHERE i.brand LIKE CONCAT('%', :search, '%') OR i.description LIKE CONCAT('%', :search, '%')")
     List<Item> getItemsBySearch(String search);
+
 }
 
