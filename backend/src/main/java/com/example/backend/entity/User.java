@@ -28,7 +28,7 @@ public class User {
     @Column(name = "user_name", length = 56)
     private String userName;
 
-    @Column(name = "email", length = 10, nullable = false)
+    @Column(name = "email", length = 100, nullable = false)
     private String email;
 
     @Type(type = "json")
@@ -39,7 +39,7 @@ public class User {
     @Column(name = "active_state", columnDefinition = "TINYINT default 1")
     private boolean activeState;
 
-    @Column(name = "password", nullable = false , length = 200)
+    @Column(name = "password",  length = 200)
     private String password;
 
     @Column(name = "salt", nullable = false , length = 200)
