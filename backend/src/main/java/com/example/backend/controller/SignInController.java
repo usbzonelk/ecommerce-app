@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.DTO.RequestDTO.AdminRequestSignInDTO;
 import com.example.backend.DTO.RequestDTO.UserRequestSignInDTO;
 import com.example.backend.service.SignInService;
 import com.example.backend.util.StandardResponse;
@@ -18,6 +19,17 @@ public class SignInController {
     @PostMapping(path="/user-login")
     public ResponseEntity<StandardResponse> loginUser(@RequestBody UserRequestSignInDTO userRequestSignInDTO){
         String text = signInService.signInUser(userRequestSignInDTO);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse
+                        (
+                                201,
+                                "LOOK Sign Up / Sign In state  !!",
+                                text
+                        ), HttpStatus.CREATED);
+    }
+    @PostMapping(path="/admin-login")
+    public ResponseEntity<StandardResponse> loginAdmin(@RequestBody AdminRequestSignInDTO adminRequestSignInDTO){
+        String text = signInService.signInAdmin(adminRequestSignInDTO);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse
                         (
