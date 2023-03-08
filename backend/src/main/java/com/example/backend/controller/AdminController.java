@@ -16,17 +16,6 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
   @Autowired
   private AdminService adminService ;
-  @PutMapping(path = "/reg-admin")
-    public ResponseEntity<StandardResponse> addAdmins(@RequestBody AdminRegRequestDTO adminRegRequestDTO){
-    String text = adminService.addAdmin(adminRegRequestDTO);
-    return new ResponseEntity<StandardResponse>(
-            new StandardResponse
-                    (
-                            201,
-                            "Saved successfully !!",
-                            text
-                    ), HttpStatus.CREATED);
-  }
   @PutMapping(path = "/add-item")
   public ResponseEntity<StandardResponse> addItems(@RequestBody ItemAddRequestDTO itemAddRequestDTO){
     String text= adminService.addItem(itemAddRequestDTO);
@@ -38,5 +27,6 @@ public class AdminController {
                             text
                     ), HttpStatus.CREATED);
   }
+
 
 }
