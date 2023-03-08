@@ -1,6 +1,4 @@
 package com.example.backend.util;
-
-import com.example.backend.DTO.RequestDTO.UserRequestSignInDTO;
 import com.example.backend.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -24,7 +22,7 @@ public class JwtUtils {
                 .setExpiration(expiryAt);
 
         //optional claims
-        claims.put( "type",user.getUserType);
+        claims.put( "type",user);
         claims.put("email",user.getEmail());
         claims.put("password",user.getPassword());
 
