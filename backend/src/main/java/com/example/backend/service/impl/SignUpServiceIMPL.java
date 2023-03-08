@@ -32,14 +32,14 @@ public class SignUpServiceIMPL implements SignUpService {
                 userRegRequestDTO.getAddress()
         );
 
-        if(userRepo.existsByUserName(userRegRequestDTO.getUserName())){
+        if(userRepo.existsByEmail(userRegRequestDTO.getEmail())){
             List<String> salts = userRepo.getAllCustomerSalts();
             for (String s : salts) {
                 if (bCryptPasswordEncoder.matches(userRegRequestDTO.getPassword(), s)) {
                     msg = "user name = " + userRegRequestDTO.getUserName() + " already sign up ! please sign in ";
                     return msg ;
                 }
-            }return "password = "+user.getPassword()+" is already exist please enter different user name !! ";
+            }return "password = "+user.getPassword()+" is already exist please enter different email !! ";
         }
 
         userRepo.save(user);
