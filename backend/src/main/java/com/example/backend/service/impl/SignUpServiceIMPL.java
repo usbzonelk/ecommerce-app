@@ -33,7 +33,6 @@ public class SignUpServiceIMPL implements SignUpService {
                 userRegRequestDTO.getEmail(),
                 userRegRequestDTO.getContactNumber(),
                 true,
-                userRegRequestDTO.getPassword(),
                 encrptedPassword,
                 userRegRequestDTO.getAddress()
         );
@@ -45,7 +44,7 @@ public class SignUpServiceIMPL implements SignUpService {
                     msg = "user name = " + userRegRequestDTO.getUserName() + " already sign up ! please sign in ";
                     return msg ;
                 }
-            }return "password = "+user.getPassword()+" is already exist please enter different email !! ";
+            }return "password = "+user.getUserName()+" is already exist please enter different email !! ";
         }
 
         userRepo.save(user);
@@ -61,11 +60,10 @@ public class SignUpServiceIMPL implements SignUpService {
                 adminRegRequestDTO.getEmail(),
                 adminRegRequestDTO.getContactNumber(),
                 true,
-                adminRegRequestDTO.getPassword(),
                 encryptedPass,
                 adminRegRequestDTO.getAddress()
         );
-        if(!adminRepo.existsById(admin.getAdminId())){
+        if(!adminRepo.existsByEmail(admin.getEmail())){
             adminRepo.save(admin);
             return admin.getAdminName()+" is saved " ;
         }else{
