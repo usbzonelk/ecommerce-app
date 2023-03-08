@@ -53,12 +53,11 @@ public class Admin {
     @Column(name = "privilage",  length = 20)
     private String privilage;
 
-    public Admin(String adminName, String email, ArrayList contactNumber, boolean activeState, String password, String salt, String address) {
+    public Admin(String adminName, String email, ArrayList contactNumber, boolean activeState,String salt, String address) {
         this.adminName = adminName;
         this.email = email;
         this.contactNumber = contactNumber;
         this.activeState = activeState;
-        this.password = password;
         this.salt = salt;
         this.address = address;
     }
