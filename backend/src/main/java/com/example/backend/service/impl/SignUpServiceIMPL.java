@@ -55,13 +55,14 @@ public class SignUpServiceIMPL implements SignUpService {
 
     @Override
     public String addAdmin(AdminRegRequestDTO adminRegRequestDTO) {
+        String encryptedPass = bCryptPasswordEncoder.encode(adminRegRequestDTO.getPassword());
         Admin admin = new Admin(
                 adminRegRequestDTO.getAdminName(),
                 adminRegRequestDTO.getEmail(),
                 adminRegRequestDTO.getContactNumber(),
                 true,
                 adminRegRequestDTO.getPassword(),
-                adminRegRequestDTO.getSalt(),
+                encryptedPass,
                 adminRegRequestDTO.getAddress()
         );
         if(!adminRepo.existsById(admin.getAdminId())){
