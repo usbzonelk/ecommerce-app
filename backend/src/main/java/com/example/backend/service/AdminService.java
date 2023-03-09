@@ -11,4 +11,5 @@ public interface AdminService {
     String addItem(ItemAddRequestDTO itemAddRequestDTO);
     UserResponseDTO getUserUsingID(int id) ;
 
+    String deleteUser(int id);
 }
