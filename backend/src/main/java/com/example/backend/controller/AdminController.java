@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 import com.example.backend.DTO.RequestDTO.ItemAddRequestDTO;
+import com.example.backend.DTO.RequestDTO.ItemQTYUpdateRequestDTO;
 import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
 import com.example.backend.authorization.Authorization;
 import com.example.backend.authorization.AuthorizationIMPL;
@@ -85,6 +86,19 @@ public class AdminController {
                         (
                                 200,
                                 "customer id = " + id + " deleted!",
+                                text
+                        ), HttpStatus.OK);
+    }
+
+    @PutMapping(path = "/update-item-qty")
+    public ResponseEntity<StandardResponse> updateQty(@RequestBody ItemQTYUpdateRequestDTO itemQTYUpdateRequestDTO, @RequestHeader("Authorization") String authorizationHeader){
+        authorization.authorization(authorizationHeader);
+        String text = adminService.updateQty(itemQTYUpdateRequestDTO);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse
+                        (
+                                200,
+                                "item id = " + itemQTYUpdateRequestDTO.getId() + " updated successfully!",
                                 text
                         ), HttpStatus.OK);
     }
