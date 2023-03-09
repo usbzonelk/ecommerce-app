@@ -22,7 +22,7 @@ const Contact = () => {
   return (
     <section className='contact'>
       <h4>Contact Us</h4>
-      <form onSubmit={handleSubmit}>
+      <form className='contact-form' onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
         <label htmlFor="email">Email</label>
