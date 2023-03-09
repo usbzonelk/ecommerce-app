@@ -60,7 +60,10 @@ public class Item {
     @Column(name = "screen_size", length = 10, nullable = false)
     private String screenSize;
 
-    public Item(String description, double unitPrice, String disPrecentage, double disPrice, String availability, ArrayList images, String processor, String brand, String ssd, String ram, String screenSize) {
+    @Column(name = "quantity",length = 300, nullable = false)
+    private int quantity;
+
+    public Item(String description, double unitPrice, String disPrecentage, double disPrice, String availability, ArrayList images, String processor, String brand, String ssd, String ram, String screenSize,int quantity) {
         this.description = description;
         this.unitPrice = unitPrice;
         this.disPrecentage = disPrecentage;
@@ -72,5 +75,6 @@ public class Item {
         this.ssd = ssd;
         this.ram = ram;
         this.screenSize = screenSize;
+        this.quantity=quantity;
     }
 }
