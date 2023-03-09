@@ -12,4 +12,6 @@ public interface AdminService {
     UserResponseDTO getUserUsingID(int id) ;
 
     String deleteUser(int id);
+
+    String deleteItem(int id);
 }
