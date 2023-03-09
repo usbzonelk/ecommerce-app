@@ -38,7 +38,8 @@ public class AdminServiceIMPL implements AdminService {
                 itemAddRequestDTO.getBrand(),
                 itemAddRequestDTO.getSsd(),
                 itemAddRequestDTO.getRam(),
-                itemAddRequestDTO.getScreenSize()
+                itemAddRequestDTO.getScreenSize(),
+                itemAddRequestDTO.getQuantity()
         );
         if(!itemRepo.existsById(item.getItemID())){
             itemRepo.save(item);
