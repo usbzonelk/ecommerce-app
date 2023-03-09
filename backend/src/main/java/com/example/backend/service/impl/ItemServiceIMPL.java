@@ -2,10 +2,10 @@ package com.example.backend.service.impl;
 
 import com.example.backend.DTO.ResponseDTO.ItemDTO;
 import com.example.backend.entity.Item;
+import com.example.backend.exception.NotFoundException;
 import com.example.backend.repo.ItemRepo;
 import com.example.backend.service.ItemService;
 import com.example.backend.util.mappers.ItemMapper;
-import javassist.NotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class ItemServiceIMPL implements ItemService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<ItemDTO> getItemsBySearch(String searchString) throws NotFoundException {
+    public List<ItemDTO> getItemsBySearch(String searchString) {
         List<Item> items = itemRepo.getItemsBySearch(searchString);
         if(items.size()!=0){
             List<ItemDTO> itemDTOS = new ArrayList<>();
@@ -47,7 +47,7 @@ public class ItemServiceIMPL implements ItemService {
                 itemDTOS.add(itemDTO);
             }return itemDTOS;
         }else {
-           throw new NotFoundException("search query = " +searchString + " is Not Found ") ;
+           throw new NotFoundException("search query = " +searchString + " is Not Found ");
         }
 
     }
