@@ -10,9 +10,10 @@ import java.util.Date;
 
 @Component
 public class JwtUtils {
-    private static String secret = "static varible";
     private static long expiryDuration= 60 * 60;
+    public static String secret = "static variable";
     public String genarateJWT(User user){
+
         //claims
         long militime = System.currentTimeMillis();
         long expiryTime=militime + expiryDuration * 1000;
@@ -25,7 +26,7 @@ public class JwtUtils {
         //optional claims
         claims.put( "type",user);
         claims.put("email",user);
-        claims.put("password",user.getPassword());
+        claims.put("salt",user.getSalt());
 
         // genarate jwt using claims
         return Jwts.builder()
@@ -48,7 +49,7 @@ public class JwtUtils {
         //optional claims
         claims.put( "type",admin);
         claims.put("email",admin);
-        claims.put("password",admin.getPassword());
+        claims.put("password",admin.getSalt());
 
         // genarate jwt using claims
         return Jwts.builder()
