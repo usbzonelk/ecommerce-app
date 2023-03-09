@@ -61,4 +61,15 @@ public class AdminServiceIMPL implements AdminService {
             throw new NotFoundException("User is not found id = " + id);
         }
     }
+
+    @Override
+    public String deleteUser(int id) {
+        if(userRepo.existsById(id)){
+            User user = userRepo.getById(id);
+            userRepo.deleteById(id);
+            return "user name = " + user.getUserName() + " id = " + user.getUserId() + " is delete ";
+        }else {
+            throw new NotFoundException("User is not found id = "+ id);
+        }
+    }
 }
