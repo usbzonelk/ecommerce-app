@@ -413,6 +413,35 @@ button {
     }
 }
 
+.about-us {
+    h4 {
+        font-weight: 500;
+        margin: 0 170px;
+        padding: 35px;
+    }
+
+    p {
+        margin: 0 170px;
+        padding: 20px 35px;
+        font-weight: 400;
+    }
+
+    &-btn {
+        width: 120px;
+        background-color: #333333;
+        color: white;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        margin: 25px 200px;
+
+        &:hover {
+            color: white;
+        }
+    }
+}
+
 footer {
     background-color: #333333;
     margin-top: 45px;
