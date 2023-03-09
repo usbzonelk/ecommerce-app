@@ -49,8 +49,6 @@ public class AdminController {
     }
   }
 
-
-
     @GetMapping (path = "/getUserID/{id}")
     public ResponseEntity<StandardResponse> getUserByID(@PathVariable (value = "id") int id , @RequestHeader("Authorization") String authorizationHeader) {
             authorization.authorization(authorizationHeader);
@@ -64,4 +62,17 @@ public class AdminController {
                             ), HttpStatus.OK);
 
     }
+    @DeleteMapping(path = "/delete-user/{id}")
+    public ResponseEntity<StandardResponse> removeUSer(@PathVariable(value = "id")int id , @RequestHeader("Authorization") String authorizationHeader){
+      authorization.authorization(authorizationHeader);
+      String text = adminService.deleteUser(id);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse
+                        (
+                                200,
+                                "This is the customer id = " + id,
+                                text
+                        ), HttpStatus.OK);
+    }
+
 }
