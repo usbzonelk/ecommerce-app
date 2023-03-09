@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch } from 'react-icons/fa';
-import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline, IoLocationOutline, IoCallOutline, IoMailOutline } from 'react-icons/io5';
+import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline, IoMenu } from 'react-icons/io5';
 import HomePageMain from '../components/HomePageMain';
 import Footer from '../components/Footer';
 import BrandLogo from '../images/brand-logo.png';
@@ -94,6 +94,10 @@ const HomePage = () => {
                 </ul>
               </div>
             </nav>
+
+            <div className="menu-icon">
+              <IoMenu/>
+            </div>
 
             <div class="search-container">
               <input type="search" name="search" class="search-field" placeholder="Search" />

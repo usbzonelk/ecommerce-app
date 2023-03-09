@@ -1,4 +1,5 @@
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "./media-queries";
 
 :root {
     --bg-color: white;
@@ -83,6 +84,10 @@ button {
         font-size: 12pt;
         text-transform: uppercase;
 
+        @include medium-screen {
+            display: none;
+        }
+
         p {
             align-self: center;
             margin: 0 auto;
@@ -132,6 +137,10 @@ button {
     }
 
     .nav-menu {
+        @include medium-screen {
+            display: none;
+        }
+
         .container {
             display: flex;
 
@@ -164,6 +173,15 @@ button {
         }
     }
 
+    .menu-icon {
+        display: none;
+
+        @include medium-screen {
+            display: inline-block;
+            cursor: pointer;
+        }
+    }
+
     .search-container {
         .search-field {
             color: #333333;
@@ -177,6 +195,10 @@ button {
         .search-btn {
             margin-left: 7px;
         }
+
+        @include medium-screen {
+            display: none;
+        }
     }
 }
 
@@ -189,11 +211,29 @@ button {
         align-items: center;
         gap: 25px;
 
+        @include medium-screen {
+            flex-direction: column;
+        }
+
         .banner-content {
             display: flex;
             flex-direction: column;
             width: 30vw;
             padding: 20px;
+
+            @include medium-screen {
+                width: 100%;
+                background-image: linear-gradient(
+                        180deg,
+                        rgba(51, 51, 51, 1) 50%,
+                        rgba(51, 51, 51, 0.7) 100%,
+                        rgba(51, 51, 51, 0) 100%
+                    ),
+                    url("../images//banner-img.png");
+                background-size: cover;
+                color: white;
+                border-radius: 20px;
+            }
 
             .banner-text {
                 margin-top: 10px;
@@ -213,6 +253,10 @@ button {
         .banner-img {
             width: 30vw;
             height: 60vh;
+
+            @include medium-screen {
+                display: none;
+            }
         }
     }
 }
@@ -272,6 +316,10 @@ button {
                         margin-top: 5px;
                         font-size: 14px;
                     }
+                }
+
+                @include large-screen {
+                    height: auto;
                 }
             }
         }
@@ -434,10 +482,11 @@ button {
         text-decoration: none;
         padding: 10px 20px;
         border-radius: 20px;
-        margin: 25px 200px;
+        margin: 40px 200px;
 
         &:hover {
             color: white;
+            background-color: hsl(0, 0%, 30%);
         }
     }
 }
@@ -446,6 +495,15 @@ footer {
     background-color: #333333;
     margin-top: 45px;
     padding-top: 50px;
+
+    .container {
+        @include medium-screen {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-basis: 30%;
+        }
+    }
 
     .footer-brands {
         margin-bottom: 30px;
@@ -488,6 +546,10 @@ footer {
             min-width: calc(33.33% - 15px);
             width: calc(33.33% - 15px);
             flex-grow: 1;
+
+            @include medium-screen {
+                width: auto;
+            }
 
             .nav-item {
                 .nav-title {
