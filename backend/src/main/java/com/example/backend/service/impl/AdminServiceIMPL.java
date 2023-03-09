@@ -1,6 +1,7 @@
 package com.example.backend.service.impl;
 import com.example.backend.DTO.RequestDTO.AdminRegRequestDTO;
 import com.example.backend.DTO.RequestDTO.ItemAddRequestDTO;
+import com.example.backend.DTO.RequestDTO.ItemQTYUpdateRequestDTO;
 import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
 import com.example.backend.entity.Item;
 import com.example.backend.entity.User;
@@ -82,4 +83,16 @@ public class AdminServiceIMPL implements AdminService {
         }
         throw  new NotFoundException("Item id = "+id+" not in the database !!");
     }
+
+    @Override
+    public String updateQty(ItemQTYUpdateRequestDTO itemQTYUpdateRequestDTO) {
+        if(itemRepo.existsById(itemQTYUpdateRequestDTO.getId())){
+            itemRepo.updateItemQTY(itemQTYUpdateRequestDTO.getQuantity() , itemQTYUpdateRequestDTO.getId());
+            return "Update item quantity where id = "+ itemQTYUpdateRequestDTO.getId()+" successfully!!";
+        }else{
+            throw new NotFoundException("Id = "+ itemQTYUpdateRequestDTO.getId() + " not found");
+        }
+    }
+
+
 }
