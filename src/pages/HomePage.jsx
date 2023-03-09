@@ -5,6 +5,7 @@ import HomePageMain from '../components/HomePageMain';
 import Footer from '../components/Footer';
 import BrandLogo from '../images/brand-logo.png';
 import Shop from '../components/Shop';
+import Contact from '../components/Contact';
 
 const HomePage = () => {
   const [navBarClickedPage, setNavBarClickedPage] = useState('Home');
@@ -105,6 +106,7 @@ const HomePage = () => {
 
       {navBarClickedPage === 'Home' ? <HomePageMain /> :
         navBarClickedPage === 'Shop' ? <Shop /> :
+        navBarClickedPage === 'Contact' ? <Contact/> :
           null
       }
 
