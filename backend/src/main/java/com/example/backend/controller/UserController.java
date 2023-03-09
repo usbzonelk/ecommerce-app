@@ -15,20 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "api/v1/user")
 
 public class UserController {
-    @Autowired
-    private UserService userService;
 
-    @GetMapping (path = "/getUserID/{id}")
-    public ResponseEntity<StandardResponse> getUserByID(@PathVariable (value = "id") int id) throws NotFoundException {
-        UserResponseDTO userResponseDTO = userService.getUserUsingID(id);
-        return new ResponseEntity<StandardResponse>(
-                new StandardResponse
-                        (
-                                200,
-                                "This is the customer id = " + id,
-                                userResponseDTO
-                        ), HttpStatus.OK);
-    }
 
 
 
