@@ -1,6 +1,7 @@
 package com.example.backend.authorization;
 
 import com.example.backend.exception.JWTExpireException;
+import com.example.backend.exception.SignatureChangeException;
 import com.example.backend.exception.UnauthorizedException;
 import com.example.backend.util.JwtUtils;
 import io.jsonwebtoken.*;
@@ -27,6 +28,8 @@ public class AuthorizationIMPL implements Authorization {
             }catch (ExpiredJwtException e){
                 ExpiredJwtException ex = (ExpiredJwtException) e;
                 throw new JWTExpireException(ex.getHeader(), ex.getClaims(), "Token expired");
+            }catch (SignatureException e){
+                throw new SignatureChangeException("signature was changed");
             }
         }
     }
