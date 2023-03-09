@@ -5,6 +5,7 @@ import com.example.backend.authorization.Authorization;
 import com.example.backend.authorization.AuthorizationIMPL;
 import com.example.backend.exception.UnauthorizedException;
 import com.example.backend.service.AdminService;
+import com.example.backend.service.ItemService;
 import com.example.backend.service.UserService;
 import com.example.backend.util.JwtUtils;
 import com.example.backend.util.StandardResponse;
@@ -70,9 +71,24 @@ public class AdminController {
                 new StandardResponse
                         (
                                 200,
-                                "This is the customer id = " + id,
+                                "customer id = " + id + " deleted!",
                                 text
                         ), HttpStatus.OK);
     }
+
+    @DeleteMapping(path = "/delete-item/{id}")
+    public ResponseEntity<StandardResponse> removeItem(@PathVariable(value = "id") int id , @RequestHeader("Authorization")String authorizationHeader){
+        authorization.authorization(authorizationHeader);
+        String text = adminService.deleteItem(id);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse
+                        (
+                                200,
+                                "customer id = " + id + " deleted!",
+                                text
+                        ), HttpStatus.OK);
+    }
+
+
 
 }
