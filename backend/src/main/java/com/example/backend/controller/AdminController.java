@@ -4,6 +4,7 @@ import com.example.backend.DTO.RequestDTO.ItemQTYUpdateRequestDTO;
 import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
 import com.example.backend.authorization.Authorization;
 import com.example.backend.authorization.AuthorizationIMPL;
+import com.example.backend.exception.IntergrityConstraintsViolation;
 import com.example.backend.exception.UnauthorizedException;
 import com.example.backend.service.AdminService;
 import com.example.backend.service.ItemService;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.SQLException;
 
 @RestController
 @CrossOrigin
@@ -34,21 +37,31 @@ public class AdminController {
 
   @PutMapping(path = "/add-item")
   public ResponseEntity<StandardResponse> addItems(@RequestBody ItemAddRequestDTO itemAddRequestDTO , @RequestHeader("Authorization") String authorizationHeader) {
-    if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
-       String token = authorizationHeader.substring(7);
-       Jwts.parser().setSigningKey(jwtUtils.secret).parseClaimsJws(token);
+      authorization.authorization(authorizationHeader);
+      try {
+          String text = adminService.addItem(itemAddRequestDTO);
+          return new ResponseEntity<StandardResponse>(
+                  new StandardResponse
+                          (
+                                  201,
+                                  "Added successfully !!",
+                                  text
+                          ), HttpStatus.CREATED);
 
-       String text= adminService.addItem(itemAddRequestDTO);
-       return new ResponseEntity<StandardResponse>(
-              new StandardResponse
-                      (
-                              201,
-                              "Added successfully !!",
-                              text
-                      ), HttpStatus.CREATED);
-    }else {
-      throw new UnauthorizedException("Unauthorized accesses!!");
-    }
+      } catch (RuntimeException e) {
+          if (e instanceof RuntimeException) {
+              throw new IntergrityConstraintsViolation("");
+          } else if (e instanceof UnauthorizedException) {
+              throw new UnauthorizedException("");
+          }
+
+      }
+      return new ResponseEntity<>(
+              new StandardResponse(
+                      500,
+                      "Unexpected error occurred.",
+                      ""
+              ), HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
     @GetMapping (path = "/getUserID/{id}")
