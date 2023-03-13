@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping(path = "add-cart-customer")
-    public ResponseEntity<StandardResponse> addToCart(@RequestBody AddToCartRequestDTO addToCartRequestDTO , @RequestHeader(value = "Authorization") String authorizationHeader) throws SQLException, ClassNotFoundException {
+    public ResponseEntity<StandardResponse> addToCart(@RequestBody AddToCartRequestDTO addToCartRequestDTO , @RequestHeader(value = "Authorization") String authorizationHeader)  {
         authorization.authorization(authorizationHeader);
         try {
             String text = userService.addToCart(addToCartRequestDTO);
@@ -59,9 +59,22 @@ public class UserController {
                                     text
                             ), HttpStatus.OK);
 
-        } catch (SQLIntegrityConstraintViolationException e) {
-            throw new IntergrityConstraintsViolation("integrity constraints violation");
+        }catch (RuntimeException | SQLException e){
+            throw new IntergrityConstraintsViolation("");
         }
+    }
+
+    @DeleteMapping(path = "/delete-item-byId/{id}")
+    public ResponseEntity<StandardResponse> removeItemById(@PathVariable(value = "id") int id , @RequestHeader(value = "Authorization") String authorizationHeader ){
+        authorization.authorization(authorizationHeader);
+        String text = userService.removeItemById(id);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse
+                        (
+                                200,
+                                "item id = " + id + " remove state!",
+                                text
+                        ), HttpStatus.OK);
     }
 
 
