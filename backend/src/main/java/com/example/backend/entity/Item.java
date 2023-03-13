@@ -10,6 +10,7 @@ import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -62,6 +63,10 @@ public class Item {
 
     @Column(name = "quantity",length = 300, nullable = false)
     private int quantity;
+
+    @OneToMany(mappedBy = "item")
+    private Set<Cart> cart ;
+
 
     public Item(String description, double unitPrice, String disPrecentage, double disPrice, String availability, ArrayList images, String processor, String brand, String ssd, String ram, String screenSize,int quantity) {
         this.description = description;
