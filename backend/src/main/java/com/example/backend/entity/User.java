@@ -10,6 +10,7 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -47,6 +48,9 @@ public class User {
 
     @Column(name = "address", nullable = false , length = 200)
     private String address;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Cart> cart ;
 
     public User(String userName, String email, ArrayList contactNumber, boolean activeState,  String salt, String address) {
         this.userName = userName;
