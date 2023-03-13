@@ -5,6 +5,7 @@ import com.example.backend.DTO.RequestDTO.UserPasswordResetRequestDTO;
 import com.example.backend.DTO.RequestDTO.UserRegRequestDTO;
 import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
 import com.example.backend.DTO.UserDTO;
+import com.example.backend.exception.IntergrityConstraintsViolation;
 import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,7 @@ public interface UserService {
 
     String resetPass(UserPasswordResetRequestDTO userPasswordResetRequestDTO);
 
-    String addToCart(AddToCartRequestDTO addToCartRequestDTO) throws SQLIntegrityConstraintViolationException;
+    String addToCart(AddToCartRequestDTO addToCartRequestDTO) throws SQLException;
+
+    String removeItemById(int id);
 }
