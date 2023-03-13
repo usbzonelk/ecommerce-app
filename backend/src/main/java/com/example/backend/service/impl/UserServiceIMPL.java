@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
 @Service
 public class UserServiceIMPL implements UserService {
@@ -54,10 +56,8 @@ public class UserServiceIMPL implements UserService {
     }
 
     @Override
-    public String addToCart(AddToCartRequestDTO addToCartRequestDTO) throws SQLIntegrityConstraintViolationException  {
-            System.out.println(addToCartRequestDTO.getDiscountPercentage());
-            Cart cart = cartMapper.DTOToEntity(addToCartRequestDTO);
-            System.out.println(addToCartRequestDTO.getDiscountPercentage());
+    public String addToCart(AddToCartRequestDTO addToCartRequestDTO)  {
+        Cart cart = cartMapper.DTOToEntity(addToCartRequestDTO);
         if (cartRepo.existsByUserUserId(addToCartRequestDTO.getUserId())) {
                     if (cartRepo.existsByItemItemID(addToCartRequestDTO.getItemId())) {
                         //update quantity existing row
@@ -68,9 +68,19 @@ public class UserServiceIMPL implements UserService {
                     }
                 }else {
                     //insert new row
-                    System.out.println(cart.getDiscountPercentage());
                     cartRepo.save(cart);
                 }
         return "added to the cart!!";
+
+    }
+
+    @Override
+    public String removeItemById(int id) {
+        if(cartRepo.existsById(id)){
+            cartRepo.deleteById(id);
+        }else{
+            throw new NotFoundException("item not found id = " + id);
+        }
+        return "item was deleted id = " + id;
     }
 }
