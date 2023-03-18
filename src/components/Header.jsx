@@ -2,6 +2,7 @@ import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch } from 'react-icons/fa';
 import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline, IoMenu } from 'react-icons/io5';
 import BrandLogo from '../images/brand-logo.png';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
@@ -69,19 +70,19 @@ const Header = () => {
                         <div className="container">
                             <ul className="menu-category-list">
                                 <li className="menu-category">
-                                    <a className="menu-title">Home</a>
+                                    <Link to="/"><a className="menu-title">Home</a></Link>
                                 </li>
 
                                 <li className="menu-category">
-                                    <a className="menu-title">Shop</a>
+                                <Link to="/shop"><a className="menu-title">Shop</a></Link>
                                 </li>
 
                                 <li className="menu-category">
-                                    <a className="menu-title">Contact</a>
+                                <Link to="/contact"><a className="menu-title">Contact</a></Link>
                                 </li>
 
                                 <li className="menu-category">
-                                    <a className="menu-title">About Us</a>
+                                <Link to="/aboutus"><a className="menu-title">About Us</a></Link>
                                 </li>
                             </ul>
                         </div>
