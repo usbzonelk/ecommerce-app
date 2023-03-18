@@ -11204,15 +11204,7 @@ footer {
   margin-top: 45px;
   padding-top: 50px;
 }
-@media (max-width: 768px) {
-  footer .container {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-basis: 30%;
-  }
-}
-footer .footer-brands {
+footer .footer-brands .container {
   margin-bottom: 30px;
   padding-bottom: 15px;
   border-bottom: 1px solid white;
@@ -11228,10 +11220,10 @@ footer .footer-brands-box {
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 15px;
+  gap: 20px;
 }
 footer .footer-brands-box .brand-logo img {
-  width: 200px;
-  height: 200px;
+  max-width: 60%;
 }
 footer .footer-nav {
   border-bottom: 1px solid white;
@@ -11252,6 +11244,10 @@ footer .footer-nav-list {
 @media (max-width: 768px) {
   footer .footer-nav-list {
     width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 footer .footer-nav-list .nav-item .nav-title {
@@ -11261,17 +11257,23 @@ footer .footer-nav-list .nav-item .nav-title {
   margin-bottom: 15px;
   padding-bottom: 5px;
 }
+@media (max-width: 576px) {
+  footer .footer-nav-list .nav-item .nav-title {
+    text-align: center;
+  }
+}
 footer .footer-nav-list .nav-item .nav-link {
   color: white;
 }
 footer .footer-nav-list .nav-item-contact {
   display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0;
   height: 40px;
   gap: 15px;
 }
 footer .footer-nav-list .nav-item-contact .nav-title {
-  position: relative;
   text-transform: uppercase;
   margin-bottom: 15px;
   padding-bottom: 5px;
@@ -11281,6 +11283,13 @@ footer .footer-nav-list .nav-item-contact .contact-icon,
 footer .footer-nav-list .nav-item-contact .content,
 footer .footer-nav-list .nav-item-contact .nav-link {
   color: white;
+}
+@media (max-width: 576px) {
+  footer .footer-nav-list .nav-item-contact .contact-icon,
+  footer .footer-nav-list .nav-item-contact .content,
+  footer .footer-nav-list .nav-item-contact .nav-link {
+    justify-content: flex-start;
+  }
 }
 footer .footer-nav .social-link {
   display: flex;
