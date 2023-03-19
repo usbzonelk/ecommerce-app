@@ -10,6 +10,7 @@ import Shop from './components/Shop'
 import Contact from './components/Contact';
 import AboutUs from './components/AboutUs';
 import Footer from './components/Footer';
+import UserDashboard from './pages/UserDashboard';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path='/shop' element={<Shop />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/aboutus' element={<AboutUs />} />
+          <Route path='/dashboard' element={<Protected><UserDashboard/></Protected>} />
           <Route path='/' element={<HomePage />} />
         </Routes>
 

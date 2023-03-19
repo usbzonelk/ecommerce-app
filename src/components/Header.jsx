@@ -44,7 +44,7 @@ const Header = () => {
 
                     <div className="header-user-actions">
                         <button className="action-btn">
-                            <IoPersonOutline />
+                            <Link to="/dashboard" className='user-action'><IoPersonOutline /></Link>
                         </button>
 
                         <button className="action-btn">

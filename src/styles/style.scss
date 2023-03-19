@@ -109,10 +109,14 @@ button {
             font-weight: 500;
             color: var(--icon-color);
             padding: 5px;
-            transition: var(--transition-timing);
+            
+            .user-action {
+                color: var(--icon-color);
+                transition: var(--transition-timing);
 
-            &:hover {
-                color: hsl(0, 0%, 50%);
+                &:hover {
+                    color: hsl(0, 0%, 50%);
+                }
             }
         }
 
@@ -488,6 +492,22 @@ button {
         &:hover {
             color: white;
             background-color: hsl(0, 0%, 30%);
+        }
+    }
+}
+
+.user-dashboard {
+    .container {
+        display: flex;
+        flex-direction: column;
+        h4 {
+            font-weight: 500;
+            margin: 0 170px;
+            padding: 35px;
+        }
+
+        .profile-image {
+            width: 100px;
         }
     }
 }
