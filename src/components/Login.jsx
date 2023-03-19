@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../utils/Context'
-import { useNavigate } from 'react-router-dom';
- 
+import { useNavigate, Link } from 'react-router-dom';
+import Axios from '../api/Api';
+
 const Login = () => {
     const { setAuth } = useContext(AuthContext);
     const nav = useNavigate();
@@ -19,12 +20,14 @@ const Login = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (email != null && password != null) {
-            if (email == "root" && password == "toor") {
-                setAuth(true);
-                nav('/');
-                console.log("ss");
-            }    
+        if (email !== null && password !== null) {
+            Axios.post('/user-login', {
+                userEmail: email, 
+                userPassword: password })
+                .then(res => {
+                    setAuth(res.data);
+                    nav('/dashboard');
+                }); 
         }
     };
 
@@ -38,13 +41,13 @@ const Login = () => {
                 <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
                     <form>
                         <div className="form-outline mb-4">
-                            <input type="email" id="email" className="form-control form-control-lg" 
+                            <input type="email" id="email" className="form-control form-control-lg"
                                 placeholder='Email or username' onChange={handleEmailChange} />
 
                         </div>
 
                         <div className="form-outline mb-4">
-                            <input type="password" id="password" className="form-control form-control-lg" 
+                            <input type="password" id="password" className="form-control form-control-lg"
                                 placeholder='Password' onChange={handlePasswordChange} />
 
                         </div>
@@ -59,6 +62,8 @@ const Login = () => {
                         </div>
 
                         <button type="submit" className="btn btn-primary btn-lg btn-block" onClick={handleSubmit}>Sign in</button>
+                        <hr />
+                        <Link to="/signup">Create an account</Link>
                     </form>
                 </div>
             </div>

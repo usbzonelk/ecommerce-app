@@ -6,11 +6,11 @@ import BrandLogoHp from '../images/brand-logo-hp.png';
 const Footer = () => {
     return (
         <footer>
-            <div class="footer-brands">
-                <div class="container">
-                    <h5 class="footer-brands-title">Our Brands</h5>
+            <div className="footer-brands">
+                <div className="container">
+                    <h5 className="footer-brands-title">Our Brands</h5>
 
-                    <div class="footer-brands-box">
+                    <div className="footer-brands-box">
                         <div className="brand-logo">
                             <img src={BrandLogoHp} alt='hp logo' />
                         </div>
@@ -26,90 +26,90 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div class="footer-nav">
-                <div class="container">
-                    <ul class="footer-nav-list">
-                        <li class="nav-item">
-                            <h5 class="nav-title">Quick Links</h5>
+            <div className="footer-nav">
+                <div className="container">
+                    <ul className="footer-nav-list">
+                        <li className="nav-item">
+                            <h5 className="nav-title">Quick Links</h5>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Laptops</a>
+                        <li className="nav-item">
+                            <a href="#" className="nav-link">Laptops</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Softwares</a>
+                        <li className="nav-item">
+                            <a href="#" className="nav-link">Softwares</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Monitors</a>
+                        <li className="nav-item">
+                            <a href="#" className="nav-link">Monitors</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">Gadgets</a>
+                        <li className="nav-item">
+                            <a href="#" className="nav-link">Gadgets</a>
                         </li>
                     </ul>
 
-                    <ul class="footer-nav-list">
-                        <li class="nav-item-contact">
-                            <h5 class="nav-title">Contact</h5>
+                    <ul className="footer-nav-list">
+                        <li className="nav-item-contact">
+                            <h5 className="nav-title">Contact</h5>
                         </li>
 
-                        <li class="nav-item-contact">
-                            <a href="#" class="contact-icon">
+                        <li className="nav-item-contact">
+                            <a href="#" className="contact-icon">
                                 <IoLocationOutline />
                             </a>
 
-                            <address class="content">
+                            <address className="content">
                                 123 main Road,
                                 Colombo, 10000, Srilanka
                             </address>
                         </li>
 
-                        <li class="nav-item-contact">
-                            <a href="#" class="contact-icon">
+                        <li className="nav-item-contact">
+                            <a href="#" className="contact-icon">
                                 <IoCallOutline />
                             </a>
 
-                            <a href="tel:+941234567890" class="nav-link">(94) 123-4567-890</a>
+                            <a href="tel:+941234567890" className="nav-link">(94) 123-4567-890</a>
                         </li>
 
-                        <li class="nav-item-contact">
-                            <a href="#" class="contact-icon">
+                        <li className="nav-item-contact">
+                            <a href="#" className="contact-icon">
                                 <IoMailOutline />
                             </a>
 
-                            <a href="mailto:store@laptopstore.com" class="nav-link">store@laptopstore.com</a>
+                            <a href="mailto:store@laptopstore.com" className="nav-link">store@laptopstore.com</a>
                         </li>
                     </ul>
 
-                    <ul class="footer-nav-list">
-                        <li class="nav-item">
-                            <h5 class="nav-title">Follow Us</h5>
+                    <ul className="footer-nav-list">
+                        <li className="nav-item">
+                            <h5 className="nav-title">Follow Us</h5>
                         </li>
 
                         <li>
-                            <ul class="social-link">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                            <ul className="social-link">
+                                <li className="nav-item">
+                                    <a href="#" className="nav-link">
                                         <FaFacebook size={45} />
                                     </a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                <li className="nav-item">
+                                    <a href="#" className="nav-link">
                                         <FaTwitter size={45} />
                                     </a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                <li className="nav-item">
+                                    <a href="#" className="nav-link">
                                         <FaLinkedinIn size={45} />
                                     </a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                <li className="nav-item">
+                                    <a href="#" className="nav-link">
                                         <FaInstagram size={45} />
                                     </a>
                                 </li>
@@ -119,8 +119,8 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div class="footer-bottom">
-                <div class="container">
+            <div className="footer-bottom">
+                <div className="container">
                     <p>
                         Copyright &copy; <a href="#">Anon</a> all rights reserved.
                     </p>
