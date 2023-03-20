@@ -10814,6 +10814,10 @@ button {
   margin: 0 auto;
   padding: 2rem;
 }
+.signup .error-message {
+  color: red;
+  margin-left: 30px;
+}
 
 .forgot-password-btn {
   text-decoration: none;
