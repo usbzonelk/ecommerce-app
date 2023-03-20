@@ -47,10 +47,32 @@ button {
     margin: 0 auto;
     padding: 2rem;
 
-    .error-message{
-        color:red;
+    .error-message {
+        color: red;
         margin-left: 30px;
-    }    
+    }
+
+    .btn-signup {
+        width: 120px;
+        background-color: #333333;
+        color: white;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+    }
+}
+
+.login {
+    .btn-login {
+        width: 120px;
+        background-color: #333333;
+        color: white;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+    }
 }
 
 .forgot-password-btn {
@@ -114,7 +136,7 @@ button {
             font-weight: 500;
             color: var(--icon-color);
             padding: 5px;
-            
+
             .user-action {
                 color: var(--icon-color);
                 transition: var(--transition-timing);
