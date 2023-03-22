@@ -58,20 +58,21 @@ public class UserServiceIMPL implements UserService {
     @Override
     public String addToCart(AddToCartRequestDTO addToCartRequestDTO)  {
         Cart cart = cartMapper.DTOToEntity(addToCartRequestDTO);
-        if (cartRepo.existsByUserUserId(addToCartRequestDTO.getUserId())) {
-                    if (cartRepo.existsByItemItemID(addToCartRequestDTO.getItemId())) {
-                        //update quantity existing row
-                        Cart cart1 = cartRepo.getByUserUserId(addToCartRequestDTO.getUserId());
-                        cart1.setQuantity(cart1.getQuantity() + addToCartRequestDTO.getQuantity());
-                        cartRepo.save(cart1);
-                        return "quantity updated";
-                    }
-                }else {
-                    //insert new row
-                    cartRepo.save(cart);
+        List<Cart> allOrders = cartRepo.getAllByUserIsNotNull();
+        if(allOrders.isEmpty()){
+            cartRepo.save(cart);
+            return "data saved";
+        } else{
+            for (Cart c : allOrders) {
+                if(c.getUser().getUserId() == addToCartRequestDTO.getUserId() && c.getItem().getItemID() == addToCartRequestDTO.getItemId()){
+                    int newQty = c.getQuantity()+cart.getQuantity();
+                    cartRepo.updateQTY(newQty,addToCartRequestDTO.getUserId(),addToCartRequestDTO.getItemId());
+                    return "data updated";
                 }
-        return "added to the cart!!";
-
+            }
+            cartRepo.save(cart);
+            return "data saved";
+        }
     }
 
     @Override
@@ -82,5 +83,16 @@ public class UserServiceIMPL implements UserService {
             throw new NotFoundException("item not found id = " + id);
         }
         return "item was deleted id = " + id;
+    }
+
+    @Override
+    public String removeAllItemById(int id) {
+        if(cartRepo.existsByUserUserId(id)){
+            cartRepo.deleteAllOrders(id);
+
+        }else {
+            throw new NotFoundException("No items add to cart by user id = "+id);
+        }
+        return "All oredrs delete user id = " + id;
     }
 }
