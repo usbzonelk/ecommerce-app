@@ -1,6 +1,7 @@
 package com.example.backend.service.impl;
 import com.example.backend.DTO.RequestDTO.AddToCartRequestDTO;
 import com.example.backend.DTO.RequestDTO.UserPasswordResetRequestDTO;
+import com.example.backend.DTO.ResponseDTO.CartItemDTO;
 import com.example.backend.entity.Cart;
 import com.example.backend.entity.User;
 import com.example.backend.exception.IntergrityConstraintsViolation;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -94,5 +96,25 @@ public class UserServiceIMPL implements UserService {
             throw new NotFoundException("No items add to cart by user id = "+id);
         }
         return "All oredrs delete user id = " + id;
+    }
+
+    @Override
+    public List<CartItemDTO> getAllCartItems(int id) {
+        List<Cart> allCartItems = cartRepo.getAllItems(id);
+        List<CartItemDTO> cartItemDTOS = new ArrayList<>();
+        if(allCartItems.isEmpty()){
+            throw new NotFoundException("item was not added by user , userID = "+id);
+        }else{
+            for (Cart c: allCartItems ) {
+                CartItemDTO cartItemDTO = new CartItemDTO(
+                        c.getItem().getItemID(),
+                        c.getUnitPrice(),
+                        c.getDiscountPercentage(),
+                        c.getQuantity()
+                );
+                cartItemDTOS.add(cartItemDTO);
+            }
+        }
+        return cartItemDTOS;
     }
 }
