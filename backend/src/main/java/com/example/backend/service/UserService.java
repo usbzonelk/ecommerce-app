@@ -3,6 +3,7 @@ package com.example.backend.service;
 import com.example.backend.DTO.RequestDTO.AddToCartRequestDTO;
 import com.example.backend.DTO.RequestDTO.UserPasswordResetRequestDTO;
 import com.example.backend.DTO.RequestDTO.UserRegRequestDTO;
+import com.example.backend.DTO.ResponseDTO.CartItemDTO;
 import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
 import com.example.backend.DTO.UserDTO;
 import com.example.backend.exception.IntergrityConstraintsViolation;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
 public interface UserService {
 
@@ -21,4 +23,6 @@ public interface UserService {
     String removeItemById(int id);
 
     String removeAllItemById(int id);
+
+    List<CartItemDTO> getAllCartItems(int id);
 }
