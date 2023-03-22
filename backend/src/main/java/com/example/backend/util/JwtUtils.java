@@ -6,11 +6,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 
+import java.util.Date;
 @Component
 public class JwtUtils {
-    private static long expiryDuration= 60 * 60;
+    private static long expiryDuration= 60 * 60 *5;
     public static String secret = "static variable";
     public String genarateJWT(User user){
 
@@ -25,6 +25,7 @@ public class JwtUtils {
 
         //optional claims
         claims.put( "type",user);
+        claims.put("user_id",user.getUserId());
         claims.put("email",user);
         claims.put("salt",user.getSalt());
 
@@ -48,6 +49,7 @@ public class JwtUtils {
 
         //optional claims
         claims.put( "type",admin);
+        claims.put("admin_id",admin.getAdminId());
         claims.put("email",admin);
         claims.put("password",admin.getSalt());
 
