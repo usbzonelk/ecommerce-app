@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.DTO.RequestDTO.AddToCartRequestDTO;
 import com.example.backend.DTO.RequestDTO.UserPasswordResetRequestDTO;
 import com.example.backend.DTO.RequestDTO.UserRegRequestDTO;
+import com.example.backend.DTO.ResponseDTO.CartItemDTO;
 import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
 import com.example.backend.authorization.Authorization;
 import com.example.backend.exception.IntergrityConstraintsViolation;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -60,23 +62,47 @@ public class UserController {
                             ), HttpStatus.OK);
 
         }catch (RuntimeException | SQLException e){
-            throw new IntergrityConstraintsViolation("");
+            throw new IntergrityConstraintsViolation("integrity constraints violation");
         }
     }
 
-    @DeleteMapping(path = "/delete-item-byId/{id}")
-    public ResponseEntity<StandardResponse> removeItemById(@PathVariable(value = "id") int id , @RequestHeader(value = "Authorization") String authorizationHeader ){
+    @DeleteMapping(path = "/delete-order-byId/{order_id}")
+    public ResponseEntity<StandardResponse> removeOrderById(@PathVariable(value = "order_id") int id , @RequestHeader(value = "Authorization") String authorizationHeader ){
         authorization.authorization(authorizationHeader);
         String text = userService.removeItemById(id);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse
                         (
                                 200,
-                                "item id = " + id + " remove state!",
+                                "order id = " + id + " remove state!",
                                 text
                         ), HttpStatus.OK);
     }
 
+    @DeleteMapping(path = "/delete-allOrders-byId/{user_id}")
+    public ResponseEntity<StandardResponse> removeAllOrderById(@PathVariable(value = "user_id") int id , @RequestHeader(value = "Authorization") String authorizationHeader ){
+        authorization.authorization(authorizationHeader);
+        String text = userService.removeAllItemById(id);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse
+                        (
+                                200,
+                                "orders remove state!",
+                                text
+                        ), HttpStatus.OK);
+    }
+    @GetMapping(path = "/get-All-Cart-Items/{user_id}")
+    public ResponseEntity<StandardResponse> getAllCartItems(@PathVariable(value = "user_id") int id , @RequestHeader(value = "Authorization") String authorizationHeader){
+        authorization.authorization(authorizationHeader);
+        List<CartItemDTO> cartItemDTOs = userService.getAllCartItems(id);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse
+                        (
+                                200,
+                                "This is the items which are added by user id = " + id,
+                                cartItemDTOs
+                        ), HttpStatus.OK);
+    }
 
 }
 
