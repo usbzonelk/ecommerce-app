@@ -30,4 +30,8 @@ public interface CartRepo extends JpaRepository<Cart,Integer> {
     int updateQTY(int newQty , int userID , int itemId);
 
     List<Cart> getAllByUserIsNotNull();
+
+    @Query(value = "select * from cart where user_id = ?1 " , nativeQuery = true)
+    List<Cart> getAllItems(int userID);
 }
+
