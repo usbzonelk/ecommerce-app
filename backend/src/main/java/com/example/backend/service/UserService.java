@@ -19,4 +19,6 @@ public interface UserService {
     String addToCart(AddToCartRequestDTO addToCartRequestDTO) throws SQLException;
 
     String removeItemById(int id);
+
+    String removeAllItemById(int id);
 }
