@@ -23,64 +23,64 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping(path = "api/v1/admin")
 public class AdminController {
-  @Autowired
-  private AdminService adminService ;
+    @Autowired
+    private AdminService adminService;
 
-  @Autowired
-  private JwtUtils jwtUtils;
+    @Autowired
+    private JwtUtils jwtUtils;
 
-  @Autowired
-  private UserService userService;
+    @Autowired
+    private UserService userService;
 
-  @Autowired
-  private Authentication authentication;
+    @Autowired
+    private Authentication authentication;
 
-  @Autowired
-  private ExistRevokedToken existRevokedToken ;
+    @Autowired
+    private ExistRevokedToken existRevokedToken;
 
-  @Autowired
-  private AdminPrivilage adminPrivilage ;
+    @Autowired
+    private AdminPrivilage adminPrivilage;
 
-  @PutMapping(path = "/add-item")
-  public ResponseEntity<StandardResponse> addItems(@RequestBody ItemAddRequestDTO itemAddRequestDTO ,
-                                                   @RequestHeader("Authentication") String authenticationHeader
-                                                  ) {
-      if(existRevokedToken.checkToken(authenticationHeader)){
-          throw new UnauthorizedException("token are deactive");
-      }else{
-          authentication.authentication(authenticationHeader);
-          try {
-              String text = adminService.addItem(itemAddRequestDTO);
-              return new ResponseEntity<StandardResponse>(
-                      new StandardResponse
-                              (
-                                      201,
-                                      "Added successfully !!",
-                                      text
-                              ), HttpStatus.CREATED);
+    @PutMapping(path = "/add-item")
+    public ResponseEntity<StandardResponse> addItems(@RequestBody ItemAddRequestDTO itemAddRequestDTO,
+                                                     @RequestHeader("Authentication") String authenticationHeader
+    ) {
+        if (existRevokedToken.checkToken(authenticationHeader)) {
+            throw new UnauthorizedException("token are deactive");
+        } else {
+            authentication.authentication(authenticationHeader);
+            try {
+                String text = adminService.addItem(itemAddRequestDTO);
+                return new ResponseEntity<StandardResponse>(
+                        new StandardResponse
+                                (
+                                        201,
+                                        "Added successfully !!",
+                                        text
+                                ), HttpStatus.CREATED);
 
-          } catch (RuntimeException e) {
-              if (e instanceof RuntimeException) {
-                  throw new IntergrityConstraintsViolation("");
-              } else if (e instanceof UnauthorizedException) {
-                  throw new UnauthorizedException("");
-              }
+            } catch (RuntimeException e) {
+                if (e instanceof RuntimeException) {
+                    throw new IntergrityConstraintsViolation("");
+                } else if (e instanceof UnauthorizedException) {
+                    throw new UnauthorizedException("");
+                }
 
-          }
-          return new ResponseEntity<>(
-                  new StandardResponse(
-                          500,
-                          "Unexpected error occurred.",
-                          ""
-                  ), HttpStatus.INTERNAL_SERVER_ERROR);
-      }
+            }
+            return new ResponseEntity<>(
+                    new StandardResponse(
+                            500,
+                            "Unexpected error occurred.",
+                            ""
+                    ), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-  }
+    }
 
-    @GetMapping (path = "/getUserID/{id}")
-    public ResponseEntity<StandardResponse> getUserByID(@PathVariable (value = "id") int id ,
+    @GetMapping(path = "/getUserID/{id}")
+    public ResponseEntity<StandardResponse> getUserByID(@PathVariable(value = "id") int id,
                                                         @RequestHeader("Authentication") String authenticationHeader
-                                                       ) {
+    ) {
         if (existRevokedToken.checkToken(authenticationHeader)) {
             throw new UnauthorizedException("token are deactive");
         } else {
@@ -96,15 +96,16 @@ public class AdminController {
 
         }
     }
+
     @DeleteMapping(path = "/delete-user",
-                   params = {"userID","adminID"}
-                  )
-    public ResponseEntity<StandardResponse> removeUSer(@RequestParam(value = "userID")int userid ,
-                                                       @RequestParam(value = "adminID")int adminid ,
+            params = {"userID", "adminID"}
+    )
+    public ResponseEntity<StandardResponse> removeUSer(@RequestParam(value = "userID") int userid,
+                                                       @RequestParam(value = "adminID") int adminid,
                                                        @RequestHeader("Authentication") String authenticationHeader
-                                                      ) {
+    ) {
         String adminPrivVal = adminPrivilage.getPrivilleged(adminid);
-        if(adminPrivVal.equals("A")  || adminPrivVal.equals("B")){
+        if (adminPrivVal.equals("A") || adminPrivVal.equals("B")) {
             if (existRevokedToken.checkToken(authenticationHeader)) {
                 throw new UnauthorizedException("token are deactive");
             } else {
@@ -118,21 +119,21 @@ public class AdminController {
                                         text
                                 ), HttpStatus.OK);
             }
-        }else{
+        } else {
             return new ResponseEntity<StandardResponse>(
                     new StandardResponse
                             (
                                     406,
-                                    " not access to delete users for type "+adminPrivVal+" admins",
+                                    " not access to delete users for type " + adminPrivVal + " admins",
                                     "HttpStatus.NOT_ACCEPTABLE"
                             ), HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
     @DeleteMapping(path = "/delete-item/{id}")
-    public ResponseEntity<StandardResponse> removeItem(@PathVariable(value = "id") int id ,
-                                                       @RequestHeader("Authentication")String authenticationHeader
-                                                      ) {
+    public ResponseEntity<StandardResponse> removeItem(@PathVariable(value = "id") int id,
+                                                       @RequestHeader("Authentication") String authenticationHeader
+    ) {
         if (existRevokedToken.checkToken(authenticationHeader)) {
             throw new UnauthorizedException("token are deactive");
         } else {
@@ -147,10 +148,11 @@ public class AdminController {
                             ), HttpStatus.OK);
         }
     }
+
     @PutMapping(path = "/update-item-qty")
     public ResponseEntity<StandardResponse> updateQty(@RequestBody ItemQTYUpdateRequestDTO itemQTYUpdateRequestDTO,
                                                       @RequestHeader("Authentication") String authenticationHeader
-                                                     ) {
+    ) {
         if (existRevokedToken.checkToken(authenticationHeader)) {
             throw new UnauthorizedException("token are deactive");
         } else {
@@ -169,7 +171,7 @@ public class AdminController {
     @PutMapping(path = "/reset-pass-admin")
     public ResponseEntity<StandardResponse> resetPassword(@RequestBody AdminPasswordResetRequestDTO adminPasswordResetRequestDTO,
                                                           @RequestHeader(value = "Authentication") String authenticationHeader
-                                                         ) {
+    ) {
         if (existRevokedToken.checkToken(authenticationHeader)) {
             throw new UnauthorizedException("token are deactive");
         } else {
@@ -183,7 +185,44 @@ public class AdminController {
                                     text
                             ), HttpStatus.OK);
         }
+
     }
 
+    @PutMapping(path = "/add-previllage",
+            params = {"upperLevelAdminID","lowerLevelAdminID", "adminLevel"}
+    )
+    public ResponseEntity<StandardResponse> updatePrivVal(@RequestParam(value = "upperLevelAdminID") int ID1 ,
+                                                          @RequestParam(value = "lowerLevelAdminID") int ID2 ,
+                                                          @RequestParam(value = "adminLevel") String adminLevel,
+                                                          @RequestHeader(value = "Authentication") String authenticationHeader
+                                                         ) {
+        String adminPrivVal = adminPrivilage.getPrivilleged(ID1);
+        if(adminPrivVal.equals("A")){
+            if (existRevokedToken.checkToken(authenticationHeader)) {
+                throw new UnauthorizedException("token are deactive");
+            } else {
+                authentication.authentication(authenticationHeader);
+                String text = adminService.updatePrivVal(ID2 , adminLevel);
+                return new ResponseEntity<StandardResponse>(
+                        new StandardResponse
+                                (
+                                        200,
+                                        "admin id = " + ID2 + "priviliage value update status!",
+                                        text
+                                ), HttpStatus.OK);
+            }
+        }else {
+            return new ResponseEntity<StandardResponse>(
+                    new StandardResponse
+                            (
+                                    406,
+                                    " not access to delete users for type " + adminPrivVal + " admins",
+                                    "HttpStatus.NOT_ACCEPTABLE"
+                            ), HttpStatus.NOT_ACCEPTABLE);
+        }
+
+    }
 
 }
+
+
