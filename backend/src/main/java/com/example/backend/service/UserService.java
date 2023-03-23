@@ -16,7 +16,7 @@ import java.util.List;
 
 public interface UserService {
 
-    String resetPass(UserPasswordResetRequestDTO userPasswordResetRequestDTO);
+    String resetPass(UserPasswordResetRequestDTO userPasswordResetRequestDTO , String authenticationHeader);
 
     String addToCart(AddToCartRequestDTO addToCartRequestDTO) throws SQLException;
 
