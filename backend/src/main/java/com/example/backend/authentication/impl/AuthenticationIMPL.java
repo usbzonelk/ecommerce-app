@@ -1,5 +1,6 @@
-package com.example.backend.authentication;
+package com.example.backend.authentication.impl;
 
+import com.example.backend.authentication.Authentication;
 import com.example.backend.exception.JWTExpireException;
 import com.example.backend.exception.SignatureChangeException;
 import com.example.backend.exception.UnauthorizedException;
