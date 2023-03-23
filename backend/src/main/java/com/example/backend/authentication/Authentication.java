@@ -1,4 +1,4 @@
-package com.example.backend.authorization;
+package com.example.backend.authentication;
 
 public interface Authorization {
      void authorization(String authorizationHeader);
