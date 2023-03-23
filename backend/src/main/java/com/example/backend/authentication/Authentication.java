@@ -1,5 +1,5 @@
 package com.example.backend.authentication;
 
-public interface Authorization {
-     void authorization(String authorizationHeader);
+public interface Authentication {
+     void authentication(String authentication);
 }
