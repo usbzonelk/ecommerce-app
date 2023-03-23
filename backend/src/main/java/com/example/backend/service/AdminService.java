@@ -19,6 +19,6 @@ public interface AdminService {
 
     String updateQty(ItemQTYUpdateRequestDTO itemQTYUpdateRequestDTO);
 
-    String resetPass(AdminPasswordResetRequestDTO adminPasswordResetRequestDTO) ;
+    String resetPass(AdminPasswordResetRequestDTO adminPasswordResetRequestDTO , String authorizationHeader) ;
 
     }
