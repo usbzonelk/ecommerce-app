@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 @Service
-public class AuthorizationIMPL implements Authorization {
+public class AuthenticationIMPL implements Authentication {
     @Autowired
     private JwtUtils jwtUtils;
-    public void authorization(String authorizationHeader){
+    public void authentication(String authorizationHeader){
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             try {
                 String token = authorizationHeader.substring(7);
