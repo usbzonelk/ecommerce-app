@@ -8,6 +8,7 @@ import com.example.backend.exception.IntergrityConstraintsViolation;
 import com.example.backend.exception.NotFoundException;
 import com.example.backend.repo.CartRepo;
 import com.example.backend.repo.ItemRepo;
+import com.example.backend.repo.RevokeTokenRepo;
 import com.example.backend.repo.UserRepo;
 import com.example.backend.service.UserService;
 import com.example.backend.util.mappers.CartMapper;
@@ -41,13 +42,17 @@ public class UserServiceIMPL implements UserService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private RevokeTokenRepo revokeTokenRepo ;
+
     @Override
-    public String resetPass(UserPasswordResetRequestDTO userPasswordResetRequestDTO) {
+    public String resetPass(UserPasswordResetRequestDTO userPasswordResetRequestDTO , String authenticationHeader) {
         if (userRepo.existsById(userPasswordResetRequestDTO.getId())) {
             User user = userRepo.getById(userPasswordResetRequestDTO.getId());
             if (bCryptPasswordEncoder.matches(userPasswordResetRequestDTO.getCurrentPass(), user.getSalt())) {
                 String newSalt = bCryptPasswordEncoder.encode(userPasswordResetRequestDTO.getNewPass());
                 userRepo.restPassword(newSalt, userPasswordResetRequestDTO.getId());
+                revokeTokenRepo.insertToken(authenticationHeader);
                 return "password is reset user id = " + userPasswordResetRequestDTO.getId();
             } else {
                 return "salt value mismatch !!";
