@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.DTO.AdminDTO;
+import com.example.backend.DTO.RequestDTO.AdminPasswordResetRequestDTO;
 import com.example.backend.DTO.RequestDTO.AdminRegRequestDTO;
 import com.example.backend.DTO.RequestDTO.ItemAddRequestDTO;
 import com.example.backend.DTO.RequestDTO.ItemQTYUpdateRequestDTO;
@@ -17,4 +18,7 @@ public interface AdminService {
     String deleteItem(int id);
 
     String updateQty(ItemQTYUpdateRequestDTO itemQTYUpdateRequestDTO);
-}
+
+    String resetPass(AdminPasswordResetRequestDTO adminPasswordResetRequestDTO) ;
+
+    }
