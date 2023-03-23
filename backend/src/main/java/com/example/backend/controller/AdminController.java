@@ -38,11 +38,13 @@ public class AdminController {
   private ExistRevokedToken existRevokedToken ;
 
   @PutMapping(path = "/add-item")
-  public ResponseEntity<StandardResponse> addItems(@RequestBody ItemAddRequestDTO itemAddRequestDTO , @RequestHeader("Authorization") String authorizationHeader) {
-      if(existRevokedToken.checkToken(authorizationHeader)){
+  public ResponseEntity<StandardResponse> addItems(@RequestBody ItemAddRequestDTO itemAddRequestDTO ,
+                                                   @RequestHeader("Authentication") String authenticationHeader
+                                                  ) {
+      if(existRevokedToken.checkToken(authenticationHeader)){
           throw new UnauthorizedException("token are deactive");
       }else{
-          authentication.authentication(authorizationHeader);
+          authentication.authentication(authenticationHeader);
           try {
               String text = adminService.addItem(itemAddRequestDTO);
               return new ResponseEntity<StandardResponse>(
@@ -72,8 +74,13 @@ public class AdminController {
   }
 
     @GetMapping (path = "/getUserID/{id}")
-    public ResponseEntity<StandardResponse> getUserByID(@PathVariable (value = "id") int id , @RequestHeader("Authentication") String authorizationHeader) {
-            authentication.authentication(authorizationHeader);
+    public ResponseEntity<StandardResponse> getUserByID(@PathVariable (value = "id") int id ,
+                                                        @RequestHeader("Authentication") String authenticationHeader
+                                                       ) {
+        if (existRevokedToken.checkToken(authenticationHeader)) {
+            throw new UnauthorizedException("token are deactive");
+        } else {
+            authentication.authentication(authenticationHeader);
             UserResponseDTO userResponseDTO = adminService.getUserUsingID(id);
             return new ResponseEntity<StandardResponse>(
                     new StandardResponse
@@ -83,57 +90,81 @@ public class AdminController {
                                     userResponseDTO
                             ), HttpStatus.OK);
 
+        }
     }
     @DeleteMapping(path = "/delete-user/{id}")
-    public ResponseEntity<StandardResponse> removeUSer(@PathVariable(value = "id")int id , @RequestHeader("Authentication") String authenticationHeader){
-      authentication.authentication(authenticationHeader);
-      String text = adminService.deleteUser(id);
-        return new ResponseEntity<StandardResponse>(
-                new StandardResponse
-                        (
-                                200,
-                                "customer id = " + id + " deleted!",
-                                text
-                        ), HttpStatus.OK);
+    public ResponseEntity<StandardResponse> removeUSer(@PathVariable(value = "id")int id ,
+                                                       @RequestHeader("Authentication") String authenticationHeader
+                                                      ) {
+        if (existRevokedToken.checkToken(authenticationHeader)) {
+            throw new UnauthorizedException("token are deactive");
+        } else {
+            authentication.authentication(authenticationHeader);
+            String text = adminService.deleteUser(id);
+            return new ResponseEntity<StandardResponse>(
+                    new StandardResponse
+                            (
+                                    200,
+                                    "customer id = " + id + " deleted!",
+                                    text
+                            ), HttpStatus.OK);
+        }
     }
 
     @DeleteMapping(path = "/delete-item/{id}")
-    public ResponseEntity<StandardResponse> removeItem(@PathVariable(value = "id") int id , @RequestHeader("Authentication")String authenticationHeader){
-        authentication.authentication(authenticationHeader);
-        String text = adminService.deleteItem(id);
-        return new ResponseEntity<StandardResponse>(
-                new StandardResponse
-                        (
-                                200,
-                                "customer id = " + id + " deleted!",
-                                text
-                        ), HttpStatus.OK);
+    public ResponseEntity<StandardResponse> removeItem(@PathVariable(value = "id") int id ,
+                                                       @RequestHeader("Authentication")String authenticationHeader
+                                                      ) {
+        if (existRevokedToken.checkToken(authenticationHeader)) {
+            throw new UnauthorizedException("token are deactive");
+        } else {
+            authentication.authentication(authenticationHeader);
+            String text = adminService.deleteItem(id);
+            return new ResponseEntity<StandardResponse>(
+                    new StandardResponse
+                            (
+                                    200,
+                                    "customer id = " + id + " deleted!",
+                                    text
+                            ), HttpStatus.OK);
+        }
     }
-
     @PutMapping(path = "/update-item-qty")
-    public ResponseEntity<StandardResponse> updateQty(@RequestBody ItemQTYUpdateRequestDTO itemQTYUpdateRequestDTO, @RequestHeader("Authentication") String authenticationHeader){
-        authentication.authentication(authenticationHeader);
-        String text = adminService.updateQty(itemQTYUpdateRequestDTO);
-        return new ResponseEntity<StandardResponse>(
-                new StandardResponse
-                        (
-                                200,
-                                "item id = " + itemQTYUpdateRequestDTO.getId() + " updated successfully!",
-                                text
-                        ), HttpStatus.OK);
+    public ResponseEntity<StandardResponse> updateQty(@RequestBody ItemQTYUpdateRequestDTO itemQTYUpdateRequestDTO,
+                                                      @RequestHeader("Authentication") String authenticationHeader
+                                                     ) {
+        if (existRevokedToken.checkToken(authenticationHeader)) {
+            throw new UnauthorizedException("token are deactive");
+        } else {
+            authentication.authentication(authenticationHeader);
+            String text = adminService.updateQty(itemQTYUpdateRequestDTO);
+            return new ResponseEntity<StandardResponse>(
+                    new StandardResponse
+                            (
+                                    200,
+                                    "item id = " + itemQTYUpdateRequestDTO.getId() + " updated successfully!",
+                                    text
+                            ), HttpStatus.OK);
+        }
     }
 
     @PutMapping(path = "/reset-pass-admin")
-    public ResponseEntity<StandardResponse> resetPassword(@RequestBody AdminPasswordResetRequestDTO adminPasswordResetRequestDTO, @RequestHeader(value = "Authentication") String authorizationHeader){
-        authentication.authentication(authorizationHeader);
-        String text = adminService.resetPass(adminPasswordResetRequestDTO , authorizationHeader );
-        return new ResponseEntity<StandardResponse>(
-                new StandardResponse
-                        (
-                                200,
-                                "admin id = " + adminPasswordResetRequestDTO.getId() + "password  update status!",
-                                text
-                        ), HttpStatus.OK);
+    public ResponseEntity<StandardResponse> resetPassword(@RequestBody AdminPasswordResetRequestDTO adminPasswordResetRequestDTO,
+                                                          @RequestHeader(value = "Authentication") String authenticationHeader
+                                                         ) {
+        if (existRevokedToken.checkToken(authenticationHeader)) {
+            throw new UnauthorizedException("token are deactive");
+        } else {
+            authentication.authentication(authenticationHeader);
+            String text = adminService.resetPass(adminPasswordResetRequestDTO, authenticationHeader);
+            return new ResponseEntity<StandardResponse>(
+                    new StandardResponse
+                            (
+                                    200,
+                                    "admin id = " + adminPasswordResetRequestDTO.getId() + "password  update status!",
+                                    text
+                            ), HttpStatus.OK);
+        }
     }
 
 
