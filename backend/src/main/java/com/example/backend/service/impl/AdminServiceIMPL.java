@@ -1,7 +1,5 @@
 package com.example.backend.service.impl;
-import com.example.backend.DTO.RequestDTO.AdminRegRequestDTO;
-import com.example.backend.DTO.RequestDTO.ItemAddRequestDTO;
-import com.example.backend.DTO.RequestDTO.ItemQTYUpdateRequestDTO;
+import com.example.backend.DTO.RequestDTO.*;
 import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
 import com.example.backend.entity.Item;
 import com.example.backend.entity.User;
@@ -25,6 +23,9 @@ public class AdminServiceIMPL implements AdminService {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public String addItem(ItemAddRequestDTO itemAddRequestDTO) {
@@ -92,6 +93,24 @@ public class AdminServiceIMPL implements AdminService {
         }else{
             throw new NotFoundException("Id = "+ itemQTYUpdateRequestDTO.getId() + " not found");
         }
+
+
+    }
+
+    @Override
+    public String resetPass(AdminPasswordResetRequestDTO adminPasswordResetRequestDTO) {
+            if (adminRepo.existsById(adminPasswordResetRequestDTO.getId())) {
+                Admin admin = adminRepo.getById(adminPasswordResetRequestDTO.getId());
+                if (bCryptPasswordEncoder.matches(adminPasswordResetRequestDTO.getCurrentPass(), admin.getSalt())) {
+                    String newSalt = bCryptPasswordEncoder.encode(adminPasswordResetRequestDTO.getNewPass());
+                    adminRepo.restPassword(newSalt, adminPasswordResetRequestDTO.getId());
+                    return "password is reset admin id = " + adminPasswordResetRequestDTO.getId();
+                } else {
+                    return "salt value mismatch !!";
+                }
+            } else {
+                throw new NotFoundException("There is no admin for id = " + adminPasswordResetRequestDTO.getId());
+            }
     }
 
 
