@@ -5,7 +5,9 @@ import com.example.backend.DTO.RequestDTO.ItemQTYUpdateRequestDTO;
 import com.example.backend.DTO.RequestDTO.UserPasswordResetRequestDTO;
 import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
 import com.example.backend.authentication.Authentication;
+import com.example.backend.authentication.ExistRevokedToken;
 import com.example.backend.exception.IntergrityConstraintsViolation;
+import com.example.backend.exception.JWTExpireException;
 import com.example.backend.exception.UnauthorizedException;
 import com.example.backend.service.AdminService;
 import com.example.backend.service.UserService;
@@ -32,33 +34,41 @@ public class AdminController {
   @Autowired
   private Authentication authentication;
 
+  @Autowired
+  private ExistRevokedToken existRevokedToken ;
+
   @PutMapping(path = "/add-item")
   public ResponseEntity<StandardResponse> addItems(@RequestBody ItemAddRequestDTO itemAddRequestDTO , @RequestHeader("Authorization") String authorizationHeader) {
-      authentication.authentication(authorizationHeader);
-      try {
-          String text = adminService.addItem(itemAddRequestDTO);
-          return new ResponseEntity<StandardResponse>(
-                  new StandardResponse
-                          (
-                                  201,
-                                  "Added successfully !!",
-                                  text
-                          ), HttpStatus.CREATED);
+      if(existRevokedToken.checkToken(authorizationHeader)){
+          throw new UnauthorizedException("token are deactive");
+      }else{
+          authentication.authentication(authorizationHeader);
+          try {
+              String text = adminService.addItem(itemAddRequestDTO);
+              return new ResponseEntity<StandardResponse>(
+                      new StandardResponse
+                              (
+                                      201,
+                                      "Added successfully !!",
+                                      text
+                              ), HttpStatus.CREATED);
 
-      } catch (RuntimeException e) {
-          if (e instanceof RuntimeException) {
-              throw new IntergrityConstraintsViolation("");
-          } else if (e instanceof UnauthorizedException) {
-              throw new UnauthorizedException("");
+          } catch (RuntimeException e) {
+              if (e instanceof RuntimeException) {
+                  throw new IntergrityConstraintsViolation("");
+              } else if (e instanceof UnauthorizedException) {
+                  throw new UnauthorizedException("");
+              }
+
           }
-
+          return new ResponseEntity<>(
+                  new StandardResponse(
+                          500,
+                          "Unexpected error occurred.",
+                          ""
+                  ), HttpStatus.INTERNAL_SERVER_ERROR);
       }
-      return new ResponseEntity<>(
-              new StandardResponse(
-                      500,
-                      "Unexpected error occurred.",
-                      ""
-              ), HttpStatus.INTERNAL_SERVER_ERROR);
+
   }
 
     @GetMapping (path = "/getUserID/{id}")
@@ -116,7 +126,7 @@ public class AdminController {
     @PutMapping(path = "/reset-pass-admin")
     public ResponseEntity<StandardResponse> resetPassword(@RequestBody AdminPasswordResetRequestDTO adminPasswordResetRequestDTO, @RequestHeader(value = "Authentication") String authorizationHeader){
         authentication.authentication(authorizationHeader);
-        String text = adminService.resetPass(adminPasswordResetRequestDTO);
+        String text = adminService.resetPass(adminPasswordResetRequestDTO , authorizationHeader );
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse
                         (
