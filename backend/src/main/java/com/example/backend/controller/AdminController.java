@@ -1,23 +1,20 @@
 package com.example.backend.controller;
+import com.example.backend.DTO.RequestDTO.AdminPasswordResetRequestDTO;
 import com.example.backend.DTO.RequestDTO.ItemAddRequestDTO;
 import com.example.backend.DTO.RequestDTO.ItemQTYUpdateRequestDTO;
+import com.example.backend.DTO.RequestDTO.UserPasswordResetRequestDTO;
 import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
-import com.example.backend.authorization.Authorization;
-import com.example.backend.authorization.AuthorizationIMPL;
+import com.example.backend.authentication.Authentication;
 import com.example.backend.exception.IntergrityConstraintsViolation;
 import com.example.backend.exception.UnauthorizedException;
 import com.example.backend.service.AdminService;
-import com.example.backend.service.ItemService;
 import com.example.backend.service.UserService;
 import com.example.backend.util.JwtUtils;
 import com.example.backend.util.StandardResponse;
-import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.SQLException;
 
 @RestController
 @CrossOrigin
@@ -33,11 +30,11 @@ public class AdminController {
   private UserService userService;
 
   @Autowired
-  private Authorization authorization;
+  private Authentication authentication;
 
   @PutMapping(path = "/add-item")
   public ResponseEntity<StandardResponse> addItems(@RequestBody ItemAddRequestDTO itemAddRequestDTO , @RequestHeader("Authorization") String authorizationHeader) {
-      authorization.authorization(authorizationHeader);
+      authentication.authentication(authorizationHeader);
       try {
           String text = adminService.addItem(itemAddRequestDTO);
           return new ResponseEntity<StandardResponse>(
@@ -65,8 +62,8 @@ public class AdminController {
   }
 
     @GetMapping (path = "/getUserID/{id}")
-    public ResponseEntity<StandardResponse> getUserByID(@PathVariable (value = "id") int id , @RequestHeader("Authorization") String authorizationHeader) {
-            authorization.authorization(authorizationHeader);
+    public ResponseEntity<StandardResponse> getUserByID(@PathVariable (value = "id") int id , @RequestHeader("Authentication") String authorizationHeader) {
+            authentication.authentication(authorizationHeader);
             UserResponseDTO userResponseDTO = adminService.getUserUsingID(id);
             return new ResponseEntity<StandardResponse>(
                     new StandardResponse
@@ -78,8 +75,8 @@ public class AdminController {
 
     }
     @DeleteMapping(path = "/delete-user/{id}")
-    public ResponseEntity<StandardResponse> removeUSer(@PathVariable(value = "id")int id , @RequestHeader("Authorization") String authorizationHeader){
-      authorization.authorization(authorizationHeader);
+    public ResponseEntity<StandardResponse> removeUSer(@PathVariable(value = "id")int id , @RequestHeader("Authentication") String authenticationHeader){
+      authentication.authentication(authenticationHeader);
       String text = adminService.deleteUser(id);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse
@@ -91,8 +88,8 @@ public class AdminController {
     }
 
     @DeleteMapping(path = "/delete-item/{id}")
-    public ResponseEntity<StandardResponse> removeItem(@PathVariable(value = "id") int id , @RequestHeader("Authorization")String authorizationHeader){
-        authorization.authorization(authorizationHeader);
+    public ResponseEntity<StandardResponse> removeItem(@PathVariable(value = "id") int id , @RequestHeader("Authentication")String authenticationHeader){
+        authentication.authentication(authenticationHeader);
         String text = adminService.deleteItem(id);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse
@@ -104,8 +101,8 @@ public class AdminController {
     }
 
     @PutMapping(path = "/update-item-qty")
-    public ResponseEntity<StandardResponse> updateQty(@RequestBody ItemQTYUpdateRequestDTO itemQTYUpdateRequestDTO, @RequestHeader("Authorization") String authorizationHeader){
-        authorization.authorization(authorizationHeader);
+    public ResponseEntity<StandardResponse> updateQty(@RequestBody ItemQTYUpdateRequestDTO itemQTYUpdateRequestDTO, @RequestHeader("Authentication") String authenticationHeader){
+        authentication.authentication(authenticationHeader);
         String text = adminService.updateQty(itemQTYUpdateRequestDTO);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse
@@ -116,6 +113,18 @@ public class AdminController {
                         ), HttpStatus.OK);
     }
 
+    @PutMapping(path = "/reset-pass-admin")
+    public ResponseEntity<StandardResponse> resetPassword(@RequestBody AdminPasswordResetRequestDTO adminPasswordResetRequestDTO, @RequestHeader(value = "Authentication") String authorizationHeader){
+        authentication.authentication(authorizationHeader);
+        String text = adminService.resetPass(adminPasswordResetRequestDTO);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse
+                        (
+                                200,
+                                "admin id = " + adminPasswordResetRequestDTO.getId() + "password  update status!",
+                                text
+                        ), HttpStatus.OK);
+    }
 
 
 }
