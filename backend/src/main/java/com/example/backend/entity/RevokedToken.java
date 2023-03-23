@@ -14,14 +14,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "revoke_token")
-@TypeDefs({
-        @TypeDef(name = "json",typeClass = JsonType.class)
-})
 public class RevokedToken {
     @Id
-    @Column(name = "revoke_id", length = 40 ,nullable = false, columnDefinition = "INT DEFAULT 0")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int revokeID;
+    @Column(name = "revoke_id", length = 40 )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long revokeID;
 
     @Column(name = "token" , nullable = false , unique = true , length = 10000)
     private String token ;
