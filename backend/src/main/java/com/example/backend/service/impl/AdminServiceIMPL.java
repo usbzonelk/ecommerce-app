@@ -118,5 +118,15 @@ public class AdminServiceIMPL implements AdminService {
             }
     }
 
+    @Override
+    public String updatePrivVal(int ID2 , String adminLevel) {
+        if(adminRepo.existsById(ID2)){
+            adminRepo.insertPrivVal(adminLevel , ID2);
+            return "ID = "+ID2 +" admin's Admin Leval update successfully ";
+        }else{
+            throw new NotFoundException("ID = "+ID2 + " Admin not found") ;
+        }
+    }
+
 
 }
