@@ -21,4 +21,7 @@ public interface AdminRepo extends JpaRepository<Admin,Integer> {
     @Modifying
     @Query(value = "update admin set salt = ?1 where admin_id = ?2",nativeQuery = true)
     void restPassword(String salt, int id);
+
+    @Query(value = "select privilage from admin where admin_id = ?1",nativeQuery = true)
+    String getPrivilageVal(int adminID);
 }
