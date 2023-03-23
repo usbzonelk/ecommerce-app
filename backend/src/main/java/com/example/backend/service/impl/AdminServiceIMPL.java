@@ -6,6 +6,7 @@ import com.example.backend.entity.User;
 import com.example.backend.exception.NotFoundException;
 import com.example.backend.repo.AdminRepo;
 import com.example.backend.repo.ItemRepo;
+import com.example.backend.repo.RevokeTokenRepo;
 import com.example.backend.repo.UserRepo;
 import com.example.backend.service.AdminService;
 import com.example.backend.entity.Admin;
@@ -26,6 +27,9 @@ public class AdminServiceIMPL implements AdminService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private RevokeTokenRepo revokeTokenRepo;
 
     @Override
     public String addItem(ItemAddRequestDTO itemAddRequestDTO) {
@@ -98,12 +102,13 @@ public class AdminServiceIMPL implements AdminService {
     }
 
     @Override
-    public String resetPass(AdminPasswordResetRequestDTO adminPasswordResetRequestDTO) {
+    public String resetPass(AdminPasswordResetRequestDTO adminPasswordResetRequestDTO , String authorizationHeader) {
             if (adminRepo.existsById(adminPasswordResetRequestDTO.getId())) {
                 Admin admin = adminRepo.getById(adminPasswordResetRequestDTO.getId());
                 if (bCryptPasswordEncoder.matches(adminPasswordResetRequestDTO.getCurrentPass(), admin.getSalt())) {
                     String newSalt = bCryptPasswordEncoder.encode(adminPasswordResetRequestDTO.getNewPass());
                     adminRepo.restPassword(newSalt, adminPasswordResetRequestDTO.getId());
+                    revokeTokenRepo.insertToken(authorizationHeader);
                     return "password is reset admin id = " + adminPasswordResetRequestDTO.getId();
                 } else {
                     return "salt value mismatch !!";
