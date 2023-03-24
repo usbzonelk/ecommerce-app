@@ -6,7 +6,9 @@ import com.example.backend.entity.Admin;
 import com.example.backend.entity.User;
 import com.example.backend.repo.AdminRepo;
 import com.example.backend.repo.UserRepo;
+import com.example.backend.service.EmailSenderService;
 import com.example.backend.service.SignUpService;
+import com.example.backend.util.impl.Otp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,9 +26,16 @@ public class SignUpServiceIMPL implements SignUpService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder ;
 
+    @Autowired
+    private EmailSenderService emailSenderService ;
+
+    @Autowired
+    private com.example.backend.util.Otp otp;
+
     @Override
     public String regUser(UserRegRequestDTO userRegRequestDTO) {
         String msg ;
+        String OTP = otp.genarateOTP();
         String encrptedPassword = bCryptPasswordEncoder.encode(userRegRequestDTO.getPassword());
         User user = new User(
                 userRegRequestDTO.getUserName(),
@@ -34,7 +43,8 @@ public class SignUpServiceIMPL implements SignUpService {
                 userRegRequestDTO.getContactNumber(),
                 true,
                 encrptedPassword,
-                userRegRequestDTO.getAddress()
+                userRegRequestDTO.getAddress(),
+                OTP
         );
 
         if(userRepo.existsByEmail(userRegRequestDTO.getEmail())){
@@ -46,9 +56,10 @@ public class SignUpServiceIMPL implements SignUpService {
                 }
             }return "password = "+user.getUserName()+" is already exist please enter different email !! ";
         }
-
         userRepo.save(user);
-        msg = "user name = " + userRegRequestDTO.getUserName() + " is sign up successfully";
+        msg = "user name = " + userRegRequestDTO.getUserName() + " is sign up successfully"+ "user id = "+ userRepo.getByEmail(userRegRequestDTO.getEmail()).getUserId() ;
+        //send email
+        emailSenderService.sendEmail(userRegRequestDTO.getEmail(),"OTP verification ","Your OTP is : "+otp+" . Use this OTP to SignIN");
         return msg ;
     }
 
