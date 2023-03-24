@@ -22,4 +22,6 @@ public interface AdminService {
     String resetPass(AdminPasswordResetRequestDTO adminPasswordResetRequestDTO , String authorizationHeader) ;
 
     String updatePrivVal(int ID2 , String adminLevel);
+
+    String updateProperties( int adminID,String property,String propertyname );
 }
