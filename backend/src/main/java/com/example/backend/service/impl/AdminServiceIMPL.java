@@ -4,10 +4,7 @@ import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
 import com.example.backend.entity.Item;
 import com.example.backend.entity.User;
 import com.example.backend.exception.NotFoundException;
-import com.example.backend.repo.AdminRepo;
-import com.example.backend.repo.ItemRepo;
-import com.example.backend.repo.RevokeTokenRepo;
-import com.example.backend.repo.UserRepo;
+import com.example.backend.repo.*;
 import com.example.backend.service.AdminService;
 import com.example.backend.entity.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +18,9 @@ public class AdminServiceIMPL implements AdminService {
 
     @Autowired
     private ItemRepo itemRepo;
+
+    @Autowired
+    private PropertyRepo propertyRepo;
 
     @Autowired
     private UserRepo userRepo;
@@ -125,6 +125,18 @@ public class AdminServiceIMPL implements AdminService {
             return "ID = "+ID2 +" admin's Admin Leval update successfully ";
         }else{
             throw new NotFoundException("ID = "+ID2 + " Admin not found") ;
+        }
+    }
+
+    @Override
+    public String updateProperties(int adminID, String property, String propertyname ) {
+        if(propertyRepo.existsByAdminID(adminID)){
+            propertyRepo.updateProperty(propertyname,property,adminID);
+            return "updated property";
+        }else{
+            System.out.println("check");
+            propertyRepo.insertProperty(adminID,propertyname,property);
+            return "inserted property";
         }
     }
 
