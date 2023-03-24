@@ -8,6 +8,7 @@ import com.example.backend.repo.AdminRepo;
 import com.example.backend.repo.UserRepo;
 import com.example.backend.service.SignInService;
 import com.example.backend.util.JwtUtils;
+import com.example.backend.util.OtpVerify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,13 +26,20 @@ public class SignInServiceIMPL implements SignInService {
 
     @Autowired
     private JwtUtils jwtUtils;
+
+    @Autowired
+    private OtpVerify otpVerify ;
+
     @Override
     public String signInUser(UserRequestSignInDTO userRequestSignInDTO) {
         User user = userRepo.findByEmail(userRequestSignInDTO.getEmail());
-        if(user!=null && bCryptPasswordEncoder.matches(userRequestSignInDTO.getPassword(), user.getSalt()) ){
-            String token = jwtUtils.genarateJWT(user);
-            return "User login successfully . token = " + token;
-
+        //check whether user send otp and otp that reside in database
+        if(userRequestSignInDTO.getOtp().equals(user.getOtp())){
+            if(user!=null && bCryptPasswordEncoder.matches(userRequestSignInDTO.getPassword(), user.getSalt()) ){
+                String token = jwtUtils.genarateJWT(user);
+                userRepo.updateVerifyState(true,userRequestSignInDTO.getUserID());
+                return "User login successfully . token = " + token;
+            }
         }
         return "user login fail ";
     }
