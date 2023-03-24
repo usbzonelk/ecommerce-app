@@ -9,6 +9,7 @@ import com.example.backend.authentication.ExistRevokedToken;
 import com.example.backend.authorization.AdminPrivilage;
 import com.example.backend.exception.IntergrityConstraintsViolation;
 import com.example.backend.exception.JWTExpireException;
+import com.example.backend.exception.NotFoundException;
 import com.example.backend.exception.UnauthorizedException;
 import com.example.backend.service.AdminService;
 import com.example.backend.service.UserService;
@@ -222,6 +223,48 @@ public class AdminController {
         }
 
     }
+
+    @PutMapping(path = "/modify-properties",
+            params = {"propertyname","property", "adminID"}
+    )
+    public ResponseEntity<StandardResponse> updateProperty(@RequestParam(value = "propertyname") String propertyname ,
+                                                          @RequestParam(value = "property") String property ,
+                                                          @RequestParam(value = "adminID") int adminID,
+                                                          @RequestHeader(value = "Authentication") String authenticationHeader
+    ) {
+        String adminPrivVal = adminPrivilage.getPrivilleged(adminID);
+        try {
+            if (adminPrivVal.equals("A")) {
+                if (existRevokedToken.checkToken(authenticationHeader)) {
+                    throw new UnauthorizedException("token are deactive");
+                } else {
+                    authentication.authentication(authenticationHeader);
+                    String text = adminService.updateProperties(adminID, property, propertyname);
+                    return new ResponseEntity<StandardResponse>(
+                            new StandardResponse
+                                    (
+                                            200,
+                                            propertyname + " Update / Insert status",
+                                            text
+                                    ), HttpStatus.OK);
+                }
+            }else{
+                return new ResponseEntity<StandardResponse>(
+                        new StandardResponse
+                                (
+                                        406,
+                                        " not access to delete users for type " + adminPrivVal + " admins",
+                                        "HttpStatus.NOT_ACCEPTABLE"
+                                ), HttpStatus.NOT_ACCEPTABLE);
+            }
+        }catch (RuntimeException e){
+            throw new NotFoundException("not found suitable admin");
+        }
+
+
+    }
+
+
 
 }
 
