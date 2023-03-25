@@ -28,6 +28,10 @@ const Login = () => {
         }
     };
 
+    const handleRegister = (event) => {
+                nav('../Signup');  
+    }
+
     return (
         <div className=" vh-100 container py-5 h-100">
             <div className="row d-flex align-items-center justify-content-center h-100">
@@ -59,6 +63,10 @@ const Login = () => {
                         </div>
 
                         <button type="submit" className="btn btn-primary btn-lg btn-block" onClick={handleSubmit}>Sign in</button>
+
+                        <br/><br/>
+                        Do Not Have An Account? &nbsp;
+                        <a href="../Signup" className='link-to-another'><u>Create One</u></a>
                     </form>
                 </div>
             </div>
