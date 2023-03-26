@@ -36,15 +36,19 @@ public class SignUPController {
     }
 
     @PutMapping(path = "/signUp-admin")
-    public ResponseEntity<StandardResponse> signUp(@RequestBody AdminRegRequestDTO adminRegRequestDTO){
-        String text = signUpService.addAdmin(adminRegRequestDTO);
+    public ResponseEntity<StandardResponse> signUp(@RequestBody AdminRegRequestDTO adminRegRequestDTO)  {
+        try {
+            String text = signUpService.addAdmin(adminRegRequestDTO);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse
                         (
                                 201,
-                                "Saved successfully !!",
+                                "LOOK Sign Up / Sign In state  !!",
                                 text
                         ), HttpStatus.CREATED);
+    }catch (MessagingException e){
+            throw new MsgException("Email not send");
+        }
     }
 
     @PutMapping(path = "otp-verification-user",
@@ -57,7 +61,21 @@ public class SignUPController {
                 new StandardResponse
                         (
                                 200,
-                                "user id = " + userID + "is  verified status!",
+                                "user id = " + userID + " is  verified status!",
+                                text
+                        ), HttpStatus.OK);
+    }
+    @PutMapping(path = "otp-verification-admin",
+            params = {"adminID","OTP"}
+    )
+    public ResponseEntity<StandardResponse> adminOTPVerfied(@RequestParam(value = "adminID") int adminID ,
+                                                           @RequestParam(value = "OTP")String OTP){
+        String text = signUpService.adminOTPVerfied(adminID , OTP);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse
+                        (
+                                200,
+                                "Admin id = " + adminID + " is  verified status!",
                                 text
                         ), HttpStatus.OK);
     }
