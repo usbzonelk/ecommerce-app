@@ -7,6 +7,7 @@ import { AuthProvider } from './utils/Context';
 import Protected from './components/Protected';
 import HomePage from './pages/HomePage';
 import SuccessMessage from './components/SuccessMessage';
+import LinkSentMessage from './components/LinkSentMessage';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path='/shop' element={<Shop />} />
           <Route path='/' element={<Protected><HomePage /></Protected>} />
           <Route path='/successmessage' element={<SuccessMessage />} />
+          <Route path='/linksentmessage' element={<LinkSentMessage />} />
         </Routes>
       </div>
     </AuthProvider>
