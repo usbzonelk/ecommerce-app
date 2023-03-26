@@ -69,7 +69,8 @@ public class SignUpServiceIMPL implements SignUpService {
     }
 
     @Override
-    public String addAdmin(AdminRegRequestDTO adminRegRequestDTO) {
+    public String addAdmin(AdminRegRequestDTO adminRegRequestDTO) throws MessagingException {
+        String OTP = otp.genarateOTP();
         String encryptedPass = bCryptPasswordEncoder.encode(adminRegRequestDTO.getPassword());
         Admin admin = new Admin(
                 adminRegRequestDTO.getAdminName(),
@@ -77,11 +78,13 @@ public class SignUpServiceIMPL implements SignUpService {
                 adminRegRequestDTO.getContactNumber(),
                 true,
                 encryptedPass,
-                adminRegRequestDTO.getAddress()
+                adminRegRequestDTO.getAddress(),
+                OTP
         );
         if(!adminRepo.existsByEmail(admin.getEmail())){
             adminRepo.save(admin);
-            return admin.getAdminName()+" is saved " ;
+            emailSenderService.sendEmail(adminRegRequestDTO.getEmail(),"OTP verification ","Your OTP is : "+OTP+" . Use this OTP to SignIN");
+            return admin.getAdminName()+" is saved . admin id = "+adminRepo.getByEmail(adminRegRequestDTO.getEmail()).getAdminId() ;
         }else{
             return admin.getAdminName()+" is already registered " ;
         }
@@ -90,11 +93,25 @@ public class SignUpServiceIMPL implements SignUpService {
     @Override
     public String userOTPVerfied(int userID, String otp) {
         if(userRepo.getById(userID).getOtp().equals(otp)){
-            if(otpVerify.verificationOTP(userID)){
+            if(otpVerify.verificationUserOTP(userID)){
                 return "user id = "+userID + " verified user please sign in";
             }else {
                 userRepo.updateVerifyState(1,userID);
                 return "user is successfully verified" ;
+            }
+        }else {
+            return "OTP is not match ";
+        }
+    }
+
+    @Override
+    public String adminOTPVerfied(int adminID, String otp) {
+        if(adminRepo.getById(adminID).getOtp().equals(otp)){
+            if(otpVerify.verificationAdminOTP(adminID)){
+                return "admin id = "+adminID + " verified admin please sign in";
+            }else {
+                adminRepo.updateVerifyState(1,adminID);
+                return "admin is successfully verified" ;
             }
         }else {
             return "OTP is not match ";
