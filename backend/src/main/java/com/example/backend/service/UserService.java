@@ -25,4 +25,7 @@ public interface UserService {
     String removeAllItemById(int id);
 
     List<CartItemDTO> getAllCartItems(int id);
-}
+
+    String resetEmail(int userID , String newEmail, String oldEmail , String authorizationHeader) ;
+
+    }
