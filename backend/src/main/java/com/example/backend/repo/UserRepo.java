@@ -24,4 +24,14 @@ public interface UserRepo extends JpaRepository<User, Integer> {
     @Query(value = "update user set salt = ?1 where user_id = ?2",nativeQuery = true)
     void restPassword(String salt, int id);
 
+    @Query(value = "select verify_state from user where user_id=?1", nativeQuery = true)
+    int getVerifiedState(int userId);
+
+    User getByEmail(String email);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update user set verify_state = ?1 where user_id = ?2", nativeQuery = true)
+    int updateVerifyState(int var , int userID);
+
 }
