@@ -1,5 +1,6 @@
 package com.example.backend.service.impl;
 
+import com.example.backend.DTO.ResponseDTO.ItemBrandNameResponseDTO;
 import com.example.backend.DTO.ResponseDTO.ItemDTO;
 import com.example.backend.entity.Item;
 import com.example.backend.exception.NotFoundException;
@@ -51,4 +52,29 @@ public class ItemServiceIMPL implements ItemService {
         }
 
     }
+
+    @Override
+    public List<ItemBrandNameResponseDTO> getAllBrandNames() {
+        List<Item> items = itemRepo.getAllBy();
+        List<ItemBrandNameResponseDTO> itemNames = new ArrayList<>();
+        if (!items.isEmpty()) {
+            for (Item i : items) {
+                boolean flag = false;
+                for (ItemBrandNameResponseDTO c : itemNames) {
+                    if (i.getBrand().equals(c.getBrandName())) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    ItemBrandNameResponseDTO itemBrandNameResponseDTO = new ItemBrandNameResponseDTO(
+                            i.getBrand()
+                    );
+                    itemNames.add(itemBrandNameResponseDTO);
+                }
+            }
+        }
+        return itemNames;
+    }
+
 }
