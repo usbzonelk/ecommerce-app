@@ -53,12 +53,19 @@ public class Admin {
     @Column(name = "privilage",  length = 20)
     private String privilage;
 
-    public Admin(String adminName, String email, ArrayList contactNumber, boolean activeState,String salt, String address) {
+    @Column(name ="otp",length = 6)
+    private String otp ;
+
+    @Column(name ="verify_state" ,columnDefinition = "0" )
+    private int stateVerification ;
+
+    public Admin(String adminName, String email, ArrayList contactNumber, boolean activeState,String salt, String address , String otp) {
         this.adminName = adminName;
         this.email = email;
         this.contactNumber = contactNumber;
         this.activeState = activeState;
         this.salt = salt;
         this.address = address;
+        this.otp = otp;
     }
 }
