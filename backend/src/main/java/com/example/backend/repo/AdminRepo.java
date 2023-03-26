@@ -39,4 +39,9 @@ public interface AdminRepo extends JpaRepository<Admin,Integer> {
     int updateVerifyState(int var , int adminID);
 
     Admin getByEmail(String email);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update admin set email = ?1 where admin_id = ?2",nativeQuery = true)
+    void resetEmail( String newEmail ,int adminID );
 }
