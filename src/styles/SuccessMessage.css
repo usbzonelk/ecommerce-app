@@ -9,6 +9,7 @@
   border-style:solid;
   border-color:rgb(95, 131, 163);
   background-color:aliceblue;
+  padding:15px 15px 20px 15px;
 }
 
 .center h2{
@@ -27,7 +28,6 @@
 }
 
 .verification-image{
-  padding: 10px 50px 10px 133px;
+  padding: 10px 50px 10px 123px;
   width:325px;
 }
-
