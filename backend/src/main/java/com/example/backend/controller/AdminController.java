@@ -189,6 +189,29 @@ public class AdminController {
 
     }
 
+    @PutMapping(path = "/reset-email-admin",
+                params = {"adminID","newEmail","oldEmail"})
+    public ResponseEntity<StandardResponse> resetEmail(@RequestParam(value = "adminID") int adminID ,
+                                                       @RequestParam(value = "newEmail" ) String newEmail,
+                                                       @RequestParam(value = "oldEmail" ) String oldEmail,
+                                                       @RequestHeader(value = "Authentication") String authenticationHeader
+    ) {
+        if (existRevokedToken.checkToken(authenticationHeader)) {
+            throw new UnauthorizedException("token are deactive");
+        } else {
+            authentication.authentication(authenticationHeader);
+            String text = adminService.resetEmail(adminID,newEmail, oldEmail ,authenticationHeader);
+            return new ResponseEntity<StandardResponse>(
+                    new StandardResponse
+                            (
+                                    200,
+                                    "admin id = " + adminID + " email  update status!",
+                                    text
+                            ), HttpStatus.OK);
+        }
+
+    }
+
     @PutMapping(path = "/add-previllage",
             params = {"upperLevelAdminID","lowerLevelAdminID", "adminLevel"}
     )
