@@ -54,6 +54,29 @@ public class UserController {
         }
     }
 
+    @PutMapping(path = "/reset-email-user",
+            params = {"userID","newEmail","oldEmail"})
+    public ResponseEntity<StandardResponse> resetEmail(@RequestParam(value = "userID") int userID ,
+                                                       @RequestParam(value = "newEmail" ) String newEmail,
+                                                       @RequestParam(value = "oldEmail" ) String oldEmail,
+                                                       @RequestHeader(value = "Authentication") String authenticationHeader
+    ) {
+        if (existRevokedToken.checkToken(authenticationHeader)) {
+            throw new UnauthorizedException("token are deactive");
+        } else {
+            authentication.authentication(authenticationHeader);
+            String text = userService.resetEmail(userID,newEmail, oldEmail ,authenticationHeader);
+            return new ResponseEntity<StandardResponse>(
+                    new StandardResponse
+                            (
+                                    200,
+                                    "admin id = " + userID + " email  update status!",
+                                    text
+                            ), HttpStatus.OK);
+        }
+
+    }
+
     @PostMapping(path = "add-cart-customer")
     public ResponseEntity<StandardResponse> addToCart(@RequestBody AddToCartRequestDTO addToCartRequestDTO ,
                                                       @RequestHeader(value = "Authentication") String authenticationHeader
