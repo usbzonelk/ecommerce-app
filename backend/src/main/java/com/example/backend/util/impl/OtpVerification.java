@@ -10,8 +10,8 @@ public class OtpVerification implements OtpVerify {
     @Autowired
     private UserRepo userRepo;
 
-    public boolean verificationOTP(String otp , int userID){
-        if(userRepo.getVerifiedState(userID)){
+    public boolean verificationOTP( int userID){
+        if(userRepo.getVerifiedState(userID) == 1){
             return true;
         }else{
             return false;
