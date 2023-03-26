@@ -2,6 +2,7 @@ package com.example.backend.service.impl;
 import com.example.backend.DTO.RequestDTO.AddToCartRequestDTO;
 import com.example.backend.DTO.RequestDTO.UserPasswordResetRequestDTO;
 import com.example.backend.DTO.ResponseDTO.CartItemDTO;
+import com.example.backend.entity.Admin;
 import com.example.backend.entity.Cart;
 import com.example.backend.entity.User;
 import com.example.backend.exception.IntergrityConstraintsViolation;
@@ -59,6 +60,22 @@ public class UserServiceIMPL implements UserService {
             }
         } else {
             throw new NotFoundException("There is no user for id = " + userPasswordResetRequestDTO.getId());
+        }
+    }
+
+    @Override
+    public String resetEmail(int userID , String newEmail, String oldEmail , String authorizationHeader) {
+        if (userRepo.existsById(userID)) {
+            User user = userRepo.getById(userID);
+            if (oldEmail.equals(user.getEmail())) {
+                userRepo.resetEmail( newEmail , userID);
+                revokeTokenRepo.insertToken(authorizationHeader);
+                return "email is reset user id = " + userID;
+            } else {
+                return "previous email does not match !!";
+            }
+        } else {
+            throw new NotFoundException("There is no user for id = " + userID);
         }
     }
 
