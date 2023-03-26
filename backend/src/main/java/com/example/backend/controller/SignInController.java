@@ -22,7 +22,7 @@ public class SignInController {
 
     @PostMapping(path="/user-login")
     public ResponseEntity<StandardResponse> loginUser(@RequestBody UserRequestSignInDTO userRequestSignInDTO){
-        if(otpVerify.verificationOTP(userRequestSignInDTO.getUserID())){
+        if(otpVerify.verificationUserOTP(userRequestSignInDTO.getUserID())){
             String text = signInService.signInUser(userRequestSignInDTO);
             return new ResponseEntity<StandardResponse>(
                     new StandardResponse
@@ -42,15 +42,25 @@ public class SignInController {
         }
     }
     @PostMapping(path="/admin-login")
-    public ResponseEntity<StandardResponse> loginAdmin(@RequestBody AdminRequestSignInDTO adminRequestSignInDTO){
-        String text = signInService.signInAdmin(adminRequestSignInDTO);
-        return new ResponseEntity<StandardResponse>(
-                new StandardResponse
-                        (
-                                201,
-                                "LOOK Sign Up / Sign In state  !!",
-                                text
-                        ), HttpStatus.CREATED);
-    }
+    public ResponseEntity<StandardResponse> loginAdmin(@RequestBody AdminRequestSignInDTO adminRequestSignInDTO) {
+        if (otpVerify.verificationAdminOTP(adminRequestSignInDTO.getAdminID())) {
+            String text = signInService.signInAdmin(adminRequestSignInDTO);
+            return new ResponseEntity<StandardResponse>(
+                    new StandardResponse
+                            (
+                                    201,
+                                    "LOOK Sign Up / Sign In state  !!",
+                                    text
+                            ), HttpStatus.CREATED);
 
+        } else {
+            return new ResponseEntity<StandardResponse>(
+                    new StandardResponse
+                            (
+                                    406,
+                                    " Admin is not still verified his account !!",
+                                    " Please verify your account for Sign IN"
+                            ), HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
 }
