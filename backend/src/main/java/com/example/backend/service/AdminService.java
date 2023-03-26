@@ -24,4 +24,6 @@ public interface AdminService {
     String updatePrivVal(int ID2 , String adminLevel);
 
     String updateProperties( int adminID,String property,String propertyname );
+
+    String resetEmail(int adminID, String oldEmail, String newEmail , String authenticationHeader);
 }
