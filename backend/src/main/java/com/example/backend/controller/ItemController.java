@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.DTO.ResponseDTO.ItemBrandNameResponseDTO;
 import com.example.backend.DTO.ResponseDTO.ItemDTO;
 import com.example.backend.entity.Item;
 import com.example.backend.service.ItemService;
@@ -31,6 +32,17 @@ public class ItemController {
                                 200,
                                 "This is the items search name = " + searchString,
                                  items
+                        ), HttpStatus.OK);
+    }
+    @GetMapping(path = "/get-brands")
+    public ResponseEntity<StandardResponse> getBrandNames(){
+        List<ItemBrandNameResponseDTO> items = itemService.getAllBrandNames();
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse
+                        (
+                                200,
+                                "This is the item brands ",
+                                items
                         ), HttpStatus.OK);
     }
 }
