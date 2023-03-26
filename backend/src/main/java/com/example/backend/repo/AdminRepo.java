@@ -29,4 +29,14 @@ public interface AdminRepo extends JpaRepository<Admin,Integer> {
     @Modifying
     @Query(value = "update admin set privilage = ?1 where admin_id= ?2", nativeQuery = true)
     void insertPrivVal(String adminLevel , int ID);
+
+    @Query(value = "select verify_state from admin where admin_id=?1", nativeQuery = true)
+    int getVerifiedState(int adminID);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update admin set verify_state = ?1 where admin_id = ?2", nativeQuery = true)
+    int updateVerifyState(int var , int adminID);
+
+    Admin getByEmail(String email);
 }
