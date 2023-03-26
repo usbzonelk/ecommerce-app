@@ -20,5 +20,6 @@ public interface ItemRepo extends JpaRepository<Item,Integer> {
     @Query(value = "update item set quantity = ?1 where item_id = ?2",nativeQuery = true)
     void updateItemQTY(int qty , int id);
 
+    List<Item> getAllBy();
 }
 
