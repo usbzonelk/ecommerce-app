@@ -119,6 +119,22 @@ public class AdminServiceIMPL implements AdminService {
     }
 
     @Override
+    public String resetEmail(int adminID , String newEmail, String oldEmail , String authorizationHeader) {
+        if (adminRepo.existsById(adminID)) {
+            Admin admin = adminRepo.getById(adminID);
+            if (oldEmail.equals(admin.getEmail())) {
+                adminRepo.resetEmail( newEmail , adminID);
+                revokeTokenRepo.insertToken(authorizationHeader);
+                return "email is reset admin id = " + adminID;
+            } else {
+                return "previous email does not match !!";
+            }
+        } else {
+            throw new NotFoundException("There is no admin for id = " + adminID);
+        }
+    }
+
+    @Override
     public String updatePrivVal(int ID2 , String adminLevel) {
         if(adminRepo.existsById(ID2)){
             adminRepo.insertPrivVal(adminLevel , ID2);
@@ -139,6 +155,8 @@ public class AdminServiceIMPL implements AdminService {
             return "inserted property";
         }
     }
+
+
 
 
 }
