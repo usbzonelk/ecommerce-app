@@ -8,11 +8,13 @@ import com.example.backend.repo.AdminRepo;
 import com.example.backend.repo.UserRepo;
 import com.example.backend.service.EmailSenderService;
 import com.example.backend.service.SignUpService;
+import com.example.backend.util.OtpVerify;
 import com.example.backend.util.impl.Otp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @Service
@@ -32,8 +34,11 @@ public class SignUpServiceIMPL implements SignUpService {
     @Autowired
     private com.example.backend.util.Otp otp;
 
+    @Autowired
+    private OtpVerify otpVerify ;
+
     @Override
-    public String regUser(UserRegRequestDTO userRegRequestDTO) {
+    public String regUser(UserRegRequestDTO userRegRequestDTO) throws MessagingException {
         String msg ;
         String OTP = otp.genarateOTP();
         String encrptedPassword = bCryptPasswordEncoder.encode(userRegRequestDTO.getPassword());
@@ -59,7 +64,7 @@ public class SignUpServiceIMPL implements SignUpService {
         userRepo.save(user);
         msg = "user name = " + userRegRequestDTO.getUserName() + " is sign up successfully"+ "user id = "+ userRepo.getByEmail(userRegRequestDTO.getEmail()).getUserId() ;
         //send email
-        emailSenderService.sendEmail(userRegRequestDTO.getEmail(),"OTP verification ","Your OTP is : "+otp+" . Use this OTP to SignIN");
+        emailSenderService.sendEmail(userRegRequestDTO.getEmail(),"OTP verification ","Your OTP is : "+OTP+" . Use this OTP to SignIN");
         return msg ;
     }
 
@@ -79,6 +84,20 @@ public class SignUpServiceIMPL implements SignUpService {
             return admin.getAdminName()+" is saved " ;
         }else{
             return admin.getAdminName()+" is already registered " ;
+        }
+    }
+
+    @Override
+    public String userOTPVerfied(int userID, String otp) {
+        if(userRepo.getById(userID).getOtp().equals(otp)){
+            if(otpVerify.verificationOTP(userID)){
+                return "user id = "+userID + " verified user please sign in";
+            }else {
+                userRepo.updateVerifyState(1,userID);
+                return "user is successfully verified" ;
+            }
+        }else {
+            return "OTP is not match ";
         }
     }
 }
