@@ -34,14 +34,13 @@ public class SignInServiceIMPL implements SignInService {
     public String signInUser(UserRequestSignInDTO userRequestSignInDTO) {
         User user = userRepo.findByEmail(userRequestSignInDTO.getEmail());
         //check whether user send otp and otp that reside in database
-        if(userRequestSignInDTO.getOtp().equals(user.getOtp())){
             if(user!=null && bCryptPasswordEncoder.matches(userRequestSignInDTO.getPassword(), user.getSalt()) ){
                 String token = jwtUtils.genarateJWT(user);
-                userRepo.updateVerifyState(true,userRequestSignInDTO.getUserID());
+                userRepo.updateVerifyState(1,userRequestSignInDTO.getUserID());
                 return "User login successfully . token = " + token;
+            }else{
+                return "user login fail ";
             }
-        }
-        return "user login fail ";
     }
 
     @Override
@@ -49,10 +48,11 @@ public class SignInServiceIMPL implements SignInService {
         Admin admin = adminRepo.findByEmail(adminRequestSignInDTO.getEmail());
         if(admin!= null && bCryptPasswordEncoder.matches(adminRequestSignInDTO.getPassword(),admin.getSalt())){
             String token = jwtUtils.genarateJWTForAdmin(admin);
+            adminRepo.updateVerifyState(1,adminRequestSignInDTO.getAdminID());
             return "Admin login successfully . token = " + token;
-
+        }else{
+            return "Admin login fail ";
         }
-        return "Admin login fail ";
     }
 
 }
