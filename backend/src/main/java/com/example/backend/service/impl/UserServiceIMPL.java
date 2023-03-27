@@ -52,6 +52,9 @@ public class UserServiceIMPL implements UserService {
     @Autowired
     private CheckOutMapper checkOutMapper ;
 
+    @Autowired
+    private TokenRepo tokenRepo;
+
     @Override
     public String resetPass(UserPasswordResetRequestDTO userPasswordResetRequestDTO , String authenticationHeader) {
         if (userRepo.existsById(userPasswordResetRequestDTO.getId())) {
@@ -60,6 +63,7 @@ public class UserServiceIMPL implements UserService {
                 String newSalt = bCryptPasswordEncoder.encode(userPasswordResetRequestDTO.getNewPass());
                 userRepo.restPassword(newSalt, userPasswordResetRequestDTO.getId());
                 revokeTokenRepo.insertToken(authenticationHeader);
+                tokenRepo.deleteTokenById(userPasswordResetRequestDTO.getId());
                 return "password is reset user id = " + userPasswordResetRequestDTO.getId();
             } else {
                 return "salt value mismatch !!";
@@ -76,6 +80,7 @@ public class UserServiceIMPL implements UserService {
             if (oldEmail.equals(user.getEmail())) {
                 userRepo.resetEmail( newEmail , userID);
                 revokeTokenRepo.insertToken(authorizationHeader);
+                tokenRepo.deleteTokenById(userID);
                 return "email is reset user id = " + userID;
             } else {
                 return "previous email does not match !!";
@@ -91,6 +96,7 @@ public class UserServiceIMPL implements UserService {
             User admin = userRepo.getById(userID);
             userRepo.resetAddress( newAddress , userID);
             revokeTokenRepo.insertToken(authorizationHeader);
+            tokenRepo.deleteTokenById(userID);
             return "Address is reset user id = " + userID;
         } else {
             throw new NotFoundException("There is no user for id = " + userID);
