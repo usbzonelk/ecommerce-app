@@ -21,5 +21,8 @@ public interface ItemRepo extends JpaRepository<Item,Integer> {
     void updateItemQTY(int qty , int id);
 
     List<Item> getAllBy();
+
+    @Query(value = "select * from item where unit_price <= ?1 and unit_price >= ?2 ", nativeQuery = true)
+    List<Item> getItemsBYPriceRange(double upperPriceBound, double lowerPriceBound);
 }
 
