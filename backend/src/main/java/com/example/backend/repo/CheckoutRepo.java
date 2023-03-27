@@ -14,4 +14,8 @@ public interface CheckoutRepo extends JpaRepository<Checkout,Integer> {
 
     @Query(value = "select * from checkout where user_id = ?1" , nativeQuery = true)
     List<Checkout> getCheckoutByUserID(int userID);
+
+    @Query(value = "select * from checkout" , nativeQuery = true)
+    List<Checkout> getAllCheckoutItems();
+
 }
