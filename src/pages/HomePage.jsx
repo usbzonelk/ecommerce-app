@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch } from 'react-icons/fa';
-import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline, IoMenu } from 'react-icons/io5';
-import HomePageMain from '../components/HomePageMain';
-import Footer from '../components/Footer';
-import BrandLogo from '../images/brand-logo.png';
-import Shop from '../components/Shop';
-import Contact from '../components/Contact';
-import AboutUs from '../components/AboutUs';
+import React, { useState } from "react";
+import {
+  FaFacebook,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
+  FaSearch,
+} from "react-icons/fa";
+import {
+  IoPersonOutline,
+  IoHeartOutline,
+  IoBagHandleOutline,
+  IoMenu,
+} from "react-icons/io5";
+import HomePageMain from "../components/HomePageMain";
+import Footer from "../components/Footer";
+import BrandLogo from "../images/brand-logo.png";
+import Shop from "../components/Shop";
+import Contact from "../components/Contact";
+import AboutUs from "../components/AboutUs";
+import ChangeSettings from "../components/User/ChangeSettings";
 
 const HomePage = () => {
-  const [navBarClickedPage, setNavBarClickedPage] = useState('Home');
+  const [navBarClickedPage, setNavBarClickedPage] = useState("Home");
 
   return (
     <div className="home-page">
@@ -77,48 +89,78 @@ const HomePage = () => {
               <div class="container">
                 <ul class="menu-category-list">
                   <li class="menu-category">
-                    <a class="menu-title" onClick={() => setNavBarClickedPage('Home')}>Home</a>
+                    <a
+                      class="menu-title"
+                      onClick={() => setNavBarClickedPage("Home")}
+                    >
+                      Home
+                    </a>
                   </li>
 
                   <li class="menu-category">
-                    <a class="menu-title" onClick={() => setNavBarClickedPage('Shop')}>Shop</a>
+                    <a
+                      class="menu-title"
+                      onClick={() => setNavBarClickedPage("Shop")}
+                    >
+                      Shop
+                    </a>
                   </li>
 
                   <li class="menu-category">
-                    <a class="menu-title" onClick={() => setNavBarClickedPage('Contact')}>Contact</a>
+                    <a
+                      class="menu-title"
+                      onClick={() => setNavBarClickedPage("Contact")}
+                    >
+                      Contact
+                    </a>
                   </li>
 
                   <li class="menu-category">
-                    <a class="menu-title" onClick={() => setNavBarClickedPage('AboutUs')}>About Us</a>
+                    <a
+                      class="menu-title"
+                      onClick={() => setNavBarClickedPage("AboutUs")}
+                    >
+                      About Us
+                    </a>
                   </li>
                 </ul>
               </div>
             </nav>
 
             <div className="menu-icon">
-              <IoMenu/>
+              <IoMenu />
             </div>
 
             <div class="search-container">
-              <input type="search" name="search" class="search-field" placeholder="Search" />
+              <input
+                type="search"
+                name="search"
+                class="search-field"
+                placeholder="Search"
+              />
               <button class="search-btn">
                 <FaSearch />
               </button>
             </div>
           </div>
-        </div >
-      </header >
+        </div>
+      </header>
 
-      {navBarClickedPage === 'Home' ? <HomePageMain /> :
-        navBarClickedPage === 'Shop' ? <Shop /> :
-        navBarClickedPage === 'Contact' ? <Contact/> :
-        navBarClickedPage === 'AboutUs' ? <AboutUs/> :
-          null
-      }
+      {navBarClickedPage === "Home" ? (
+        <HomePageMain />
+      ) : navBarClickedPage === "Shop" ? (
+        <Shop />
+      ) : navBarClickedPage === "Contact" ? (
+        <Contact />
+      ) : navBarClickedPage === "AboutUs" ? (
+        <AboutUs />
+      ) : null}
+
+      <ChangeSettings />
 
       <Footer />
-    </div >
+    </div>
   );
-}
+};
 
 export default HomePage;
