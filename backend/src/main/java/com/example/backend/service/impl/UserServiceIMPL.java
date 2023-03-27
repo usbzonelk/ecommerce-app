@@ -2,6 +2,7 @@ package com.example.backend.service.impl;
 import com.example.backend.DTO.RequestDTO.AddToCartRequestDTO;
 import com.example.backend.DTO.RequestDTO.UserPasswordResetRequestDTO;
 import com.example.backend.DTO.ResponseDTO.CartItemDTO;
+import com.example.backend.DTO.ResponseDTO.ResponseCheckOutDTO;
 import com.example.backend.entity.Admin;
 import com.example.backend.entity.Cart;
 import com.example.backend.entity.Checkout;
@@ -11,6 +12,7 @@ import com.example.backend.exception.NotFoundException;
 import com.example.backend.repo.*;
 import com.example.backend.service.UserService;
 import com.example.backend.util.mappers.CartMapper;
+import com.example.backend.util.mappers.CheckOutMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -46,6 +48,9 @@ public class UserServiceIMPL implements UserService {
 
     @Autowired
     private CheckoutRepo checkoutRepo ;
+
+    @Autowired
+    private CheckOutMapper checkOutMapper ;
 
     @Override
     public String resetPass(UserPasswordResetRequestDTO userPasswordResetRequestDTO , String authenticationHeader) {
@@ -157,7 +162,21 @@ public class UserServiceIMPL implements UserService {
                 userID
             );
             checkoutRepo.save(checkout);
+            return "Checkout sucessfully";
+        }else{
+            return "No order for userID = "+userID;
         }
-        return null;
+
+    }
+
+    @Override
+    public List<ResponseCheckOutDTO> getAllCheckoutItems(int userID) {
+        List<Checkout> orders = checkoutRepo.getCheckoutByUserID(userID);
+        if(!orders.isEmpty()){
+            List<ResponseCheckOutDTO> allItems = checkOutMapper.checkoutEntityListtoDTOList(orders);
+            return allItems;
+        }else {
+            throw new NotFoundException("No Checkouts for userID = " + userID);
+        }
     }
 }
