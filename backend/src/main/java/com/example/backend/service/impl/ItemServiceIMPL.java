@@ -96,4 +96,15 @@ public class ItemServiceIMPL implements ItemService {
         }
     }
 
+    @Override
+    public List<ItemResponseDTO> getAllItems() {
+        List<Item> items = itemRepo.getAllBy();
+        if(!items.isEmpty()){
+            List<ItemResponseDTO> allItems = itemMapper.ItemListToDTOList(items);
+            return allItems;
+        }else{
+            throw  new NotFoundException("NO items in the item table");
+        }
+    }
+
 }
