@@ -1,6 +1,7 @@
 package com.example.backend.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -55,6 +56,7 @@ public class User {
     @Column(name ="verify_state" ,columnDefinition = "0" )
     private int stateVerification ;
 
+    @JsonIgnore//use for tell ignore annotated fields during serialization and deserialization
     @OneToMany(mappedBy = "user")
     private Set<Cart> cart ;
 
