@@ -31,4 +31,6 @@ public interface AdminService {
     String resetEmail(int adminID, String oldEmail, String newEmail , String authenticationHeader);
 
     List<ResponseCheckOutDTO> getAllCheckoutItems();
+
+    String resetAddress(int adminID, String newAddress, String authenticationHeader);
 }
