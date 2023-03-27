@@ -12,6 +12,7 @@ import com.example.backend.service.AdminService;
 import com.example.backend.entity.Admin;
 import com.example.backend.util.mappers.CheckOutMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,9 @@ public class AdminServiceIMPL implements AdminService {
 
     @Autowired
     private CheckOutMapper checkOutMapper;
+
+    @Autowired
+    private TokenRepo tokenRepo;
 
     @Override
     public String addItem(ItemAddRequestDTO itemAddRequestDTO) {
@@ -82,12 +86,13 @@ public class AdminServiceIMPL implements AdminService {
     }
 
     @Override
-    public String deleteUser(int id) {
+    public String deleteUser(int id , String authenticationHeader) {
         if(userRepo.existsById(id)){
             User user = userRepo.getById(id);
             try {
                 userRepo.deleteById(id);
-            }catch (IntergrityConstraintsViolation e){
+                revokeTokenRepo.deleteToken(authenticationHeader);
+            }catch (DataIntegrityViolationException e){
                 return "User id = "+id + " have orders in the cart !! . first delete those items !! ";
             }
             return "user name = " + user.getUserName() + " id = " + user.getUserId() + " is delete ";
@@ -125,6 +130,7 @@ public class AdminServiceIMPL implements AdminService {
                     String newSalt = bCryptPasswordEncoder.encode(adminPasswordResetRequestDTO.getNewPass());
                     adminRepo.restPassword(newSalt, adminPasswordResetRequestDTO.getId());
                     revokeTokenRepo.insertToken(authorizationHeader);
+                    tokenRepo.deleteTokenById(adminPasswordResetRequestDTO.getId());
                     return "password is reset admin id = " + adminPasswordResetRequestDTO.getId();
                 } else {
                     return "salt value mismatch !!";
@@ -141,6 +147,7 @@ public class AdminServiceIMPL implements AdminService {
             if (oldEmail.equals(admin.getEmail())) {
                 adminRepo.resetEmail( newEmail , adminID);
                 revokeTokenRepo.insertToken(authorizationHeader);
+                tokenRepo.deleteTokenById(adminID);
                 return "email is reset admin id = " + adminID;
             } else {
                 return "previous email does not match !!";
@@ -156,6 +163,7 @@ public class AdminServiceIMPL implements AdminService {
             Admin admin = adminRepo.getById(adminID);
                 adminRepo.resetAddress( newAddress , adminID);
                 revokeTokenRepo.insertToken(authorizationHeader);
+                tokenRepo.deleteTokenById(adminID);
                 return "Address is reset admin id = " + adminID;
         } else {
             throw new NotFoundException("There is no admin for id = " + adminID);
