@@ -5,8 +5,11 @@ import com.example.backend.DTO.RequestDTO.AdminPasswordResetRequestDTO;
 import com.example.backend.DTO.RequestDTO.AdminRegRequestDTO;
 import com.example.backend.DTO.RequestDTO.ItemAddRequestDTO;
 import com.example.backend.DTO.RequestDTO.ItemQTYUpdateRequestDTO;
+import com.example.backend.DTO.ResponseDTO.ResponseCheckOutDTO;
 import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
 import javassist.NotFoundException;
+
+import java.util.List;
 
 public interface AdminService {
 
@@ -26,4 +29,6 @@ public interface AdminService {
     String updateProperties( int adminID,String property,String propertyname );
 
     String resetEmail(int adminID, String oldEmail, String newEmail , String authenticationHeader);
+
+    List<ResponseCheckOutDTO> getAllCheckoutItems();
 }
