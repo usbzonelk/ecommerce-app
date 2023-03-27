@@ -4,13 +4,11 @@ import com.example.backend.DTO.RequestDTO.UserPasswordResetRequestDTO;
 import com.example.backend.DTO.ResponseDTO.CartItemDTO;
 import com.example.backend.entity.Admin;
 import com.example.backend.entity.Cart;
+import com.example.backend.entity.Checkout;
 import com.example.backend.entity.User;
 import com.example.backend.exception.IntergrityConstraintsViolation;
 import com.example.backend.exception.NotFoundException;
-import com.example.backend.repo.CartRepo;
-import com.example.backend.repo.ItemRepo;
-import com.example.backend.repo.RevokeTokenRepo;
-import com.example.backend.repo.UserRepo;
+import com.example.backend.repo.*;
 import com.example.backend.service.UserService;
 import com.example.backend.util.mappers.CartMapper;
 import org.modelmapper.ModelMapper;
@@ -45,6 +43,9 @@ public class UserServiceIMPL implements UserService {
 
     @Autowired
     private RevokeTokenRepo revokeTokenRepo ;
+
+    @Autowired
+    private CheckoutRepo checkoutRepo ;
 
     @Override
     public String resetPass(UserPasswordResetRequestDTO userPasswordResetRequestDTO , String authenticationHeader) {
@@ -85,17 +86,17 @@ public class UserServiceIMPL implements UserService {
         List<Cart> allOrders = cartRepo.getAllByUserIsNotNull();
         if(allOrders.isEmpty()){
             cartRepo.save(cart);
-            return "data saved";
+            return "data saved . order id = " +cartRepo.getOrderID(addToCartRequestDTO.getUserId(),addToCartRequestDTO.getItemId());
         } else{
             for (Cart c : allOrders) {
                 if(c.getUser().getUserId() == addToCartRequestDTO.getUserId() && c.getItem().getItemID() == addToCartRequestDTO.getItemId()){
                     int newQty = c.getQuantity()+cart.getQuantity();
                     cartRepo.updateQTY(newQty,addToCartRequestDTO.getUserId(),addToCartRequestDTO.getItemId());
-                    return "data updated";
+                    return "data updated . order id = " +cartRepo.getOrderID(addToCartRequestDTO.getUserId(),addToCartRequestDTO.getItemId());
                 }
             }
             cartRepo.save(cart);
-            return "data saved";
+            return "data saved .order id = " +cartRepo.getOrderID(addToCartRequestDTO.getUserId(),addToCartRequestDTO.getItemId()) ;
         }
     }
 
@@ -138,5 +139,25 @@ public class UserServiceIMPL implements UserService {
             }
         }
         return cartItemDTOS;
+    }
+
+    @Override
+    public String checkout(int userID, int cartID) {
+        Cart cart = cartRepo.getById(cartID);
+        if(!cart.equals(null)){
+            cartRepo.deleteById(cartID);
+            double disCount = 1 - (0.01 * cart.getDiscountPercentage());
+            double totalPrice = cart.getUnitPrice() * cart.getQuantity()*disCount;
+            double disPrice = cart.getUnitPrice()*cart.getQuantity() - totalPrice;
+            Checkout checkout = new Checkout(
+                cart.getQuantity(),
+                cart.getUnitPrice(),
+                totalPrice,
+                disPrice,
+                userID
+            );
+            checkoutRepo.save(checkout);
+        }
+        return null;
     }
 }
