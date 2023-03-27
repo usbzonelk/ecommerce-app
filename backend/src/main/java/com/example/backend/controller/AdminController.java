@@ -45,11 +45,12 @@ public class AdminController {
     @Autowired
     private AdminPrivilage adminPrivilage;
 
-    @PutMapping(path = "/add-item")
-    public ResponseEntity<StandardResponse> addItems(@RequestBody ItemAddRequestDTO itemAddRequestDTO,
+    @PutMapping(path = "/add-item/{adminID}")
+    public ResponseEntity<StandardResponse> addItems(@PathVariable(value = "adminID") int adminID ,
+                                                     @RequestBody ItemAddRequestDTO itemAddRequestDTO,
                                                      @RequestHeader("Authentication") String authenticationHeader
     ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,adminID)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
@@ -81,20 +82,22 @@ public class AdminController {
 
     }
 
-    @GetMapping(path = "/getUserID/{id}")
-    public ResponseEntity<StandardResponse> getUserByID(@PathVariable(value = "id") int id,
+    @GetMapping(path = "/getUserID/{userID}",
+                params = {"userID","adminID"})
+    public ResponseEntity<StandardResponse> getUserByID(@RequestParam(value = "userID") int userID,
+                                                        @RequestParam(value = "adminID") int adminID,
                                                         @RequestHeader("Authentication") String authenticationHeader
     ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,adminID)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
-            UserResponseDTO userResponseDTO = adminService.getUserUsingID(id);
+            UserResponseDTO userResponseDTO = adminService.getUserUsingID(userID);
             return new ResponseEntity<StandardResponse>(
                     new StandardResponse
                             (
                                     200,
-                                    "This is the customer id = " + id,
+                                    "This is the customer id = " + userID,
                                     userResponseDTO
                             ), HttpStatus.OK);
 
@@ -110,7 +113,7 @@ public class AdminController {
     ) {
         String adminPrivVal = adminPrivilage.getPrivilleged(adminid);
         if (adminPrivVal.equals("A") || adminPrivVal.equals("B")) {
-            if (existRevokedToken.checkToken(authenticationHeader)) {
+            if (existRevokedToken.checkToken(authenticationHeader,adminid)) {
                 throw new UnauthorizedException("token are deactive");
             } else {
                 authentication.authentication(authenticationHeader);
@@ -134,30 +137,35 @@ public class AdminController {
         }
     }
 
-    @DeleteMapping(path = "/delete-item/{id}")
-    public ResponseEntity<StandardResponse> removeItem(@PathVariable(value = "id") int id,
+    @DeleteMapping(path = "/delete-item",
+                  params = {"userID", "adminID"}
+                  )
+    public ResponseEntity<StandardResponse> removeItem(@RequestParam(value = "userID") int userid,
+                                                       @RequestParam(value = "adminID") int adminid,
                                                        @RequestHeader("Authentication") String authenticationHeader
     ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,adminid)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
-            String text = adminService.deleteItem(id);
+            String text = adminService.deleteItem(userid);
             return new ResponseEntity<StandardResponse>(
                     new StandardResponse
                             (
                                     200,
-                                    "customer id = " + id + " deleted!",
+                                    "customer id = " + userid + " deleted!",
                                     text
                             ), HttpStatus.OK);
         }
     }
 
-    @PutMapping(path = "/update-item-qty")
-    public ResponseEntity<StandardResponse> updateQty(@RequestBody ItemQTYUpdateRequestDTO itemQTYUpdateRequestDTO,
+    @PutMapping(path = "/update-item-qty",
+                params = {"adminID"})
+    public ResponseEntity<StandardResponse> updateQty(@RequestParam(value = "adminID") int adminid,
+                                                      @RequestBody ItemQTYUpdateRequestDTO itemQTYUpdateRequestDTO,
                                                       @RequestHeader("Authentication") String authenticationHeader
     ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,adminid)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
@@ -176,7 +184,7 @@ public class AdminController {
     public ResponseEntity<StandardResponse> resetPassword(@RequestBody AdminPasswordResetRequestDTO adminPasswordResetRequestDTO,
                                                           @RequestHeader(value = "Authentication") String authenticationHeader
     ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,adminPasswordResetRequestDTO.getId())) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
@@ -198,7 +206,7 @@ public class AdminController {
                                                          @RequestParam(value = "newAddress")String newAddress,
                                                          @RequestHeader(value = "Authentication") String authenticationHeader
     ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,adminID)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
@@ -221,7 +229,7 @@ public class AdminController {
                                                        @RequestParam(value = "oldEmail" ) String oldEmail,
                                                        @RequestHeader(value = "Authentication") String authenticationHeader
     ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,adminID)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
@@ -247,7 +255,7 @@ public class AdminController {
                                                          ) {
         String adminPrivVal = adminPrivilage.getPrivilleged(ID1);
         if(adminPrivVal.equals("A")){
-            if (existRevokedToken.checkToken(authenticationHeader)) {
+            if (existRevokedToken.checkToken(authenticationHeader,ID1)) {
                 throw new UnauthorizedException("token are deactive");
             } else {
                 authentication.authentication(authenticationHeader);
@@ -283,7 +291,7 @@ public class AdminController {
         String adminPrivVal = adminPrivilage.getPrivilleged(adminID);
         try {
             if (adminPrivVal.equals("A")) {
-                if (existRevokedToken.checkToken(authenticationHeader)) {
+                if (existRevokedToken.checkToken(authenticationHeader,adminID)) {
                     throw new UnauthorizedException("token are deactive");
                 } else {
                     authentication.authentication(authenticationHeader);
@@ -310,9 +318,10 @@ public class AdminController {
         }
     }
 
-    @GetMapping(path = "/get-All-CheckoutItems")
-    public ResponseEntity<StandardResponse> getAllCheckoutItems(@RequestHeader(value = "Authentication") String authenticationHeader) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+    @GetMapping(path = "/get-All-CheckoutItems/{adminID}")
+    public ResponseEntity<StandardResponse> getAllCheckoutItems(@PathVariable(value = "adminID") int adminID,
+                                                                @RequestHeader(value = "Authentication") String authenticationHeader) {
+        if (existRevokedToken.checkToken(authenticationHeader,adminID)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
