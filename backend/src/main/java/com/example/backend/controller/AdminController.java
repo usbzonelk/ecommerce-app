@@ -3,6 +3,7 @@ import com.example.backend.DTO.RequestDTO.AdminPasswordResetRequestDTO;
 import com.example.backend.DTO.RequestDTO.ItemAddRequestDTO;
 import com.example.backend.DTO.RequestDTO.ItemQTYUpdateRequestDTO;
 import com.example.backend.DTO.RequestDTO.UserPasswordResetRequestDTO;
+import com.example.backend.DTO.ResponseDTO.ResponseCheckOutDTO;
 import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
 import com.example.backend.authentication.Authentication;
 import com.example.backend.authentication.ExistRevokedToken;
@@ -19,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -283,11 +286,24 @@ public class AdminController {
         }catch (RuntimeException e){
             throw new NotFoundException("not found suitable admin");
         }
-
-
     }
 
-
+    @GetMapping(path = "/get-All-CheckoutItems")
+    public ResponseEntity<StandardResponse> getAllCheckoutItems(@RequestHeader(value = "Authentication") String authenticationHeader) {
+        if (existRevokedToken.checkToken(authenticationHeader)) {
+            throw new UnauthorizedException("token are deactive");
+        } else {
+            authentication.authentication(authenticationHeader);
+            List<ResponseCheckOutDTO> responseCheckOutDTOS = adminService.getAllCheckoutItems();
+            return new ResponseEntity<StandardResponse>(
+                    new StandardResponse
+                            (
+                                    200,
+                                    "This is the checkout items ",
+                                    responseCheckOutDTOS
+                            ), HttpStatus.OK);
+        }
+    }
 
 }
 
