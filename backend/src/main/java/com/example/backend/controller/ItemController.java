@@ -74,6 +74,22 @@ public class ItemController {
                         ), HttpStatus.OK);
      }
 
+    @GetMapping(path = "/get-items-pricerange",
+                params = {"upperPriceBound","lowerPriceBound"}
+                )
+    public ResponseEntity<StandardResponse> getItemsByPriceRange(@RequestParam(value = "upperPriceBound") double upperPriceBound ,
+                                                                 @RequestParam(value = "lowerPriceBound" )double lowerPriceBound
+                                                                 ){
+        List<ItemResponseDTO> items = itemService.getItemsByPriceRange(upperPriceBound,lowerPriceBound);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse
+                        (
+                                200,
+                                "This is the all Items ",
+                                items
+                        ), HttpStatus.OK);
+    }
+
 }
 
 
