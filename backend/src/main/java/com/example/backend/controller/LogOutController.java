@@ -23,9 +23,10 @@ public class LogOutController {
     @Autowired
     private ExistRevokedToken existRevokedToken ;
 
-    @DeleteMapping(path = "/user")
-    ResponseEntity<StandardResponse> logOutUser(@RequestHeader(value = "Authentication") String authenticationHeader) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+    @DeleteMapping(path = "/user/{userID}")
+    ResponseEntity<StandardResponse> logOutUser(@PathVariable(value = "userID") int userID ,
+                                                @RequestHeader(value = "Authentication") String authenticationHeader) {
+        if (existRevokedToken.checkToken(authenticationHeader,userID)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
@@ -40,9 +41,10 @@ public class LogOutController {
         }
     }
 
-    @DeleteMapping(path = "/admin")
-    ResponseEntity<StandardResponse> logOutAdmin(@RequestHeader(value = "Authentication") String authenticationHeader) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+    @DeleteMapping(path = "/admin/{adminID}")
+    ResponseEntity<StandardResponse> logOutAdmin(@PathVariable(value = "adminID") int adminID ,
+                                                 @RequestHeader(value = "Authentication") String authenticationHeader) {
+        if (existRevokedToken.checkToken(authenticationHeader,adminID)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
