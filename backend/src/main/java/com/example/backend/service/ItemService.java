@@ -16,4 +16,6 @@ public interface ItemService {
     ItemResponseDTO getItemByID(int itemID);
 
     List<ItemResponseDTO> getAllItems();
+
+    List<ItemResponseDTO> getItemsByPriceRange(double upperPriceBound, double lowerPriceBound);
 }
