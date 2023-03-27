@@ -2,6 +2,7 @@ package com.example.backend.service.impl;
 
 import com.example.backend.DTO.ResponseDTO.ItemBrandNameResponseDTO;
 import com.example.backend.DTO.ResponseDTO.ItemDTO;
+import com.example.backend.DTO.ResponseDTO.ItemResponseDTO;
 import com.example.backend.entity.Item;
 import com.example.backend.exception.NotFoundException;
 import com.example.backend.repo.ItemRepo;
@@ -75,6 +76,24 @@ public class ItemServiceIMPL implements ItemService {
             }
         }
         return itemNames;
+    }
+
+    @Override
+    public ItemResponseDTO getItemByID(int itemID) {
+        if(itemRepo.existsById(itemID)){
+            Item item = itemRepo.getById(itemID);
+            ItemResponseDTO itemResponseDTO = new ItemResponseDTO(
+                item.getItemID(),
+                item.getUnitPrice(),
+                item.getDisPrecentage(),
+                item.getDisPrice(),
+                item.getImages(),
+                item.getBrand()
+            );
+            return itemResponseDTO;
+        }else {
+            throw new NotFoundException("Item not found id = "+itemID);
+        }
     }
 
 }
