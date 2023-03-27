@@ -1,15 +1,21 @@
 package com.example.backend.service.impl;
 import com.example.backend.DTO.RequestDTO.*;
+import com.example.backend.DTO.ResponseDTO.ResponseCheckOutDTO;
 import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
+import com.example.backend.entity.Checkout;
 import com.example.backend.entity.Item;
 import com.example.backend.entity.User;
+import com.example.backend.exception.IntergrityConstraintsViolation;
 import com.example.backend.exception.NotFoundException;
 import com.example.backend.repo.*;
 import com.example.backend.service.AdminService;
 import com.example.backend.entity.Admin;
+import com.example.backend.util.mappers.CheckOutMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AdminServiceIMPL implements AdminService {
@@ -31,6 +37,12 @@ public class AdminServiceIMPL implements AdminService {
     @Autowired
     private RevokeTokenRepo revokeTokenRepo;
 
+    @Autowired
+    private CheckoutRepo checkoutRepo;
+
+    @Autowired
+    private CheckOutMapper checkOutMapper;
+
     @Override
     public String addItem(ItemAddRequestDTO itemAddRequestDTO) {
         Item item = new Item(
@@ -49,7 +61,7 @@ public class AdminServiceIMPL implements AdminService {
         );
         if(!itemRepo.existsById(item.getItemID())){
             itemRepo.save(item);
-            return "id = "+item.getItemID()+" item is added ";
+            return "id = "+item.getItemID()+" item is added . ";
         }
         return  "id = "+item.getItemID()+" item is already added ";
     }
@@ -73,7 +85,11 @@ public class AdminServiceIMPL implements AdminService {
     public String deleteUser(int id) {
         if(userRepo.existsById(id)){
             User user = userRepo.getById(id);
-            userRepo.deleteById(id);
+            try {
+                userRepo.deleteById(id);
+            }catch (IntergrityConstraintsViolation e){
+                return "User id = "+id + " have orders in the cart !! . first delete those items !! ";
+            }
             return "user name = " + user.getUserName() + " id = " + user.getUserId() + " is delete ";
         }else {
             throw new NotFoundException("User is not found id = "+ id);
@@ -134,6 +150,8 @@ public class AdminServiceIMPL implements AdminService {
         }
     }
 
+
+
     @Override
     public String updatePrivVal(int ID2 , String adminLevel) {
         if(adminRepo.existsById(ID2)){
@@ -156,7 +174,16 @@ public class AdminServiceIMPL implements AdminService {
         }
     }
 
-
+    @Override
+    public List<ResponseCheckOutDTO> getAllCheckoutItems() {
+        List<Checkout> orders = checkoutRepo.getAllCheckoutItems();
+        if(!orders.isEmpty()){
+            List<ResponseCheckOutDTO> allItems = checkOutMapper.checkoutEntityListtoDTOList(orders);
+            return allItems;
+        }else {
+            throw new NotFoundException("No Checkout orders ");
+        }
+    }
 
 
 }
