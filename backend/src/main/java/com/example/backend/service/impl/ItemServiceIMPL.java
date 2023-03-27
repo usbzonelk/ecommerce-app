@@ -107,4 +107,15 @@ public class ItemServiceIMPL implements ItemService {
         }
     }
 
+    @Override
+    public List<ItemResponseDTO> getItemsByPriceRange(double upperPriceBound, double lowerPriceBound) {
+        List<Item> items = itemRepo.getItemsBYPriceRange(upperPriceBound,lowerPriceBound);
+        if(!items.isEmpty()){
+            List<ItemResponseDTO> allItems = itemMapper.ItemListToDTOList(items);
+            return allItems;
+        }else{
+            throw  new NotFoundException("NO items in the item table");
+        }
+    }
+
 }
