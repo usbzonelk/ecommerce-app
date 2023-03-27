@@ -28,4 +28,5 @@ public interface UserService {
 
     String resetEmail(int userID , String newEmail, String oldEmail , String authorizationHeader) ;
 
-    }
+    String checkout(int userID, int cartID);
+}
