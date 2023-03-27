@@ -86,6 +86,19 @@ public class UserServiceIMPL implements UserService {
     }
 
     @Override
+    public String resetAddress(int userID , String newAddress, String authorizationHeader) {
+        if (userRepo.existsById(userID)) {
+            User admin = userRepo.getById(userID);
+            userRepo.resetAddress( newAddress , userID);
+            revokeTokenRepo.insertToken(authorizationHeader);
+            return "Address is reset user id = " + userID;
+        } else {
+            throw new NotFoundException("There is no user for id = " + userID);
+        }
+    }
+
+
+    @Override
     public String addToCart(AddToCartRequestDTO addToCartRequestDTO)  {
         Cart cart = cartMapper.DTOToEntity(addToCartRequestDTO);
         List<Cart> allOrders = cartRepo.getAllByUserIsNotNull();
