@@ -32,4 +32,6 @@ public interface UserService {
     String checkout(int userID, int cartID);
 
     List<ResponseCheckOutDTO> getAllCheckoutItems(int id);
+
+    String resetAddress(int userID, String newAddress, String authenticationHeader);
 }
