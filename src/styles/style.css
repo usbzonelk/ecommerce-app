@@ -10870,9 +10870,12 @@ button {
   font-weight: 500;
   color: var(--icon-color);
   padding: 5px;
+}
+.header-top .header-user-actions .action-btn .user-action {
+  color: var(--icon-color);
   transition: var(--transition-timing);
 }
-.header-top .header-user-actions .action-btn:hover {
+.header-top .header-user-actions .action-btn .user-action:hover {
   color: hsl(0deg, 0%, 50%);
 }
 .header-top .header-user-actions .count {
@@ -11199,6 +11202,19 @@ button {
   background-color: hsl(0deg, 0%, 30%);
 }
 
+.user-dashboard .container {
+  display: flex;
+  flex-direction: column;
+}
+.user-dashboard .container h4, .user-dashboard .container .h4 {
+  font-weight: 500;
+  margin: 0 170px;
+  padding: 35px;
+}
+.user-dashboard .container .profile-image {
+  width: 100px;
+}
+
 footer {
   background-color: #333333;
   margin-top: 45px;
@@ -11223,7 +11239,8 @@ footer .footer-brands-box {
   gap: 20px;
 }
 footer .footer-brands-box .brand-logo img {
-  max-width: 80%;
+  width: 200px;
+  height: 200px;
 }
 footer .footer-nav {
   border-bottom: 1px solid white;

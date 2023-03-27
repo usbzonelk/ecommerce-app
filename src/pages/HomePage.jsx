@@ -1,24 +1,12 @@
-import React, { useState } from "react";
-import {
-  FaFacebook,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-  FaSearch,
-} from "react-icons/fa";
-import {
-  IoPersonOutline,
-  IoHeartOutline,
-  IoBagHandleOutline,
-  IoMenu,
-} from "react-icons/io5";
-import HomePageMain from "../components/HomePageMain";
-import Footer from "../components/Footer";
-import BrandLogo from "../images/brand-logo.png";
-import Shop from "../components/Shop";
-import Contact from "../components/Contact";
-import AboutUs from "../components/AboutUs";
-import ChangeSettings from "../components/User/ChangeSettings";
+import React, { useState } from 'react';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch } from 'react-icons/fa';
+import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline, IoMenu } from 'react-icons/io5';
+import HomePageMain from '../components/HomePageMain';
+import Footer from '../components/Footer';
+import BrandLogo from '../images/brand-logo.png';
+import Shop from '../components/Shop';
+import Contact from '../components/Contact';
+import AboutUs from '../components/AboutUs';
 
 const HomePage = () => {
   const [navBarClickedPage, setNavBarClickedPage] = useState("Home");
@@ -159,8 +147,8 @@ const HomePage = () => {
       <ChangeSettings />
 
       <Footer />
-    </div>
+    </div >
   );
-};
+}
 
 export default HomePage;
