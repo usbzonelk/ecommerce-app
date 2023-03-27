@@ -192,6 +192,28 @@ public class AdminController {
 
     }
 
+    @PutMapping(path = "/reset-address-admin",
+                params = {"adminID","newAddress"})
+    public ResponseEntity<StandardResponse> resetAddress(@RequestParam(value = "adminID") int adminID,
+                                                         @RequestParam(value = "newAddress")String newAddress,
+                                                         @RequestHeader(value = "Authentication") String authenticationHeader
+    ) {
+        if (existRevokedToken.checkToken(authenticationHeader)) {
+            throw new UnauthorizedException("token are deactive");
+        } else {
+            authentication.authentication(authenticationHeader);
+            String text = adminService.resetAddress(adminID,newAddress,authenticationHeader);
+            return new ResponseEntity<StandardResponse>(
+                    new StandardResponse
+                            (
+                                    200,
+                                    "admin id = " + adminID + " Address update status!",
+                                    text
+                            ), HttpStatus.OK);
+        }
+
+    }
+
     @PutMapping(path = "/reset-email-admin",
                 params = {"adminID","newEmail","oldEmail"})
     public ResponseEntity<StandardResponse> resetEmail(@RequestParam(value = "adminID") int adminID ,
