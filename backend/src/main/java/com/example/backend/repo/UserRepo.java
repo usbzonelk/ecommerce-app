@@ -39,4 +39,9 @@ public interface UserRepo extends JpaRepository<User, Integer> {
     @Query(value = "update user set email = ?1 where user_id = ?2",nativeQuery = true)
     void resetEmail( String newEmail ,int adminID );
 
+    @Transactional
+    @Modifying
+    @Query(value = "update user set address = ?1 where user_id = ?2",nativeQuery = true)
+    void resetAddress(String newAddress, int userID);
+
 }
