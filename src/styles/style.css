@@ -11239,8 +11239,7 @@ footer .footer-brands-box {
   gap: 20px;
 }
 footer .footer-brands-box .brand-logo img {
-  width: 200px;
-  height: 200px;
+  max-width: 60%;
 }
 footer .footer-nav {
   border-bottom: 1px solid white;

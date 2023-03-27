@@ -6,6 +6,9 @@ import {
 } from "@ant-design/icons";
 import { Divider, Menu, Switch } from "antd";
 import { useState } from "react";
+import OrderHistory from "./OrderHistory";
+import ChangePassword from "./ChangePassword";
+
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -38,13 +41,23 @@ const ChangeSettings = () => {
   let content = null;
   switch (selectedItem) {
     case "1":
-      content = <div>Navigation Pasword</div>;
+      content = (
+        <div>
+          {" "}
+          <ChangePassword />
+        </div>
+      );
       break;
     case "2":
       content = <div>Navigation Address</div>;
       break;
     case "3":
-      content = <div>History</div>;
+      content = (
+        <div>
+          {" "}
+          <OrderHistory />
+        </div>
+      );
       break;
     default:
       break;
