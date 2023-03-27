@@ -62,6 +62,18 @@ public class ItemController {
     }
 
 
+    @GetMapping(path = "/get-allItems")
+    public ResponseEntity<StandardResponse> getAllItems(){
+        List<ItemResponseDTO> allItems = itemService.getAllItems();
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse
+                        (
+                                200,
+                                "This is the all Items ",
+                                allItems
+                        ), HttpStatus.OK);
+     }
+
 }
 
 
