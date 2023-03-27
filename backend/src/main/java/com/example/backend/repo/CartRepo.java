@@ -33,5 +33,8 @@ public interface CartRepo extends JpaRepository<Cart,Integer> {
 
     @Query(value = "select * from cart where user_id = ?1 " , nativeQuery = true)
     List<Cart> getAllItems(int userID);
+
+    @Query(value = "select cart_id from cart where user_id = ?1 AND  item_id = ?2" , nativeQuery = true)
+    int getOrderID(int userId, int itemId);
 }
 
