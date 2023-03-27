@@ -4,6 +4,7 @@ import com.example.backend.DTO.RequestDTO.AddToCartRequestDTO;
 import com.example.backend.DTO.RequestDTO.UserPasswordResetRequestDTO;
 import com.example.backend.DTO.RequestDTO.UserRegRequestDTO;
 import com.example.backend.DTO.ResponseDTO.CartItemDTO;
+import com.example.backend.DTO.ResponseDTO.ResponseCheckOutDTO;
 import com.example.backend.DTO.ResponseDTO.UserResponseDTO;
 import com.example.backend.DTO.UserDTO;
 import com.example.backend.exception.IntergrityConstraintsViolation;
@@ -29,4 +30,6 @@ public interface UserService {
     String resetEmail(int userID , String newEmail, String oldEmail , String authorizationHeader) ;
 
     String checkout(int userID, int cartID);
+
+    List<ResponseCheckOutDTO> getAllCheckoutItems(int id);
 }
