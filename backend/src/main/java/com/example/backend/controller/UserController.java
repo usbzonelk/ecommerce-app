@@ -40,7 +40,7 @@ public class UserController {
     public ResponseEntity<StandardResponse> resetPassword(@RequestBody UserPasswordResetRequestDTO userPasswordResetRequestDTO,
                                                           @RequestHeader(value = "Authentication") String authenticationHeader
                                                          ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,userPasswordResetRequestDTO.getId())) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
@@ -62,7 +62,7 @@ public class UserController {
                                                        @RequestParam(value = "oldEmail" ) String oldEmail,
                                                        @RequestHeader(value = "Authentication") String authenticationHeader
     ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,userID)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
@@ -84,7 +84,7 @@ public class UserController {
                                                          @RequestParam(value = "newAddress")String newAddress,
                                                          @RequestHeader(value = "Authentication") String authenticationHeader
     ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,userID)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
@@ -105,7 +105,7 @@ public class UserController {
     public ResponseEntity<StandardResponse> addToCart(@RequestBody AddToCartRequestDTO addToCartRequestDTO ,
                                                       @RequestHeader(value = "Authentication") String authenticationHeader
                                                      ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,addToCartRequestDTO.getUserId())) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
@@ -126,20 +126,23 @@ public class UserController {
         }
     }
 
-    @DeleteMapping(path = "/delete-order-byId/{order_id}")
-    public ResponseEntity<StandardResponse> removeOrderById(@PathVariable(value = "order_id") int id ,
+    @DeleteMapping(path = "/delete-order-byId",
+                   params = {"orderID","userID"}
+                  )
+    public ResponseEntity<StandardResponse> removeOrderById(@RequestParam(value = "orderID") int orderID ,
+                                                            @RequestParam(value = "userID") int userID,
                                                             @RequestHeader(value = "Authentication") String authenticationHeader
                                                            ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,userID)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
-            String text = userService.removeItemById(id);
+            String text = userService.removeItemById(orderID);
             return new ResponseEntity<StandardResponse>(
                     new StandardResponse
                             (
                                     200,
-                                    "order id = " + id + " remove state!",
+                                    "order id = " + orderID + " remove state!",
                                     text
                             ), HttpStatus.OK);
         }
@@ -149,7 +152,7 @@ public class UserController {
     public ResponseEntity<StandardResponse> removeAllOrderById(@PathVariable(value = "user_id") int id ,
                                                                @RequestHeader(value = "Authentication") String authenticationHeader
                                                               ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,id)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
@@ -167,7 +170,7 @@ public class UserController {
     public ResponseEntity<StandardResponse> getAllCartItems(@PathVariable(value = "user_id") int id ,
                                                             @RequestHeader(value = "Authentication") String authenticationHeader
                                                            ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,id)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
@@ -189,7 +192,7 @@ public class UserController {
                                                      @RequestParam(value = "userID") int userID ,
                                                      @RequestHeader(value = "Authentication") String authenticationHeader
                                                     ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,userID)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
@@ -208,7 +211,7 @@ public class UserController {
     public ResponseEntity<StandardResponse> getAllCheckoutItems(@PathVariable(value = "user_id") int userID ,
                                                                 @RequestHeader(value = "Authentication") String authenticationHeader
                                                                ) {
-        if (existRevokedToken.checkToken(authenticationHeader)) {
+        if (existRevokedToken.checkToken(authenticationHeader,userID)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
