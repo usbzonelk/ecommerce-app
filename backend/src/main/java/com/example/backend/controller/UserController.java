@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.DTO.RequestDTO.AddToCartRequestDTO;
 import com.example.backend.DTO.RequestDTO.UserPasswordResetRequestDTO;
 import com.example.backend.DTO.ResponseDTO.CartItemDTO;
+import com.example.backend.DTO.ResponseDTO.ResponseCheckOutDTO;
 import com.example.backend.authentication.Authentication;
 import com.example.backend.authentication.ExistRevokedToken;
 import com.example.backend.exception.IntergrityConstraintsViolation;
@@ -157,6 +158,48 @@ public class UserController {
                             ), HttpStatus.OK);
         }
     }
+
+    @DeleteMapping(path = "/checkout",
+                   params = {"cartID","userID"}
+                  )
+    public ResponseEntity<StandardResponse> checkout(@RequestParam(value = "cartID") int cartID ,
+                                                     @RequestParam(value = "userID") int userID ,
+                                                     @RequestHeader(value = "Authentication") String authenticationHeader
+                                                    ) {
+        if (existRevokedToken.checkToken(authenticationHeader)) {
+            throw new UnauthorizedException("token are deactive");
+        } else {
+            authentication.authentication(authenticationHeader);
+            String text = userService.checkout(userID,cartID);
+            return new ResponseEntity<StandardResponse>(
+                    new StandardResponse
+                            (
+                                    200,
+                                    "order id = " + cartID + " checkout state!",
+                                    text
+                            ), HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(path = "/get-All-CheckoutItems-byUserID/{user_id}")
+    public ResponseEntity<StandardResponse> getAllCheckoutItems(@PathVariable(value = "user_id") int userID ,
+                                                                @RequestHeader(value = "Authentication") String authenticationHeader
+                                                               ) {
+        if (existRevokedToken.checkToken(authenticationHeader)) {
+            throw new UnauthorizedException("token are deactive");
+        } else {
+            authentication.authentication(authenticationHeader);
+            List<ResponseCheckOutDTO> responseCheckOutDTOS = userService.getAllCheckoutItems(userID);
+            return new ResponseEntity<StandardResponse>(
+                    new StandardResponse
+                            (
+                                    200,
+                                    "This is the checkout items ",
+                                    responseCheckOutDTOS
+                            ), HttpStatus.OK);
+        }
+    }
+
 
 }
 
