@@ -14,4 +14,6 @@ public interface ItemService {
     List<ItemBrandNameResponseDTO> getAllBrandNames();
 
     ItemResponseDTO getItemByID(int itemID);
-}c
+
+    List<ItemResponseDTO> getAllItems();
+}
