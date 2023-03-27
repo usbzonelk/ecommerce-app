@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.DTO.ResponseDTO.ItemBrandNameResponseDTO;
 import com.example.backend.DTO.ResponseDTO.ItemDTO;
+import com.example.backend.DTO.ResponseDTO.ItemResponseDTO;
 import com.example.backend.entity.Item;
 import com.example.backend.service.ItemService;
 import com.example.backend.service.UserService;
@@ -45,6 +46,22 @@ public class ItemController {
                                 items
                         ), HttpStatus.OK);
     }
+
+    @GetMapping(path = "/get-item-byID",
+                params = "itemID"
+               )
+    public ResponseEntity<StandardResponse> getItemByID(@RequestParam(value = "itemID") int itemID){
+        ItemResponseDTO item = itemService.getItemByID(itemID);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse
+                        (
+                                200,
+                                "This is the item , item id = "+itemID,
+                                item
+                        ), HttpStatus.OK);
+    }
+
+
 }
 
 
