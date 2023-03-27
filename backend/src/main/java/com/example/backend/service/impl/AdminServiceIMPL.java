@@ -150,6 +150,17 @@ public class AdminServiceIMPL implements AdminService {
         }
     }
 
+    @Override
+    public String resetAddress(int adminID , String newAddress, String authorizationHeader) {
+        if (adminRepo.existsById(adminID)) {
+            Admin admin = adminRepo.getById(adminID);
+                adminRepo.resetAddress( newAddress , adminID);
+                revokeTokenRepo.insertToken(authorizationHeader);
+                return "Address is reset admin id = " + adminID;
+        } else {
+            throw new NotFoundException("There is no admin for id = " + adminID);
+        }
+    }
 
 
     @Override
