@@ -16,6 +16,8 @@ import java.util.List;
 public interface ItemRepo extends JpaRepository<Item,Integer> {
     @Query(value = "SELECT i FROM Item i WHERE i.brand LIKE CONCAT('%', :search, '%') OR i.description LIKE CONCAT('%', :search, '%')")
     List<Item> getItemsBySearch(String search);
+
+    @Transactional
     @Modifying
     @Query(value = "update item set quantity = ?1 where item_id = ?2",nativeQuery = true)
     void updateItemQTY(int qty , int id);
