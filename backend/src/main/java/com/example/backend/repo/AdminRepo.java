@@ -49,4 +49,7 @@ public interface AdminRepo extends JpaRepository<Admin,Integer> {
     @Modifying
     @Query(value = "update admin set address = ?1 where admin_id = ?2",nativeQuery = true)
     void resetAddress(String newAddress, int adminID);
+
+    @Query(value = "select admin_id from admin where email=?1", nativeQuery = true)
+    int getAdminID(String adminEmail);
 }
