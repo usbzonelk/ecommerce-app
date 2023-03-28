@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.DTO.RequestDTO.AdminRequestSignInDTO;
 import com.example.backend.DTO.RequestDTO.UserRequestSignInDTO;
 import com.example.backend.service.SignInService;
+import com.example.backend.util.GetID;
 import com.example.backend.util.OtpVerify;
 import com.example.backend.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,12 @@ public class SignInController {
     @Autowired
     private OtpVerify otpVerify ;
 
+    @Autowired
+    private GetID getID;
+
     @PostMapping(path="/user-login")
     public ResponseEntity<StandardResponse> loginUser(@RequestBody UserRequestSignInDTO userRequestSignInDTO){
-        if(otpVerify.verificationUserOTP(userRequestSignInDTO.getUserID())){
+        if(otpVerify.verificationUserOTP(getID.getUserID(userRequestSignInDTO.getEmail()))){
             String text = signInService.signInUser(userRequestSignInDTO);
             return new ResponseEntity<StandardResponse>(
                     new StandardResponse
@@ -43,7 +47,7 @@ public class SignInController {
     }
     @PostMapping(path="/admin-login")
     public ResponseEntity<StandardResponse> loginAdmin(@RequestBody AdminRequestSignInDTO adminRequestSignInDTO) {
-        if (otpVerify.verificationAdminOTP(adminRequestSignInDTO.getAdminID())) {
+        if (otpVerify.verificationAdminOTP(getID.getAdminID(adminRequestSignInDTO.getEmail()))) {
             String text = signInService.signInAdmin(adminRequestSignInDTO);
             return new ResponseEntity<StandardResponse>(
                     new StandardResponse
