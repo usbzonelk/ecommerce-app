@@ -20,6 +20,7 @@ public interface CartRepo extends JpaRepository<Cart,Integer> {
 
     boolean existsByUserUserId(int userId);
 
+    @Transactional
     @Modifying
     @Query(value = "delete  from cart where user_id = ?1" , nativeQuery = true)
     void deleteAllOrders(int userId);
