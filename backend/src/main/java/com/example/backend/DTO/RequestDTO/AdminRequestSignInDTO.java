@@ -11,7 +11,6 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @Data
 public class AdminRequestSignInDTO {
-    private int adminID;
     private String email;
     private String  password;
 }
