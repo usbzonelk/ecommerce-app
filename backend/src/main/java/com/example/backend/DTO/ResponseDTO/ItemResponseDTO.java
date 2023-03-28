@@ -20,4 +20,5 @@ public class ItemResponseDTO {
     private double disPrice;
     private ArrayList images;
     private String brand;
+    private String title;
 }
