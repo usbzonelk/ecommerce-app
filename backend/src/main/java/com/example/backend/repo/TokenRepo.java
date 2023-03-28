@@ -28,7 +28,13 @@ public interface TokenRepo extends JpaRepository<Tokens,Integer> {
     @Query(value = "Update token set token= ?1 where ID = ?2 ",nativeQuery = true)
     void updateToken(String token ,int ID);
 
+    @Transactional
     @Modifying
     @Query(value = "delete  from token where ID = ?1" , nativeQuery = true)
     void deleteTokenById(int id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete  from token where token = ?1" , nativeQuery = true)
+    void deleteTokenBytoken(String token);
 }
