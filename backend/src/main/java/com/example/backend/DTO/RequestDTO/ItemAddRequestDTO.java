@@ -22,4 +22,5 @@ public class ItemAddRequestDTO {
     private String ram;
     private String screenSize;
     private int quantity;
+    private String title;
 }
