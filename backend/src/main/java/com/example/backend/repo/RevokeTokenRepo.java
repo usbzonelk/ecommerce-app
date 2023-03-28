@@ -20,6 +20,7 @@ public interface RevokeTokenRepo extends JpaRepository<RevokedToken, Integer>{
     @Query(value = "select * from revoke_token where  token = ?1 ;" , nativeQuery = true)
     RevokedToken getToken(String token);
 
+    @Transactional
     @Modifying
     @Query(value = "delete  from revoke_token where token = ?1" , nativeQuery = true)
     void deleteToken(String token);
