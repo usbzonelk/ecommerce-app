@@ -22,4 +22,5 @@ public class ItemDTO {
     private String ssd;
     private String ram;
     private String screenSize;
+    private String title;
 }
