@@ -108,20 +108,32 @@ public class UserServiceIMPL implements UserService {
     public String addToCart(AddToCartRequestDTO addToCartRequestDTO)  {
         Cart cart = cartMapper.DTOToEntity(addToCartRequestDTO);
         List<Cart> allOrders = cartRepo.getAllByUserIsNotNull();
-        if(allOrders.isEmpty()){
-            cartRepo.save(cart);
-            return "data saved . order id = " +cartRepo.getOrderID(addToCartRequestDTO.getUserId(),addToCartRequestDTO.getItemId());
-        } else{
-            for (Cart c : allOrders) {
-                if(c.getUser().getUserId() == addToCartRequestDTO.getUserId() && c.getItem().getItemID() == addToCartRequestDTO.getItemId()){
-                    int newQty = c.getQuantity()+cart.getQuantity();
-                    cartRepo.updateQTY(newQty,addToCartRequestDTO.getUserId(),addToCartRequestDTO.getItemId());
-                    return "data updated . order id = " +cartRepo.getOrderID(addToCartRequestDTO.getUserId(),addToCartRequestDTO.getItemId());
+        int currentQty = itemRepo.getCurrentQty(addToCartRequestDTO.getItemId());
+        if(currentQty>addToCartRequestDTO.getQuantity()){
+            if(allOrders.isEmpty()){
+
+                int remainQty = currentQty - addToCartRequestDTO.getQuantity();
+                itemRepo.updateItemQTY(remainQty,addToCartRequestDTO.getItemId());
+                System.out.println("remain quantity"+remainQty);
+                cartRepo.save(cart);
+                return "data saved . order id = " +cartRepo.getOrderID(addToCartRequestDTO.getUserId(),addToCartRequestDTO.getItemId());
+            } else{
+                for (Cart c : allOrders) {
+                    if(c.getUser().getUserId() == addToCartRequestDTO.getUserId() && c.getItem().getItemID() == addToCartRequestDTO.getItemId()){
+                        int newQty = c.getQuantity()+cart.getQuantity();
+                        cartRepo.updateQTY(newQty,addToCartRequestDTO.getUserId(),addToCartRequestDTO.getItemId());
+                        int remainQty = currentQty - addToCartRequestDTO.getQuantity();
+                        itemRepo.updateItemQTY(remainQty,addToCartRequestDTO.getItemId());
+                        return "data updated . order id = " +cartRepo.getOrderID(addToCartRequestDTO.getUserId(),addToCartRequestDTO.getItemId());
+                    }
                 }
+                cartRepo.save(cart);
+                return "data saved .order id = " +cartRepo.getOrderID(addToCartRequestDTO.getUserId(),addToCartRequestDTO.getItemId()) ;
             }
-            cartRepo.save(cart);
-            return "data saved .order id = " +cartRepo.getOrderID(addToCartRequestDTO.getUserId(),addToCartRequestDTO.getItemId()) ;
+        }else {
+            return "this item available only "+currentQty+" quantity";
         }
+
     }
 
     @Override
