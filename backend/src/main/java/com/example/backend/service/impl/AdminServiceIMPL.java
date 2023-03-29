@@ -61,7 +61,8 @@ public class AdminServiceIMPL implements AdminService {
                 itemAddRequestDTO.getSsd(),
                 itemAddRequestDTO.getRam(),
                 itemAddRequestDTO.getScreenSize(),
-                itemAddRequestDTO.getQuantity()
+                itemAddRequestDTO.getQuantity(),
+                itemAddRequestDTO.getTitle()
         );
         if(!itemRepo.existsById(item.getItemID())){
             itemRepo.save(item);
@@ -102,24 +103,23 @@ public class AdminServiceIMPL implements AdminService {
     }
 
     @Override
-    public String deleteItem(int id) {
-        if(itemRepo.existsById(id)){
-            itemRepo.deleteById(id);
-            return  "item id = " + id + " is deleted!!";
+    public String deleteItem(int itemID) {
+        if(itemRepo.existsById(itemID)){
+            itemRepo.deleteById(itemID);
+            return  "item id = " + itemID + " is deleted!!";
         }
-        throw  new NotFoundException("Item id = "+id+" not in the database !!");
+        throw  new NotFoundException("Item id = "+itemID+" not in the database !!");
     }
 
     @Override
     public String updateQty(ItemQTYUpdateRequestDTO itemQTYUpdateRequestDTO) {
         if(itemRepo.existsById(itemQTYUpdateRequestDTO.getId())){
-            itemRepo.updateItemQTY(itemQTYUpdateRequestDTO.getQuantity() , itemQTYUpdateRequestDTO.getId());
+            int newQty = itemRepo.getCurrentQty(itemQTYUpdateRequestDTO.getId())+itemQTYUpdateRequestDTO.getQuantity();
+            itemRepo.updateItemQTY(newQty , itemQTYUpdateRequestDTO.getId());
             return "Update item quantity where id = "+ itemQTYUpdateRequestDTO.getId()+" successfully!!";
         }else{
             throw new NotFoundException("Id = "+ itemQTYUpdateRequestDTO.getId() + " not found");
         }
-
-
     }
 
     @Override
@@ -129,8 +129,8 @@ public class AdminServiceIMPL implements AdminService {
                 if (bCryptPasswordEncoder.matches(adminPasswordResetRequestDTO.getCurrentPass(), admin.getSalt())) {
                     String newSalt = bCryptPasswordEncoder.encode(adminPasswordResetRequestDTO.getNewPass());
                     adminRepo.restPassword(newSalt, adminPasswordResetRequestDTO.getId());
-                    revokeTokenRepo.insertToken(authorizationHeader);
-                    tokenRepo.deleteTokenById(adminPasswordResetRequestDTO.getId());
+                    revokeTokenRepo.insertToken(authorizationHeader);// move to the token to revokeToken table
+                    tokenRepo.deleteTokenById(adminPasswordResetRequestDTO.getId()); // delete token from token table
                     return "password is reset admin id = " + adminPasswordResetRequestDTO.getId();
                 } else {
                     return "salt value mismatch !!";
@@ -187,7 +187,6 @@ public class AdminServiceIMPL implements AdminService {
             propertyRepo.updateProperty(propertyname,property,adminID);
             return "updated property";
         }else{
-            System.out.println("check");
             propertyRepo.insertProperty(adminID,propertyname,property);
             return "inserted property";
         }
