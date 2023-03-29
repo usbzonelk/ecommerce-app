@@ -44,7 +44,8 @@ public class ItemServiceIMPL implements ItemService {
                         i.getBrand(),
                         i.getSsd(),
                         i.getRam(),
-                        i.getScreenSize()
+                        i.getScreenSize(),
+                        i.getTitle()
                 );
                 itemDTOS.add(itemDTO);
             }return itemDTOS;
@@ -88,7 +89,8 @@ public class ItemServiceIMPL implements ItemService {
                 item.getDisPrecentage(),
                 item.getDisPrice(),
                 item.getImages(),
-                item.getBrand()
+                item.getBrand(),
+                item.getTitle()
             );
             return itemResponseDTO;
         }else {
@@ -115,6 +117,15 @@ public class ItemServiceIMPL implements ItemService {
             return allItems;
         }else{
             throw  new NotFoundException("NO items in the item table");
+        }
+    }
+
+    @Override
+    public int getAvailableQty(int itemID) {
+        if(itemRepo.existsById(itemID)){
+            return itemRepo.getCurrentQty(itemID);
+        }else {
+            throw new NotFoundException("Item Not found item ID = "+itemID);
         }
     }
 
