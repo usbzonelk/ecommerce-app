@@ -18,14 +18,14 @@ public class LogOutServiceIMPL implements LogOutService {
     @Override
     public String logOutUser(String authenticationHeader) {
         revokeTokenRepo.insertToken(authenticationHeader);
-        tokenRepo.deleteToken(authenticationHeader);
+        tokenRepo.deleteTokenBytoken(authenticationHeader);
         return "Log Out Successfully!!";
     }
 
     @Override
     public String logOutAdmin(String authenticationHeader) {
         revokeTokenRepo.insertToken(authenticationHeader);
-        tokenRepo.deleteToken(authenticationHeader);
+        tokenRepo.deleteTokenBytoken(authenticationHeader);
         return "Log Out Successfully!!";
     }
 }
