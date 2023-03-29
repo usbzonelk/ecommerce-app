@@ -90,6 +90,18 @@ public class ItemController {
                         ), HttpStatus.OK);
     }
 
+    @GetMapping(path = "get-available-QTY/{itemID}")
+    ResponseEntity<StandardResponse> getAvailableQty(@PathVariable(value = "itemID") int itemID){
+        int qty = itemService.getAvailableQty(itemID);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse
+                        (
+                                200,
+                                "This is the available quantity",
+                                qty
+                        ), HttpStatus.OK);
+    }
+
 }
 
 
