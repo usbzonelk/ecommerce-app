@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
-import { AuthContext } from '../utils/Context'
-import { useNavigate, Link } from 'react-router-dom';
-import Axios from '../api/Api';
-
+/* import { AuthContext } from '../utils/Context'
+ */import { useNavigate, Link } from 'react-router-dom';
+/* import Axios from '../api/Api';
+ */
 const Login = () => {
     const { setAuth } = useContext(AuthContext);
     const nav = useNavigate();
@@ -20,7 +20,7 @@ const Login = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (email !== null && password !== null) {
+        /* if (email !== null && password !== null) {
             Axios.post('/user-login', {
                 userEmail: email,
                 userPassword: password
@@ -29,7 +29,7 @@ const Login = () => {
                     setAuth(res.data);
                     nav('/dashboard');
                 });
-        }
+        } */
     };
 
     return (

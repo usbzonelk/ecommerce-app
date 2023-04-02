@@ -5,8 +5,8 @@ import { RiLockPasswordFill } from 'react-icons/ri';
 import { useNavigate, Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
-import Axios from '../api/Api';
-
+/* import Axios from '../api/Api';
+ */
 const SignUp = () => {
     const nav = useNavigate();
 
@@ -33,11 +33,11 @@ const SignUp = () => {
                 .max(16, "Password must be 16 charactres or less.")
         }),
         onSubmit: (values) => {
-            Axios.post('/user-signup', {
+            /* Axios.post('/user-signup', {
                 fullname: values.fullname,
                 email: values.email,
                 password: values.password
-            });
+            }); */
             nav('/');
         }
     });
