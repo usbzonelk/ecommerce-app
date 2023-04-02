@@ -1,42 +1,113 @@
-body{
-    font-family: "Poppins", sans-serif;
-     height: 100vh;
+
+:root {
+    --bg-color: white;
+    --text-color: white;
+    --icon-color: white;
+
+    --transition-timing: 0.7s;
 }
 
-.container {
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg-color);
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+
+
+button {
+    background: none;
+    font: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+.signup {
+    width: 80vw;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 20px;
-    margin: 100px 300px;
-    -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
-    box-shadow: 2px 4px 10px 1px rgba(201,201,201,0.47);
-    border-radius: 10px;
-    height: 50%;
-    input{
-        width: 100%;
-      padding: 12px 20px;
-      margin: 8px 0;
-      display: inline-block;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    
-    
+    margin: 0 auto;
+    padding: 2rem;
+
+    .error-message {
+        color: red;
+        margin-left: 30px;
     }
-    button{
-        background-color: #0ba5e7;
+
+    .btn-signup {
+        width: 120px;
+        background-color: #333333;
         color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        cursor: pointer;
-        width: 100%;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 20px;
     }
-    
 }
 
+.login {
+
+    
+    
+    .row{
+
+        display: flex;
+        padding: 100px;
+
+       .col{
+            flex: 1;
+           
+            img{
+                width: 100%;
+               
+            }
+        }
+    }
+
+    .title{
+        font-size: 30px;
+        padding-left: 50px;
+    }
+
+    input{
+        padding: 10px;
+        margin: 10px;
+    }
 
 
+        .btn-login {
+            width: 120px;
+            background-color: #333333;
+            color: white;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+           margin: 10px 50px;
+            
 
+        }
 
+        .content{
+            padding-left: 20px;
+            margin: 10px;
+
+        }
+}
+
+.forgot-password-btn {
+    text-decoration: none;
+}

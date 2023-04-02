@@ -1,0 +1,96 @@
+
+:root {
+    --bg-color: white;
+    --text-color: white;
+    --icon-color: white;
+
+    --transition-timing: 0.7s;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg-color);
+}
+
+a {
+    text-decoration: none;
+}
+
+
+.row{
+    display: flex;
+    padding: 100px;
+
+    .title{
+        font-size: 30px;
+    }
+
+    .col{
+        
+        flex: 1;
+        img{
+            width: 80%;
+        }
+
+        .item{
+            display: flex;
+            align-items: center;
+            padding: 10px;
+
+            .me-3{
+               
+            }
+        }
+           
+       
+        
+    }
+    .signup {
+        width: 80vw;
+        display: flex;
+        margin: 0 auto;
+        padding: 2rem;
+    
+        .error-message {
+            color: red;
+            margin-left: 30px;
+        }
+    
+        .btn-signup {
+            width: 120px;
+            background-color: #333333;
+            color: white;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 8px 8px;
+            border-radius: 20px;
+            margin: 50px 50px;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+    }
+    
+    
+
+    
+}
+
+
+
+
+
+
+
+
+       
+       
+
+
+

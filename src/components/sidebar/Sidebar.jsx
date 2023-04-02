@@ -22,12 +22,6 @@ const Sidebar = () => {
             <hr/>
             <div className="center">
                 <ul>
-                    <p className="title">Main</p>
-                    <li>
-                        <DashboardIcon className="icon"/>
-                        <span>Dashboard</span>
-                    </li>
-                    
                     <p className="title">Lists</p>
                     <Link to="/users" style={{textDecoration:"none"}}>
                     <li>
