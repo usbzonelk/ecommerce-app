@@ -13,8 +13,14 @@ const Home = () => {
             <div className="widgets">
                 <Widget type="user"/>
                 <Widget type="order"/>
+              
+
+
+            </div>
+            <div className="widgets">
+                
                 <Widget type="earnings"/>
-                <Widget type="balance"/>
+                <Widget type="balance"/> 
 
 
             </div>

@@ -5,13 +5,13 @@ import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
-
+import {Link} from "react-router-dom"
 
 const Widget = ({type}) => {
 
     let data;
     //temp
-    const amount=100
+    const amount=10
     const diff= 20
 
     switch(type){
@@ -19,7 +19,9 @@ const Widget = ({type}) => {
             data={
                 title:"USERS",
                 isMoney: false,
-                link: "see all users",
+               link: (
+                <Link to="/users">see all users</Link>
+               ),
                 icon:(
                     <PersonOutlineRoundedIcon className="icon"
                     style={{backgroundColor: "rgba(255,0,0,0.2)", color: "crimson"}}/>

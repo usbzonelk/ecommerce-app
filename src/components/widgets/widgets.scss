@@ -2,11 +2,12 @@
     display: flex;
     justify-content: space-between;
     flex: 1;
-    padding: 10px;
+    padding: 50px;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
     box-shadow: 2px 4px 10px 1px rgba(201,201,201,0.47);
     border-radius: 10px;
-    height: 100px;
+    height: 200px;
+  
 
     .left, .right{
         display: flex;
@@ -15,18 +16,18 @@
 
         .title{
             font-weight: bold;
-            font-size: 14px;
+            font-size: 25px;
             color: rgb(174, 172, 172);
         }
 
         .counter{
-            font-size: 28px;
+            font-size: 30px;
             font-weight: 300;
         }
 
         .link{
             width: max-content;
-            font-size: 12px;
+            font-size: 20px;
             border-bottom: 1px solid gray;
         }
 
@@ -45,7 +46,7 @@
         }
 
         .icon{
-            font-size: 18px;
+            font-size: 40px;
             padding: 5px;
             background-color: rgba(128,0,128,0.541);
             border-radius: 5px;
