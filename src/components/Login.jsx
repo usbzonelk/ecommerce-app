@@ -13,11 +13,18 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
+  const [validEmail, setValidEmail] = useState(false);
 
   const [login, { isLoading }] = useLoginMutation();
 
   const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+    const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (pattern.test(event.target.value)) {
+      setEmail(event.target.value);
+      setValidEmail(true);
+    } else {
+      setValidEmail(false);
+    }
   };
 
   const handlePasswordChange = (event) => {
@@ -29,7 +36,11 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    if (!validEmail) {
+      message.destroy();
+      message.error("Invalid Email!");
+      return;
+    }
     let tokenData = "";
     try {
       tokenData = await login({
@@ -46,9 +57,8 @@ const Login = () => {
       }
       nav("/dashboard");
     } catch (err) {
-      console.log("44", err);
       if (!err?.originalStatus) {
-        message.error("No Server Response");
+        message.error("Could not connect to server");
       } else if (err.originalStatus === 400) {
         message.error("Missing Username or Password");
       } else if (err.originalStatus === 401) {
@@ -73,22 +83,24 @@ const Login = () => {
         <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
           <p className="h2 bold mb-5 mx-md-1">Login</p>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="form-outline mb-4">
               <input
+                required
                 type="email"
                 id="email"
                 className="form-control form-control-lg"
-                placeholder="Email or username"
+                placeholder="Enter your email"
                 onChange={handleEmailChange}
               />
             </div>
             <div className="form-outline mb-4">
               <input
+                required
                 type="password"
                 id="password"
                 className="form-control form-control-lg"
-                placeholder="Password"
+                placeholder="Enter password"
                 onChange={handlePasswordChange}
               />
             </div>
@@ -107,7 +119,7 @@ const Login = () => {
                 Forgot password?
               </a>
             </div>
-            <button type="submit" className="btn-login" onClick={handleSubmit}>
+            <button type="submit" className="btn-login">
               {isLoading ? (
                 <LoadingOutlined
                   style={{ fontSize: 24, color: "white" }}
