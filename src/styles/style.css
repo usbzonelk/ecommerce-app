@@ -10818,9 +10818,24 @@ button {
   color: red;
   margin-left: 30px;
 }
+.signup .btn-signup {
+  width: 120px;
+  background-color: #333333;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
 
 .login .btn-login {
-  background-color: aqua;
+  width: 120px;
+  background-color: #333333;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 20px;
 }
 
 .forgot-password-btn {

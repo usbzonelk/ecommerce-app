@@ -2,6 +2,8 @@ import React from 'react';
 import { FaFacebook, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 import { IoCallOutline, IoMailOutline, IoLocationOutline } from 'react-icons/io5';
 import BrandLogoHp from '../images/brand-logo-hp.png';
+import BrandLogoAcer from '../images/brand-logo-acer.png';
+import BrandLogoDell from '../images/brand-logo-dell.png';
 
 const Footer = () => {
     return (
@@ -16,11 +18,11 @@ const Footer = () => {
                         </div>
 
                         <div className="brand-logo">
-                            <img src={BrandLogoHp} alt='hp logo' />
+                            <img src={BrandLogoAcer} alt='hp logo' />
                         </div>
 
                         <div className="brand-logo">
-                            <img src={BrandLogoHp} alt='hp logo' />
+                            <img src={BrandLogoDell} alt='hp logo' />
                         </div>
                     </div>
                 </div>

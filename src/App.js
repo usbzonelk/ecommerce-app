@@ -1,14 +1,14 @@
 import React from 'react';
-import Login from './components/Login';
-import SignUp from './components/SignUp';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './utils/Context';
 import Protected from './components/Protected';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
-import Shop from './components/Shop'
-import Contact from './components/Contact';
-import AboutUs from './components/AboutUs';
+import Shop from './pages/Shop'
+import Contact from './pages/Contact';
+import AboutUs from './pages/AboutUs';
 import Footer from './components/Footer';
 import UserDashboard from './pages/UserDashboard';
 

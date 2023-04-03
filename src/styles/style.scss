@@ -64,6 +64,11 @@ button {
 }
 
 .login {
+    .container{
+        max-width: 100%;
+        margin-top: 20px;
+    }
+
     .btn-login {
         width: 120px;
         background-color: #333333;
@@ -565,8 +570,15 @@ footer {
             margin-bottom: 15px;
             gap: 20px;
 
-            .brand-logo img {
-                max-width: 60%;
+            .brand-logo{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+
+                img {
+                    max-width: 60%;
+                    align-items: center;
+                }
             }
         }
     }
@@ -597,6 +609,10 @@ footer {
             }
 
             .nav-item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
                 .nav-title {
                     color: rgb(175, 175, 30);
                     position: relative;
@@ -643,6 +659,8 @@ footer {
 
         .social-link {
             display: flex;
+            justify-content: center;
+            align-items: center;
             border-radius: 3px;
             color: #333333;
 
