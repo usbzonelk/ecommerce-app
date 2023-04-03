@@ -11,27 +11,52 @@ import Contact from './pages/Contact';
 import AboutUs from './pages/AboutUs';
 import Footer from './components/Footer';
 import UserDashboard from './pages/UserDashboard';
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+import RequireAuth from "./redux/auth/RequireAuth";
 
 const App = () => {
   return (
     <AuthProvider>
       <div className="App">
-        <Header/>
+        <Header />
 
         <Routes>
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<SignUp />} />
-          <Route path='/shop' element={<Shop />} />
-          <Route path='/contact' element={<Contact />} />
-          <Route path='/aboutus' element={<AboutUs />} />
-          <Route path='/dashboard' element={<Protected><UserDashboard/></Protected>} />
-          <Route path='/' element={<HomePage />} />
+          <Route
+            path="/login"
+            element={
+              <Provider store={store}>
+                <Login />{" "}
+              </Provider>
+            }
+          />
+          <Route path="/signup" element={<SignUp />} />
+          <Route
+            element={
+              <Provider store={store}>
+                <RequireAuth />{" "}
+              </Provider>
+            }
+          >
+            <Route path="/shop" element={<Shop />} />
+          </Route>
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route
+            path="/dashboard"
+            element={
+              <Protected>
+                <UserDashboard />
+              </Protected>
+            }
+          />
+          <Route path="/" element={<HomePage />} />
         </Routes>
 
         <Footer />
       </div>
     </AuthProvider>
   );
-}
+};
 
 export default App;
