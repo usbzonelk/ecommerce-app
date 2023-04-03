@@ -1,25 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import { Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './utils/Context';
+import Protected from './components/Protected';
+import Header from './components/Header';
+import HomePage from './pages/HomePage';
+import Shop from './pages/Shop'
+import Contact from './pages/Contact';
+import AboutUs from './pages/AboutUs';
+import Footer from './components/Footer';
+import UserDashboard from './pages/UserDashboard';
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+import RequireAuth from "./redux/auth/RequireAuth";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <Header />
+
+        <Routes>
+          <Route
+            path="/login"
+            element={
+              <Provider store={store}>
+                <Login />{" "}
+              </Provider>
+            }
+          />
+          <Route path="/signup" element={<SignUp />} />
+          <Route
+            element={
+              <Provider store={store}>
+                <RequireAuth />{" "}
+              </Provider>
+            }
+          >
+            <Route path="/shop" element={<Shop />} />
+          </Route>
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route
+            path="/dashboard"
+            element={
+              <Protected>
+                <UserDashboard />
+              </Protected>
+            }
+          />
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+
+        <Footer />
+      </div>
+    </AuthProvider>
   );
-}
+};
 
 export default App;
