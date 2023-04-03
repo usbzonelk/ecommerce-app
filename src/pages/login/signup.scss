@@ -43,6 +43,8 @@ a {
             display: flex;
             align-items: center;
             padding: 10px;
+            gap: 20px;
+            color: rgb(8, 110, 160);
 
            
         }
@@ -59,6 +61,7 @@ a {
         .error-message {
             color: red;
             margin-left: 30px;
+            
         }
     
         .btn-signup {

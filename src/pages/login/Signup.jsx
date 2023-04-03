@@ -53,7 +53,7 @@ const SignUp = () => {
                             <p className="title">Registration</p>
 
                             <form onSubmit={formik.handleSubmit} className="mx-1 mx-md-4">
-                                <div className="error-message">{formik.touched.fullname && formik.errors.fullname ? formik.errors.fullname : ""}</div>
+                                <div className="error-message" style={{fontSize:12}}>{formik.touched.fullname && formik.errors.fullname ? formik.errors.fullname : ""}</div>
                                 <div className="item">
                                     <FaUserAlt className='me-3' />
                                     <div className="form-outline flex-fill mb-0">
@@ -69,7 +69,7 @@ const SignUp = () => {
                                     </div>
                                 </div>
 
-                                <div className="error-message">{formik.touched.email && formik.errors.email ? formik.errors.email : ""}</div>
+                                <div className="error-message"style={{fontSize:12}}>{formik.touched.email && formik.errors.email ? formik.errors.email : ""}</div>
                                 <div className="item">
                                     <MdEmail className='me-3' />
                                     <div className="form-outline flex-fill mb-0">
@@ -85,7 +85,7 @@ const SignUp = () => {
                                     </div>
                                 </div>
 
-                                <div className="error-message">{formik.touched.password && formik.errors.password ? formik.errors.password : ""}</div>
+                                <div className="error-message"style={{fontSize:12}}>{formik.touched.password && formik.errors.password ? formik.errors.password : ""}</div>
                                 <div className="item">
                                     <RiLockPasswordFill className='me-3' />
                                     <div className="form-outline flex-fill mb-0">
@@ -101,7 +101,7 @@ const SignUp = () => {
                                     </div>
                                 </div>
 
-                                <div className="error-message">{formik.touched.confirmPassword && formik.errors.confirmPassword ? formik.errors.confirmPassword : ""}</div>
+                                <div className="error-message" style={{fontSize:12}}>{formik.touched.confirmPassword && formik.errors.confirmPassword ? formik.errors.confirmPassword : ""}</div>
                                 <div className="item">
                                     <FaKey className='me-3' />
                                     <div className="form-outline flex-fill mb-0">
