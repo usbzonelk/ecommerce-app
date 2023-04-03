@@ -22,6 +22,13 @@ const Sidebar = () => {
             <hr/>
             <div className="center">
                 <ul>
+                <p className="title">Main</p>
+                    <Link to="/" style={{textDecoration:"none"}}>
+                    <li>
+                        <DashboardIcon className="icon"/>
+                        <span>Dashboard</span>
+                    </li>
+                    </Link>
                     <p className="title">Lists</p>
                     <Link to="/users" style={{textDecoration:"none"}}>
                     <li>
@@ -46,7 +53,7 @@ const Sidebar = () => {
                         <SettingsIcon className="icon"/>
                         <span>Settings</span>
                     </li>
-                    <p className="title">User</p>
+                    <p className="title">Administrator</p>
 
                     <li>
                         <AccountCircleIcon className="icon"/>
@@ -55,6 +62,7 @@ const Sidebar = () => {
                     <li>
                         <LogoutIcon className="icon"/>
                         <span>Log out</span>
+                        
                     </li>
                 </ul>
             </div>

@@ -15,16 +15,10 @@ import {
 } from "react-router-dom";
 
 function App() {
- 
-
-  
-
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-        
-          
         <Route path="/">
             <Route index element={<Home/>}/>
             <Route path="login" element={<Login/>}/>
@@ -35,12 +29,11 @@ function App() {
               <Route path="new" element={<New inputs={userInputs} title="Add New User"/>}/>
             </Route>
             <Route path="products">
-              <Route index element={<List/>}/>
+              <Route index element={<List2/>}/>
               <Route path=":productId" element={<Single/>}/>
-              <Route path="new" element={<New inputs={productInputs} title="Add"/>}/>
+              <Route path="new" element={<New inputs={productInputs} title="Add New Product"/>}/>
             </Route>
           </Route>
-          
         </Routes>
       </BrowserRouter>
     </div>

@@ -18,7 +18,8 @@ const New = ({inputs, title}) => {
                 </div>
                 <div className="bottom">
                     <div className="left">
-                        <img src={file ? URL.createObjectURL(file): "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"} 
+                        <img src={file ? URL.createObjectURL(file)
+                        : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"} 
                         alt="" />
                     </div>
                     <div className="right">
@@ -39,7 +40,7 @@ const New = ({inputs, title}) => {
                             ))}
                             
                            
-                                <button>Send</button>
+                                <button>Submit</button>
                            
                         </form>
                     </div>
