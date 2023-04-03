@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: { user: null, access: Cookies.get('token') || true },
+  initialState: {
+    user: null,
+    access: sessionStorage.getItem("token") || Cookies.get("token") || null,
+  },
   reducers: {
     setCredentials: (state, action) => {
       const { user_name, access } = action.payload;

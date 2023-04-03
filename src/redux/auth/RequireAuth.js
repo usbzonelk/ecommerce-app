@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 
 console.log("authFX",Cookies.get("token"));
+
 const RequireAuth = () => {
   const token = useSelector(selectCurrentAccessToken);
   const location = useLocation();

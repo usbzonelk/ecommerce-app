@@ -24,9 +24,15 @@ const App = () => {
         <Header />
 
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              <Provider store={store}>
+                <Login />{" "}
+              </Provider>
+            }
+          />
           <Route path="/signup" element={<SignUp />} />
-
           <Route
             element={
               <Provider store={store}>
