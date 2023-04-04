@@ -19,14 +19,34 @@ const products = [
     priceCategory: "Category 3",
     imageUrl: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
   },
-  // Add more products as needed
+  {
+    id: 4,
+    name: "Product 3",
+    priceCategory: "Category 3",
+    imageUrl: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
+  },
+  {
+    id: 401,
+    name: "Product 3",
+    priceCategory: "Category 3",
+    imageUrl: "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
+  },
 ];
 
 const ShowShopItems = () => (
-  <div style={{ padding: "16px" }}>
+  <div
+    style={{
+      padding: "16px",
+      maxWidth: "60vw",
+      marginRight: "0rem",
+      paddingRight: "0.5rem",
+      position: "relative",
+/*       right: "-4rem",
+ */    }}
+  >
     <Row gutter={[16, 16]}>
       {products.map((product) => (
-        <Col xs={24} sm={12} md={8} lg={6} key={product.id}>
+        <Col xs={24} sm={12} md={8} lg={8} key={product.id}>
           <Card hoverable cover={<img alt="example" src={product.imageUrl} />}>
             <div style={{ marginBottom: "16px" }}>
               <Tag color="green">{product.priceCategory}</Tag>
