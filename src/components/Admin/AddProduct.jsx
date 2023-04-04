@@ -5,7 +5,6 @@ import {
   InputNumber,
   Radio,
   Select,
-  Switch,
   Upload,
   message,
 } from "antd";
@@ -89,6 +88,7 @@ const AddProduct = () => {
         size={componentSize}
         style={{
           maxWidth: 800,
+          margin: "auto 0.5rem",
         }}
       >
         <Form.Item
@@ -222,13 +222,6 @@ const AddProduct = () => {
           <InputNumber />
         </Form.Item>
 
-        <Form.Item
-          label="Switch"
-          valuePropName="checked"
-          rules={[{ required: true, message: "Please enter your input" }]}
-        >
-          <Switch />
-        </Form.Item>
         <Form.Item
           label="Item Description"
           name="description"

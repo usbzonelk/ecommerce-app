@@ -1,16 +1,16 @@
-import React from 'react';
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
-import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './utils/Context';
-import Protected from './components/Protected';
-import Header from './components/Header';
-import HomePage from './pages/HomePage';
-import Shop from './pages/Shop'
-import Contact from './pages/Contact';
-import AboutUs from './pages/AboutUs';
-import Footer from './components/Footer';
-import UserDashboard from './pages/UserDashboard';
+import React from "react";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./utils/Context";
+import Protected from "./components/Protected";
+import Header from "./components/Header";
+import HomePage from "./pages/HomePage";
+import Shop from "./pages/Shop";
+import Contact from "./pages/Contact";
+import AboutUs from "./pages/AboutUs";
+import Footer from "./components/Footer";
+import UserDashboard from "./pages/UserDashboard";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import RequireAuth from "./redux/auth/RequireAuth";
@@ -24,6 +24,15 @@ const App = () => {
         <Routes>
           <Route
             path="/login"
+            element={
+              <Provider store={store}>
+                <Login />{" "}
+              </Provider>
+            }
+          />
+
+          <Route
+            path="/admin-login"
             element={
               <Provider store={store}>
                 <Login />{" "}

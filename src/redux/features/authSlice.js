@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 const authSlice = createSlice({
   name: "auth",
   initialState: {
+    user_type: sessionStorage.getItem("type") || Cookies.get("type") || null,
     user: null,
     access: sessionStorage.getItem("token") || Cookies.get("token") || null,
   },
@@ -16,6 +17,7 @@ const authSlice = createSlice({
     logOut: (state, action) => {
       state.user = null;
       state.access = null;
+      state.user_type = null;
     },
   },
 });
