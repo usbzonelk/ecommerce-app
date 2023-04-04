@@ -1,11 +1,9 @@
 import React from 'react';
-import '../styles/SuccessMessage.css'
 import verificationsucceeded from '../images/verification-succeeded.png';
 
 const SuccessMessage = () => {
     return (
-        <div className="center">
-            
+        <div className="center">       
             <h2>Email Verification Succeeded!</h2>
 
             <div className="verification-image">
