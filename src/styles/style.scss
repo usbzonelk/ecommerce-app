@@ -64,7 +64,7 @@ button {
 }
 
 .login {
-    .container{
+    .container {
         max-width: 100%;
         margin-top: 20px;
     }
@@ -363,6 +363,129 @@ button {
     }
 }
 
+.product-view {
+    .container {
+        min-height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .box {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px 1px rgb(0, 0, 0, 12%);
+            padding: 30px;
+            margin: 15px 0;
+            width: 1150px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: auto 1fr;
+            grid-template-areas:
+                "images info"
+                "images description";
+            grid-gap: 35px;
+
+            .images {
+                grid-area: images;
+                display: grid;
+                grid-template-columns: repeat(4, auto);
+                grid-template-rows: auto 1fr;
+                grid-template-areas:
+                    "active active active active"
+                    "idle idle idle idle";
+                grid-gap: 5px;
+
+                .img-holder img {
+                    width: 100%;
+                    display: block;
+                    border-radius: 10px;
+                }
+
+                .img-holder.active {
+                    grid-area: active;
+                }
+
+                .img-holder:not(.active) {
+                    opacity: 0.7;
+                    cursor: pointer;
+                }
+
+                .img-holder:not(.active):hover {
+                    opacity: 1;
+                    cursor: pointer;
+                    border: solid 2px rgb(186, 185, 185);
+                    border-radius: 7px;
+                    padding: 4px 5px 5px 10px;
+                }
+            }
+
+            .basic-info {
+                grid-area: info;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+
+                span {
+                    font-weight: 800;
+                    font-size: 25px;
+                    color: rgb(6, 69, 111);
+                    font-family: "Source Sans Pro", sans-serif;
+                }
+
+                .description {
+                    grid-area: description;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    p {
+                        color: rgb(29, 29, 29);
+                        font-size: 15px;
+                        line-height: 1.4;
+                    }
+
+                    .features {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                        color: rgb(15, 15, 15);
+                        padding: 1px 1px 1px 50px;
+                        list-style: circle;
+                    }
+
+                    .input {
+                        left: 10px;
+                        top: 10px;
+                        width: 60px;
+                        height: 30px;
+                        padding: 10px 1px 10px 10px;
+                        font-size: 14pt;
+                        border: solid 2px rgb(67, 145, 198);
+                        border-radius: 10px;
+                        color: rgb(5, 5, 67);
+                    }
+
+                    .button {
+                        background-color: rgb(67, 145, 198);
+                        padding: 7px 5px 20px 5px;
+                        border-style: none;
+                        border-radius: 10px;
+                        width: 200px;
+                        height: 30px;
+                        font-size: 16px;
+                        color: white;
+
+                        &:hover {
+                            color: black;
+                            background-color: rgb(145, 207, 249);
+                        }
+                    }
+                }
+            }   
+        }
+    }  
+}
+
 .shop {
     margin-top: 20px;
 
@@ -570,7 +693,7 @@ footer {
             margin-bottom: 15px;
             gap: 20px;
 
-            .brand-logo{
+            .brand-logo {
                 width: 100%;
                 display: flex;
                 justify-content: center;
