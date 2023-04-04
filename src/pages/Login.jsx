@@ -16,12 +16,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
   const [validEmail, setValidEmail] = useState(false);
-  let logMeIn = null;
-  if (currentLocation === "/login") {
-    logMeIn = useLoginMutation;
-  } else if (currentLocation === "/admin-login") {
-    logMeIn = useAdminLoginMutation;
-  }
+
+  const allLoginMutations = {
+    "/login": useLoginMutation,
+    "/admin-login": useAdminLoginMutation,
+  };
+
+  const logMeIn = allLoginMutations[currentLocation] || null;
 
   const [login, { isLoading }] = logMeIn();
 
@@ -58,10 +59,23 @@ const Login = () => {
       tokenData = tokenData.data.split("token")[1];
       console.log("tt", tokenData);
 
+      const allUserTypeMaps = {
+        "/login": "user",
+        "/admin-login": "admin",
+      };
+
+      const userType = allUserTypeMaps[currentLocation] || null;
+
       if (rememberMe) {
         Cookies.set("token", tokenData, { expires: 7 });
+        Cookies.set("type", userType, { expires: 7 });
+        localStorage.removeItem("type");
+        localStorage.removeItem("token");
       } else {
         sessionStorage.setItem("token", tokenData);
+        sessionStorage.setItem("type", userType);
+        Cookies.remove("token");
+        Cookies.remove("type");
       }
       nav("/");
     } catch (err) {
