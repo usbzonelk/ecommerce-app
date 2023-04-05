@@ -14,6 +14,7 @@ import UserDashboard from "./pages/UserDashboard";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import RequireAuth from "./redux/auth/RequireAuth";
+import Cart from "./components/User/Cart";
 
 const App = () => {
   return (
@@ -40,13 +41,26 @@ const App = () => {
             }
           />
           <Route path="/signup" element={<SignUp />} />
+
           <Route
             element={
               <Provider store={store}>
                 <RequireAuth />{" "}
               </Provider>
             }
-          ></Route>
+          >
+            {/*             <Route path="/shop" element={<Shop />} />
+             */}{" "}
+            <Route
+              path="/cart"
+              element={
+                <Provider store={store}>
+                  <Cart />{" "}
+                </Provider>
+              }
+            />
+          </Route>
+
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/aboutus" element={<AboutUs />} />

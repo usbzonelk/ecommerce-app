@@ -5,7 +5,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     user_type: sessionStorage.getItem("type") || Cookies.get("type") || null,
-    user: null,
+    user: sessionStorage.getItem("user") || Cookies.get("user") || null,
     access: sessionStorage.getItem("token") || Cookies.get("token") || null,
   },
   reducers: {
@@ -13,6 +13,9 @@ const authSlice = createSlice({
       const { user_name, access } = action.payload;
       state.user = user_name;
       state.access = access;
+    },
+    setCurrentUser: (state, action) => {
+      state.user = action.payload;
     },
     logOut: (state, action) => {
       state.user = null;
@@ -22,7 +25,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredentials, logOut } = authSlice.actions;
+export const { setCredentials, logOut, setCurrentUser } = authSlice.actions;
 
 export default authSlice.reducer;
 

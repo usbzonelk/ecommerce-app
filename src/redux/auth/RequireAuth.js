@@ -1,14 +1,18 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCurrentAccessToken } from "../features/authSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectCurrentAccessToken,
+  setCurrentUser,
+} from "../features/authSlice";
 import jwt_decode from "jwt-decode";
-import Cookies from "js-cookie";
 
-console.log("authFX",Cookies.get("token"));
+import { useGetCartItemsMutation } from "../features/cart/cartApiSlice";
 
 const RequireAuth = () => {
   const token = useSelector(selectCurrentAccessToken);
   const location = useLocation();
+
+  const dispatch = useDispatch();
 
   console.log("token:", token);
   console.log("location:", location);
@@ -20,6 +24,9 @@ const RequireAuth = () => {
       if (decodedToken.exp < currentTime) {
         return false;
       }
+      const userID = decodedToken.id;
+/*       dispatch(setCurrentUser(userID));
+ */
       return true;
     } catch (error) {
       console.error(error);
