@@ -15,8 +15,8 @@ const SearchPage = () => (
   >
     <Provider store={store}>
       <SearchControls style={{ flex: "0 0 auto" }} />
+      <ShowShopItems style={{ flex: "1 1 auto" }} />
     </Provider>
-    <ShowShopItems style={{ flex: "1 1 auto" }} />
   </div>
 );
 

@@ -1,6 +1,9 @@
 import { Form, Radio, Slider, Switch } from "antd";
 import { useState, useEffect } from "react";
-import { useGetItemsOnPriceMutation } from "../../redux/features/products/itemApiSlice";
+import {
+  useGetItemsOnPriceMutation,
+  useGetAllBrandsMutation,
+} from "../../redux/features/products/itemApiSlice";
 import { message } from "antd";
 import {
   setIsLoadingItems,
@@ -11,22 +14,65 @@ import { useSelector, useDispatch } from "react-redux";
 
 function SearchControls() {
   const dispatch = useDispatch();
-  const [getItemsOnPrice, { isLoading }] = useGetItemsOnPriceMutation();
   let productItems = useSelector((state) => state.items.items);
-  let searchItms = [];
 
+  const [getItemsOnPrice, { isLoading }] = useGetItemsOnPriceMutation();
+  const [getAllBrands, { isBrandsLoading }] = useGetAllBrandsMutation();
+
+  let searchItms = [];
+  let endResults = [];
   const brands = [
     { label: "Dell", value: "dell" },
     { label: "Acer", value: "acer" },
     { label: "Lenovo", value: "lenovo" },
   ];
-  const handleSliderChange = (value) => {
-    console.log(value);
+  const processors = [
+    { label: "i3", value: "i3" },
+    { label: "i5", value: "i5" },
+  ];
+  /* const brandsLoad = getAllBrands().data.forEach((brand) => {
+    brands.push(brand.brandName);
+  }); */
+  const handleSliderChange = (value, name) => {
+    console.log(value, name);
+    dispatch(setIsLoadingItems(true));
+    let endResults1 = [];
+    if (productItems.length) {
+      endResults1 = productItems.filter((item) => {
+        return item[name] >= value[0] && item[name] <= value[1];
+      });
+    }
+    dispatch(setItems(endResults1));
+    dispatch(setIsLoadingItems(false));
+  };
+  const handleChoicesChange = (value, name) => {
+    console.log(value.target.value, name);
+    dispatch(setIsLoadingItems(true));
+    let endResults1 = [];
+    if (productItems.length) {
+      endResults1 = productItems.filter((item) => {
+        return item[name] === value;
+      });
+    }
+    dispatch(setItems(endResults1));
+    dispatch(setIsLoadingItems(false));
   };
   const handlePriceSliderChange = async (value) => {
     dispatch(setIsLoadingItems(true));
     try {
       searchItms = await getItemsOnPrice(value);
+      if (searchItms.length && productItems.length) {
+        endResults = searchItms.filter((item1) =>
+          productItems.some(
+            (item2) => JSON.stringify(item1) === JSON.stringify(item2)
+          )
+        );
+      } else if (searchItms.length) {
+        endResults = searchItms;
+      } else if (productItems.length) {
+        endResults = productItems;
+      }
+      dispatch(setItems(endResults));
       dispatch(setIsLoadingItems(false));
     } catch (err) {
       dispatch(setIsLoadingItems(false));
@@ -79,15 +125,17 @@ function SearchControls() {
             optionType="button"
             buttonStyle="solid"
             mode="multiple"
+            onChange={(value) => handleChoicesChange(value, "brand")}
           />{" "}
         </Form.Item>
 
         <Form.Item label="Select Processor">
           <Radio.Group
-            options={brands}
+            options={processors}
             optionType="button"
             buttonStyle="solid"
             mode="multiple"
+            onChange={(value) => handleChoicesChange(value, "processor")}
           />
         </Form.Item>
         <Form.Item label="RAM">
@@ -96,7 +144,7 @@ function SearchControls() {
             min={1}
             range
             defaultValue={[1, 64]}
-            onChange={handleSliderChange}
+            onChange={(value) => handleSliderChange(value, "ram")}
           />
         </Form.Item>
         <Form.Item label="Screen size ">
@@ -105,7 +153,7 @@ function SearchControls() {
             min={10}
             range
             defaultValue={[0, 50]}
-            onChange={handleSliderChange}
+            onChange={(value) => handleSliderChange(value, "screenSize")}
           />
         </Form.Item>
 
@@ -115,7 +163,7 @@ function SearchControls() {
             max={5000}
             min={1}
             defaultValue={[1, 5000]}
-            onChange={handleSliderChange}
+            onChange={(value) => handleSliderChange(value, "ssd")}
           />
         </Form.Item>
       </Form>

@@ -24,8 +24,8 @@ function SearchBar() {
     }
   }, [searchString]);
 
-  let productItems = useSelector((state) => state.items.items);
-
+/*   let productItems = useSelector((state) => state.items.items);
+ */
   const getSearchItems = async () => {
     let searchResults = "";
     dispatch(setIsLoadingItems(true));
