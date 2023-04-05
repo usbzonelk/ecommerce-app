@@ -11,7 +11,7 @@ import Contact from "./pages/Contact";
 import AboutUs from "./pages/AboutUs";
 import Footer from "./components/Footer";
 import UserDashboard from "./pages/UserDashboard";
-import { store } from "./redux/store";
+import store from "./redux/store";
 import { Provider } from "react-redux";
 import RequireAuth from "./redux/auth/RequireAuth";
 
