@@ -46,9 +46,8 @@ const App = () => {
                 <RequireAuth />{" "}
               </Provider>
             }
-          >
-            <Route path="/shop" element={<Shop />} />
-          </Route>
+          ></Route>
+          <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route

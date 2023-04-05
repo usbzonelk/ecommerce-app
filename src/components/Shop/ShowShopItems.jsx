@@ -2,10 +2,14 @@ import { Tag, Card, Row, Col, Spin, Empty } from "antd";
 import { LoadingOutlined, FrownOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const ShowShopItems = () => {
   //let productItems = useSelector((state) => state.items.items);
-  let isLoading = useSelector((state) => state.items.isLoadingItems);
+  let isLoading = useSelector((state) => state.items.isLoadingItms);
+
+  console.log(isLoading);
+
   const productItems = [
     {
       itemID: 1,
@@ -50,7 +54,9 @@ const ShowShopItems = () => {
       }}
     >
       {isLoading ? (
-        <Spin indicator={<LoadingOutlined style={{ fontSize: 64 }} spin />} />
+        <div style={{ paddingTop: "40%", margin: "50%" }}>
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 64 }} spin />} />
+        </div>
       ) : productItems.length < 1 ? (
         <Empty
           style={{ paddingTop: "40%", marginLeft: "40%" }}

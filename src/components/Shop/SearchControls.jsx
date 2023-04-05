@@ -1,10 +1,9 @@
-import { Form, Radio, Slider, Switch } from "antd";
+import { Form, Radio, Slider, Switch, message } from "antd";
 import { useState, useEffect } from "react";
 import {
   useGetItemsOnPriceMutation,
   useGetAllBrandsMutation,
 } from "../../redux/features/products/itemApiSlice";
-import { message } from "antd";
 import {
   setIsLoadingItems,
   setItems,
@@ -15,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 function SearchControls() {
   const dispatch = useDispatch();
   let productItems = useSelector((state) => state.items.items);
+  let isItemsLoading = useSelector((state) => state.items.isLoadingItms);
 
   const [getItemsOnPrice, { isLoading }] = useGetItemsOnPriceMutation();
   const [getAllBrands, { isBrandsLoading }] = useGetAllBrandsMutation();
@@ -34,6 +34,9 @@ function SearchControls() {
     brands.push(brand.brandName);
   }); */
   const handleSliderChange = (value, name) => {
+    if (isItemsLoading) {
+      return;
+    }
     console.log(value, name);
     dispatch(setIsLoadingItems(true));
     let endResults1 = [];
@@ -46,6 +49,9 @@ function SearchControls() {
     dispatch(setIsLoadingItems(false));
   };
   const handleChoicesChange = (value, name) => {
+    if (isItemsLoading) {
+      return;
+    }
     console.log(value.target.value, name);
     dispatch(setIsLoadingItems(true));
     let endResults1 = [];
@@ -120,13 +126,17 @@ function SearchControls() {
           />
         </Form.Item>
         <Form.Item label="Select Brand">
-          <Radio.Group
-            options={brands}
-            optionType="button"
-            buttonStyle="solid"
-            mode="multiple"
-            onChange={(value) => handleChoicesChange(value, "brand")}
-          />{" "}
+          {isBrandsLoading ? (
+            "Loading Brands..."
+          ) : (
+            <Radio.Group
+              options={brands}
+              optionType="button"
+              buttonStyle="solid"
+              mode="multiple"
+              onChange={(value) => handleChoicesChange(value, "brand")}
+            />
+          )}
         </Form.Item>
 
         <Form.Item label="Select Processor">

@@ -3,21 +3,24 @@ import SearchControls from "./SearchControls";
 import ShowShopItems from "./ShowShopItems";
 import { Provider } from "react-redux";
 import store from "../../redux/store";
-
+import SearchBar from "./SearchBar";
 const SearchPage = () => (
-  <div
-    style={{
-      display: "flex",
-      position: "relative",
-      marginRight: "0rem",
-      paddingRight: "0rem",
-    }}
-  >
+  <>
     <Provider store={store}>
-      <SearchControls style={{ flex: "0 0 auto" }} />
-      <ShowShopItems style={{ flex: "1 1 auto" }} />
+      <SearchBar />
+      <div
+        style={{
+          display: "flex",
+          position: "relative",
+          marginRight: "0rem",
+          paddingRight: "0rem",
+        }}
+      >
+        <SearchControls style={{ flex: "0 0 auto" }} />
+        <ShowShopItems style={{ flex: "1 1 auto" }} />
+      </div>
     </Provider>
-  </div>
+  </>
 );
 
 export default SearchPage;
