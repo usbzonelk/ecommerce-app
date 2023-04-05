@@ -1,12 +1,8 @@
 import React from 'react';
-import '../styles/otp.scss'
-
-
-
 
 const Otp = () => {
   return (
-    <div className="otp-container">
+    <div className="otp container">
         <h2>Verify Your Account</h2>
         <p>We emailed you the 6 digit code to xxxx@email.com<br/>
         Enter the code below to confirm your email address</p>
