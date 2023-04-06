@@ -19,7 +19,6 @@ export const cartApiSlice = apiSlice.injectEndpoints({
       query: (order_id, user_id) => ({
         url: `/user/delete-order-byId?orderID=${order_id}&userID=${user_id}`,
         method: "DELETE",
-        body: body,
       }),
     }),
     deleteAllItems: builder.mutation({

@@ -2,7 +2,26 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useGetCartItemsMutation } from "./cartApiSlice";
 
 const initialState = {
-  cart: [],
+  cart: [
+    {
+      itemID: 28,
+      unitPrice: 45900,
+      disPrecentage: 5.2,
+      qty: 5,
+    },
+    {
+      itemID: 27,
+      unitPrice: 75900,
+      disPrecentage: 8.2,
+      qty: 69,
+    },
+    {
+      itemID: 26,
+      unitPrice: 100000,
+      disPrecentage: 10.2,
+      qty: 88,
+    },
+  ],
   selectedCartItem: null,
   isLoadingCart: false,
   error: null,
@@ -13,9 +32,16 @@ export const fetchCartItems = createAsyncThunk(
   async (_, { getState }) => {
     console.log("cartslice16");
     const userId = getState().auth.user;
-    const response = await useGetCartItemsMutation().mutate(userId);
-    console.log(response);
-    return response.data;
+    const token = getState().auth.access;
+    const response = await fetch(
+      `http://springBooty.lk/api/v1/user/get-All-Cart-Items/${userId}`,
+      { headers: { Authorization: token } }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(response);
+        return data.data;
+      });
   }
 );
 
@@ -50,7 +76,7 @@ const cartSlice = createSlice({
     builder.addCase(fetchCartItems.fulfilled, (state, action) => {
       state.isLoadingCart = false;
       state.error = null;
-      state.cart = action.payload;
+      state.cart = action.payload.data;
       console.log("fetchCartItems.fulfilled");
     });
     builder.addCase(fetchCartItems.rejected, (state, action) => {
@@ -72,3 +98,5 @@ export const {
 export default cartSlice.reducer;
 
 export const selectCurrentCart = (state) => state.cart.cart;
+
+export const fetchCart = fetchCartItems;
