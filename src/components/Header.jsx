@@ -137,10 +137,21 @@ const Header = () => {
                         <div className="container">
                             <nav>
                                 <ul className='mobile-menu-nav-list'>
-                                    <li className="mobile-menu-nav-list-text">Home</li>
-                                    <li className="mobile-menu-nav-list-text">Shop</li>
-                                    <li className="mobile-menu-nav-list-text">Contact</li>
-                                    <li className="mobile-menu-nav-list-text">About Us</li>
+                                    <Link to="/">
+                                        <li className="mobile-menu-nav-list-text">Home</li>
+                                    </Link>
+
+                                    <Link to="/shop">
+                                        <li className="mobile-menu-nav-list-text">Shop</li>
+                                    </Link>
+
+                                    <Link to="/contact">
+                                        <li className="mobile-menu-nav-list-text">Contact</li>
+                                    </Link>
+
+                                    <Link to="/aboutus">
+                                        <li className="mobile-menu-nav-list-text">About Us</li>
+                                    </Link>
                                 </ul>
                             </nav>
                         </div>
