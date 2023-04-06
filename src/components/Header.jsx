@@ -136,11 +136,11 @@ const Header = () => {
                     <div className={showMobileMenu ? "menu-view" : "menu-hidden"}>
                         <div className="container">
                             <nav>
-                                <ul>
-                                    <li>Home</li>
-                                    <li>Shop</li>
-                                    <li>Contact</li>
-                                    <li>About Us</li>
+                                <ul className='mobile-menu-nav-list'>
+                                    <li className="mobile-menu-nav-list-text">Home</li>
+                                    <li className="mobile-menu-nav-list-text">Shop</li>
+                                    <li className="mobile-menu-nav-list-text">Contact</li>
+                                    <li className="mobile-menu-nav-list-text">About Us</li>
                                 </ul>
                             </nav>
                         </div>

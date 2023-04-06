@@ -223,6 +223,48 @@ button {
         }
     }
 
+    .menu-hidden {
+        display: none;
+    }
+
+    .menu-view {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-color: aqua;
+        z-index: 99;
+        background: linear-gradient(
+            180deg,
+            rgba(51, 51, 51, 1) 50%,
+            rgba(51, 51, 51, 0.7) 100%,
+            rgba(255, 255, 255, 0) 100%
+        );
+
+        .container{
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+
+            .mobile-menu-nav-list {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                &-text {
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    color: var(--text-color);
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
     .search-container {
         .search-field {
             max-width: 90%;
@@ -486,9 +528,9 @@ button {
                         }
                     }
                 }
-            }   
+            }
         }
-    }  
+    }
 }
 
 .shop {
