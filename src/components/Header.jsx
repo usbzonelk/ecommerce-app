@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch } from 'react-icons/fa';
 import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline, IoMenu } from 'react-icons/io5';
 import BrandLogo from '../images/brand-logo.png';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
+    const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+    const showMenu = () => {
+        setShowMobileMenu(!showMobileMenu);    
+    }
+
     return (
         <header>
             <div className="header-top">
@@ -88,8 +94,21 @@ const Header = () => {
                         </div>
                     </nav>
 
-                    <div className="menu-icon">
-                        <button><IoMenu /></button>
+                    <div className='menu-icon'>
+                        <button onClick={showMenu}><IoMenu /></button>
+                    </div>
+
+                    <div className={showMobileMenu?"menu-view":"menu-hidden"}>
+                        <div className="container">
+                            <nav>
+                                <ul>
+                                    <li>Home</li>
+                                    <li>Shop</li>
+                                    <li>Contact</li>
+                                    <li>About Us</li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
 
                     <div className="search-container">
