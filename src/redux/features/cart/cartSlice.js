@@ -25,6 +25,8 @@ const initialState = {
   selectedCartItem: null,
   isLoadingCart: false,
   error: null,
+  subtotal: 0,
+  savings: 0,
 };
 
 export const fetchCartItems = createAsyncThunk(
@@ -42,6 +44,26 @@ export const fetchCartItems = createAsyncThunk(
         console.log(response);
         return data.data;
       });
+  }
+);
+
+export const deleteCartItems = createAsyncThunk(
+  "cart/deleteCartItems",
+  async (itemId, { getState, dispatch }) => {
+    try {
+      const userId = getState().auth.user;
+      const token = getState().auth.access;
+      const response = await fetch(
+        `http://elakiri.lk/user/delete-order-byId?orderID=${itemId}&userID=${userId}`,
+        { method: "DELETE", headers: { Authorization: token } }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to delete cart item");
+      }
+      dispatch(deleteCartItem(itemId));
+    } catch (error) {
+      console.error("failed to delete", error);
+    }
   }
 );
 
@@ -66,6 +88,20 @@ const cartSlice = createSlice({
     deleteCart(state, action) {
       state.cart = [];
     },
+    calculateSubtotal: (state) => {
+      const total = state.cart.reduce((acc, item) => {
+        return acc + item.unitPrice * item.qty;
+      }, 0);
+      state.subtotal = total;
+    },
+    calculateSavings: (state) => {
+      const total = state.cart.reduce((acc, item) => {
+        const discountAmount = (item.unitPrice * item.disPrecentage) / 100;
+        const itemSavings = discountAmount * item.qty;
+        return acc + itemSavings;
+      }, 0);
+      state.savings = total;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCartItems.pending, (state) => {
@@ -84,6 +120,18 @@ const cartSlice = createSlice({
       state.error = action.error.message;
       console.log("fetchCartItems.rejected");
     });
+    builder.addCase(deleteCartItems.pending, (state) => {
+      state.isLoadingCart = true;
+      state.error = null;
+    });
+    builder.addCase(deleteCartItems.fulfilled, (state) => {
+      state.isLoadingCart = false;
+      state.error = null;
+    });
+    builder.addCase(deleteCartItems.rejected, (state, action) => {
+      state.isLoadingCart = false;
+      state.error = action.error.message;
+    });
   },
 });
 
@@ -93,6 +141,8 @@ export const {
   deleteCartItem,
   addToCart,
   deleteCart,
+  calculateSavings,
+  calculateSubtotal,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
