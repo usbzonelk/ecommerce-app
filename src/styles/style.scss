@@ -220,11 +220,26 @@ button {
         @include medium-screen {
             display: inline-block;
             cursor: pointer;
+            z-index: 999;
         }
-    }
 
-    .menu-hidden {
-        display: none;
+        .hidden {
+            display: none;
+        }
+
+        .nav-view {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .close-view {
+            display: inline-block;
+            cursor: pointer;
+
+            @include medium-screen {
+                color: white;
+            }
+        }
     }
 
     .menu-view {
@@ -233,16 +248,15 @@ button {
         top: 0;
         right: 0;
         bottom: 0;
-        background-color: aqua;
         z-index: 99;
         background: linear-gradient(
             180deg,
             rgba(51, 51, 51, 1) 50%,
             rgba(51, 51, 51, 0.7) 100%,
-            rgba(255, 255, 255, 0) 100%
+            rgba(51, 51, 51, 0) 100%
         );
 
-        .container{
+        .container {
             display: flex;
             width: 100vw;
             height: 100vh;

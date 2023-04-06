@@ -12,6 +12,7 @@ import {
     IoHeartOutline,
     IoBagHandleOutline,
     IoMenu,
+    IoClose,
 } from "react-icons/io5";
 import BrandLogo from "../images/brand-logo.png";
 import { Link, useLocation } from "react-router-dom";
@@ -128,12 +129,18 @@ const Header = () => {
                     </nav>
 
                     <div className="menu-icon">
-                        <button onClick={handleMobileMenuView}>
-                            <IoMenu />
+                        <button  className={showMobileMenu ? "hidden" : "nav-view"}  
+                            onClick={handleMobileMenuView}>
+                            <IoMenu size={30}/>
+                        </button>
+
+                        <button className={showMobileMenu ? "close-view" : "hidden"}
+                            onClick={handleMobileMenuView}>
+                            <IoClose size={30}/>
                         </button>
                     </div>
 
-                    <div className={showMobileMenu ? "menu-view" : "menu-hidden"}>
+                    <div className={showMobileMenu ? "menu-view" : "hidden"}>
                         <div className="container">
                             <nav>
                                 <ul className='mobile-menu-nav-list'>
