@@ -15,10 +15,11 @@ import {
 } from "react-icons/io5";
 import BrandLogo from "../images/brand-logo.png";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
-
+  const cartItems = useSelector((state) => state.cart.cart);
   const location = useLocation();
   const showSearch = location.pathname !== "/shop";
 
@@ -74,15 +75,12 @@ const Header = () => {
               </Link>
             </button>
 
-            <button className="action-btn">
-              <IoHeartOutline />
-              <span className="count">0</span>
-            </button>
-
-            <button className="action-btn">
-              <IoBagHandleOutline />
-              <span className="count">0</span>
-            </button>
+            <Link to="/cart">
+              <button className="action-btn">
+                <IoBagHandleOutline />
+                <span className="count">{cartItems.length}</span>
+              </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -20,8 +20,9 @@ const App = () => {
   return (
     <AuthProvider>
       <div className="App">
-        <Header />
-
+        <Provider store={store}>
+          <Header />
+        </Provider>
         <Routes>
           <Route
             path="/login"
