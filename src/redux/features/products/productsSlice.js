@@ -12,7 +12,6 @@ const itemsSlice = createSlice({
   reducers: {
     setItems(state, action) {
       state.items = action.payload;
-      console.log("itemsSlice.setItems:", state.items);
     },
     setSelectedItem(state, action) {
       state.selectedItem = action.payload;

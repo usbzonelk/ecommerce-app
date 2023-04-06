@@ -1,15 +1,41 @@
-import React, {useState} from 'react';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch } from 'react-icons/fa';
-import { IoPersonOutline, IoHeartOutline, IoBagHandleOutline, IoMenu } from 'react-icons/io5';
-import BrandLogo from '../images/brand-logo.png';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import {
+    FaFacebook,
+    FaTwitter,
+    FaInstagram,
+    FaLinkedinIn,
+    FaSearch,
+    FaWindows,
+} from "react-icons/fa";
+import {
+    IoPersonOutline,
+    IoHeartOutline,
+    IoBagHandleOutline,
+    IoMenu,
+} from "react-icons/io5";
+import BrandLogo from "../images/brand-logo.png";
+import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+    const [searchValue, setSearchValue] = useState("");
     const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-    const showMenu = () => {
-        setShowMobileMenu(!showMobileMenu);    
+    const cartItems = useSelector((state) => state.cart.cart);
+    const location = useLocation();
+    const showSearch = location.pathname !== "/shop";
+
+    const handleMobileMenuView = () => {
+        setShowMobileMenu(!showMobileMenu);
     }
+
+    const handleSearch = () => {
+        window.location.href = `/shop?search=${searchValue}`;
+    };
+
+    const handleInputChange = (event) => {
+        setSearchValue(event.target.value);
+    };
 
     return (
         <header>
@@ -50,18 +76,17 @@ const Header = () => {
 
                     <div className="header-user-actions">
                         <button className="action-btn">
-                            <Link to="/dashboard" className='user-action'><IoPersonOutline /></Link>
+                            <Link to="/dashboard" className="user-action">
+                                <IoPersonOutline />
+                            </Link>
                         </button>
 
-                        <button className="action-btn">
-                            <IoHeartOutline />
-                            <span className="count">0</span>
-                        </button>
-
-                        <button className="action-btn">
-                            <IoBagHandleOutline />
-                            <span className="count">0</span>
-                        </button>
+                        <Link to="/cart">
+                            <button className="action-btn">
+                                <IoBagHandleOutline />
+                                <span className="count">{cartItems.length}</span>
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -76,29 +101,39 @@ const Header = () => {
                         <div className="container">
                             <ul className="menu-category-list">
                                 <li className="menu-category">
-                                    <Link to="/"><a className="menu-title">Home</a></Link>
+                                    <Link to="/">
+                                        <a className="menu-title">Home</a>
+                                    </Link>
                                 </li>
 
                                 <li className="menu-category">
-                                <Link to="/shop"><a className="menu-title">Shop</a></Link>
+                                    <Link to="/shop">
+                                        <a className="menu-title">Shop</a>
+                                    </Link>
                                 </li>
 
                                 <li className="menu-category">
-                                <Link to="/contact"><a className="menu-title">Contact</a></Link>
+                                    <Link to="/contact">
+                                        <a className="menu-title">Contact</a>
+                                    </Link>
                                 </li>
 
                                 <li className="menu-category">
-                                <Link to="/aboutus"><a className="menu-title">About Us</a></Link>
+                                    <Link to="/aboutus">
+                                        <a className="menu-title">About Us</a>
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
                     </nav>
 
-                    <div className='menu-icon'>
-                        <button onClick={showMenu}><IoMenu /></button>
+                    <div className="menu-icon">
+                        <button onClick={handleMobileMenuView}>
+                            <IoMenu />
+                        </button>
                     </div>
 
-                    <div className={showMobileMenu?"menu-view":"menu-hidden"}>
+                    <div className={showMobileMenu ? "menu-view" : "menu-hidden"}>
                         <div className="container">
                             <nav>
                                 <ul>
@@ -112,15 +147,31 @@ const Header = () => {
                     </div>
 
                     <div className="search-container">
-                        <input type="search" name="search" className="search-field" placeholder="Search" />
-                        <button className="search-btn">
-                            <FaSearch />
-                        </button>
+                        {showSearch && (
+                            <>
+                                <input
+                                    type="search"
+                                    name="search"
+                                    className="search-field"
+                                    placeholder="Search"
+                                    value={searchValue}
+                                    onChange={handleInputChange}
+                                    onKeyDown={(event) => {
+                                        if (event.keyCode === 13) {
+                                            handleSearch();
+                                        }
+                                    }}
+                                />
+                                <button className="search-btn" onClick={handleSearch}>
+                                    <FaSearch />
+                                </button>
+                            </>
+                        )}
                     </div>
                 </div>
-            </div >
-        </header >
-    )
-}
+            </div>
+        </header>
+    );
+};
 
-export default Header
+export default Header;

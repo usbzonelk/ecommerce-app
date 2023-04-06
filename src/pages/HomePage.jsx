@@ -3,7 +3,6 @@ import Banner from "../components/Banner";
 import LatestProducts from "../components/LatestProducts";
 import Laptops from "../components/Laptops";
 import Accessories from "../components/Accessories";
-import SearchPage from "../components/Shop/SearchPage";
 
 const HomePage = () => {
   return (
@@ -13,7 +12,6 @@ const HomePage = () => {
       <Laptops />
       <Accessories />
 
-      <SearchPage />
     </main>
   );
 };
