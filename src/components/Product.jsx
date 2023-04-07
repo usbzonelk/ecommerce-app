@@ -1,8 +1,8 @@
 import { Table, Typography, Form, InputNumber, Button } from "antd";
 import { useParams } from "react-router-dom";
-const { Title, Paragraph } = Typography;
 import { useGetItemMutation } from "../redux/features/products/itemApiSlice";
 
+const { Title, Paragraph } = Typography;
 const columns = [
   {
     title: "Component",
