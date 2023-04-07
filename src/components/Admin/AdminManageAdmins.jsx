@@ -79,7 +79,7 @@ function AdminManageAdmins() {
                 <Button
                   type="text"
                   onClick={(e) => {
-                    handleAdminDelete(admin.adminID);
+                    handleAdminDelete("admin.adminID");
                   }}
                 >
                   {" "}

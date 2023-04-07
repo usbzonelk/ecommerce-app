@@ -38,7 +38,7 @@ const RequireAuth = () => {
 
   return isAuthenticated ? (
     <Outlet />
-  ) : location.pathname == "/admin" ? (
+  ) : location.pathname === "/admin" ? (
     <Navigate to="/admin-login" state={{ from: location }} replace />
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />
