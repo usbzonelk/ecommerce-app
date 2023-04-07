@@ -17,6 +17,7 @@ import RequireAuth from "./redux/auth/RequireAuth";
 import Cart from "./components/User/Cart";
 import Product from "./components/Product";
 import AdminDashboard from "./pages/AdminDashboard";
+import Logout from "./pages/Logout";
 
 const App = () => {
   return (
@@ -70,14 +71,6 @@ const App = () => {
                 </Provider>
               }
             />
-            <Route
-              path="/admin"
-              element={
-                <Provider store={store}>
-                  <AdminDashboard />
-                </Provider>
-              }
-            />
           </Route>
           <Route
             path="/product/:id"
@@ -87,10 +80,25 @@ const App = () => {
               </Provider>
             }
           />
+          <Route
+            path="/logout"
+            element={
+              <Provider store={store}>
+                <Logout />{" "}
+              </Provider>
+            }
+          />
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/aboutus" element={<AboutUs />} />
-
+          <Route
+            path="/admin"
+            element={
+              <Provider store={store}>
+                <AdminDashboard />
+              </Provider>
+            }
+          />
           <Route path="/" element={<HomePage />} />
         </Routes>
 

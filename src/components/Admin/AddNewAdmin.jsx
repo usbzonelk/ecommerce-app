@@ -25,7 +25,7 @@ const AddNewAdmin = (props) => {
 
   return (
     <Modal
-      title="Change Details"
+      title="Add new Admin"
       open={visible}
       onCancel={onCancel}
       footer={null}

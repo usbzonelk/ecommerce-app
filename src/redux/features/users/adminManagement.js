@@ -49,14 +49,14 @@ export const adminManagement = apiSlice.injectEndpoints({
       }),
     }),
     deleteUser: builder.mutation({
-      query: (user_id, adminID) => ({
-        url: `/admin/delete-user?userID=${user_id}&adminID=${adminID}`,
+      query: (body) => ({
+        url: `/admin/delete-user?userID=${body.user_id}&adminID=${body.adminID}`,
         method: "DELETE",
       }),
     }),
     getUserInfo: builder.mutation({
-      query: (id, admin) => ({
-        url: `/admin/getUserID/${id}?adminID=${admin}&userID=${id}`,
+      query: (body) => ({
+        url: `/admin/getUserID/${body.id}?adminID=${body.admin}&userID=${body.id}`,
         method: "GET",
       }),
     }),
@@ -80,6 +80,12 @@ export const adminManagement = apiSlice.injectEndpoints({
         method: "PUT",
       }),
     }),
+    logoutAdmin: builder.mutation({
+      query: () => ({
+        url: `/logout/admin`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -95,4 +101,5 @@ export const {
   useGetUserInfoMutation,
   useUpdateItemQtyMutation,
   useVerifyNewAdminMutation,
+  useLogoutAdminMutation,
 } = adminManagement;

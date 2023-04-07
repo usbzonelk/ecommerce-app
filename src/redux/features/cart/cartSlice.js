@@ -37,7 +37,7 @@ export const fetchCartItems = createAsyncThunk(
     const token = getState().auth.access;
     const response = await fetch(
       `http://springBooty.lk/api/v1/user/get-All-Cart-Items/${userId}`,
-      { headers: { Authorization: token } }
+      { headers: { Authorization: `Bearer ${token}` } }
     )
       .then((response) => response.json())
       .then((data) => {
@@ -54,8 +54,8 @@ export const deleteCartItems = createAsyncThunk(
       const userId = getState().auth.user;
       const token = getState().auth.access;
       const response = await fetch(
-        `http://elakiri.lk/user/delete-order-byId?orderID=${itemId}&userID=${userId}`,
-        { method: "DELETE", headers: { Authorization: token } }
+        `http://springBooty.lk/api/v1/user/delete-order-byId?orderID=${itemId}&userID=${userId}`,
+        { method: "DELETE", headers: { Authorization: `Bearer ${token}` } }
       );
       if (!response.ok) {
         throw new Error("Failed to delete cart item");

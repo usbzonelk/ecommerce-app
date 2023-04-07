@@ -8,6 +8,8 @@ import {
 } from "@ant-design/icons";
 
 import AdminManageAdmins from "../components/Admin/AdminManageAdmins";
+import UserManagement from "../components/Admin/UserManagement";
+import ProductManagement from "../components/Admin/ProductManagement";
 
 import {
   useAddNewAdminMutation,
@@ -40,13 +42,11 @@ const AdminDashboard = () => {
   const renderContent = () => {
     switch (currentMenu) {
       case "user-management":
-        return renderFk("<UserManagement />");
+        return <UserManagement />;
       case "admin-management":
         return <AdminManageAdmins />;
-      case "change-settings":
-        return renderFk("<ChangeSettings />");
       case "product-management":
-        return renderFk("<ProductManagement />");
+        return <ProductManagement />;
       default:
         return null;
     }
@@ -68,9 +68,7 @@ const AdminDashboard = () => {
           <Menu.Item key="admin-management" icon={<DesktopOutlined />}>
             Admin Management
           </Menu.Item>
-          <Menu.Item key="change-settings" icon={<SettingOutlined />}>
-            Change Settings
-          </Menu.Item>
+
           <Menu.Item key="product-management" icon={<ShopOutlined />}>
             Product Management
           </Menu.Item>
