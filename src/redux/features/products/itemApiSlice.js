@@ -19,6 +19,12 @@ export const itemApiSlice = apiSlice.injectEndpoints({
         url: "/item/get-item-byID/?itemID=" + id,
         method: "GET",
       }),
+      onSuccess: (data) => {
+        console.log("getItem mutation successful with data:", data);
+      },
+      onError: (error) => {
+        console.log("getItem mutation error:", error);
+      },
     }),
     getItemsOnPrice: builder.mutation({
       query: (data) => ({

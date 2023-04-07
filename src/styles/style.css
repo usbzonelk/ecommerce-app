@@ -10964,7 +10964,52 @@ button {
   .header-main .menu-icon {
     display: inline-block;
     cursor: pointer;
+    z-index: 999;
   }
+}
+.header-main .menu-icon .hidden {
+  display: none;
+}
+.header-main .menu-icon .nav-view {
+  display: inline-block;
+  cursor: pointer;
+}
+.header-main .menu-icon .close-view {
+  display: inline-block;
+  cursor: pointer;
+}
+@media (max-width: 826px) {
+  .header-main .menu-icon .close-view {
+    color: white;
+  }
+}
+.header-main .menu-view {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  background: linear-gradient(180deg, rgb(51, 51, 51) 50%, rgba(51, 51, 51, 0.7) 100%, rgba(51, 51, 51, 0) 100%);
+}
+.header-main .menu-view .container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+.header-main .menu-view .container .mobile-menu-nav-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.header-main .menu-view .container .mobile-menu-nav-list-text {
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--text-color);
+  cursor: pointer;
 }
 .header-main .search-container .search-field {
   max-width: 90%;

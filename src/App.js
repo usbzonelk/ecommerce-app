@@ -15,6 +15,7 @@ import store from "./redux/store";
 import { Provider } from "react-redux";
 import RequireAuth from "./redux/auth/RequireAuth";
 import Cart from "./components/User/Cart";
+import Product from "./components/Product";
 
 const App = () => {
   return (
@@ -60,19 +61,27 @@ const App = () => {
                 </Provider>
               }
             />
+            <Route
+              path="/dashboard"
+              element={
+                <Provider store={store}>
+                  <UserDashboard />
+                </Provider>
+              }
+            />
           </Route>
-
+          <Route
+            path="/product/:id"
+            element={
+              <Provider store={store}>
+                <Product />{" "}
+              </Provider>
+            }
+          />
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/aboutus" element={<AboutUs />} />
-          <Route
-            path="/dashboard"
-            element={
-              <Protected>
-                <UserDashboard />
-              </Protected>
-            }
-          />
+
           <Route path="/" element={<HomePage />} />
         </Routes>
 
