@@ -25,8 +25,8 @@ const RequireAuth = () => {
         return false;
       }
       const userID = decodedToken.id;
-/*       dispatch(setCurrentUser(userID));
- */
+      /*       dispatch(setCurrentUser(userID));
+       */
       return true;
     } catch (error) {
       console.error(error);
@@ -38,6 +38,8 @@ const RequireAuth = () => {
 
   return isAuthenticated ? (
     <Outlet />
+  ) : location.pathname == "/admin" ? (
+    <Navigate to="/admin-login" state={{ from: location }} replace />
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />
   );
