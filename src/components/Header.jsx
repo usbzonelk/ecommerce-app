@@ -129,14 +129,14 @@ const Header = () => {
                     </nav>
 
                     <div className="menu-icon">
-                        <button  className={showMobileMenu ? "hidden" : "nav-view"}  
+                        <button className={showMobileMenu ? "hidden" : "nav-view"}
                             onClick={handleMobileMenuView}>
-                            <IoMenu size={30}/>
+                            <IoMenu size={30} />
                         </button>
 
                         <button className={showMobileMenu ? "close-view" : "hidden"}
                             onClick={handleMobileMenuView}>
-                            <IoClose size={30}/>
+                            <IoClose size={30} />
                         </button>
                     </div>
 
@@ -161,6 +161,29 @@ const Header = () => {
                                     </Link>
                                 </ul>
                             </nav>
+
+                            <div className="mobile-menu-search-container">
+                                {showSearch && (
+                                    <>
+                                        <input
+                                            type="search"
+                                            name="search"
+                                            className="search-field"
+                                            placeholder="Search"
+                                            value={searchValue}
+                                            onChange={handleInputChange}
+                                            onKeyDown={(event) => {
+                                                if (event.keyCode === 13) {
+                                                    handleSearch();
+                                                }
+                                            }}
+                                        />
+                                        <button className="search-btn" onClick={handleSearch}>
+                                            <FaSearch />
+                                        </button>
+                                    </>
+                                )}
+                            </div>
                         </div>
                     </div>
 
