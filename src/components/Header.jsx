@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaFacebook,
   FaTwitter,
@@ -20,9 +20,17 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SearchBar from '../components/Shop/SearchBar'
 
+const NewsAlert = [
+  "Big sale alert! Up to 40% off on all laptops.",
+  "Student discount alert! 10% off on all laptops with a valid student ID.",
+  "Limited time offer! Buy any laptop and get a free laptop bag.",
+  "Hottest deals of the week! Save up to 25% on select laptops."
+]
+
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [newsIndex, setNewsIndex] = useState(0);
 
   const cartItems = useSelector((state) => state.cart.cart);
   const uID = useSelector((state) => state.auth.user);
@@ -40,6 +48,13 @@ const Header = () => {
   const handleInputChange = (event) => {
     setSearchValue(event.target.value);
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNewsIndex((prevIndex) => (prevIndex + 1) % NewsAlert.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [NewsAlert]);
 
   return (
     <header>
@@ -73,8 +88,9 @@ const Header = () => {
 
           <div className="header-alert-news">
             <p>
-              <b>Latest </b>
-              Laptop Models Now Available!
+              {NewsAlert.length > 0 &&
+                <div className="news-slider">{NewsAlert[newsIndex]}</div>
+              }
             </p>
           </div>
 
@@ -202,7 +218,7 @@ const Header = () => {
           </div>
 
           <div className="search-container">
-            {showSearch && <SearchBar/>}
+            {showSearch && <SearchBar />}
           </div>
         </div>
       </div>
