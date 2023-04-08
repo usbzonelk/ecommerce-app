@@ -1,5 +1,6 @@
 import React from 'react';
 import LatestProductsSlider from './LatestProductsSlider';
+import { Provider } from 'react-redux';
 
 const LatestProducts = () => {
     return (
