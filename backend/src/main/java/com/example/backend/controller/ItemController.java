@@ -51,7 +51,7 @@ public class ItemController {
                 params = "itemID"
                )
     public ResponseEntity<StandardResponse> getItemByID(@RequestParam(value = "itemID") int itemID){
-        ItemResponseDTO item = itemService.getItemByID(itemID);
+        ItemDTO item = itemService.getItemByID(itemID);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse
                         (
