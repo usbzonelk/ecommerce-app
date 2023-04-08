@@ -24,8 +24,8 @@ function SearchBar() {
     }
   }, [searchString]);
 
-/*   let productItems = useSelector((state) => state.items.items);
- */
+  /*   let productItems = useSelector((state) => state.items.items);
+   */
   const getSearchItems = async () => {
     let searchResults = "";
     dispatch(setIsLoadingItems(true));
@@ -51,25 +51,27 @@ function SearchBar() {
   };
 
   return (
-    <Input.Search
-      value={searchInput}
-      size="large"
-      style={{
-        marginTop: "2rem",
-        padding: "5rem",
-        marginBottom: "2rem",
-        paddingBottom: "1rem",
-        paddingTop: "1rem",
-      }}
-      placeholder="Search"
-      onSearch={(value) => {
-        setSearchString(value);
-        getSearchItems();
-      }}
-      onChange={(e) => {
-        setSearchInput(e.target.value);
-      }}
-    />
+    <div className="search-container">
+      <Input.Search
+        value={searchInput}
+        size="large"
+        style={{
+          marginTop: "2rem",
+          padding: "5rem",
+          marginBottom: "2rem",
+          paddingBottom: "1rem",
+          paddingTop: "1rem",
+        }}
+        placeholder="Search"
+        onSearch={(value) => {
+          setSearchString(value);
+          getSearchItems();
+        }}
+        onChange={(e) => {
+          setSearchInput(e.target.value);
+        }}
+      />
+    </div>
   );
 }
 

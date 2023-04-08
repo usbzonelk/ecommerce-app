@@ -96,7 +96,7 @@ function SearchControls() {
   };
 
   return (
-    <div>
+    <div className="search-controls">
       <Form
         labelCol={{
           span: 7,
@@ -109,73 +109,88 @@ function SearchControls() {
           size: 15,
         }}
         size={15}
-        style={{
-          /*         maxWidth: 800,
-           */ padding: "1rem",
-          paddingRight: "0rem",
-          minWidth: "25vw",
-        }}
       >
-        <Form.Item label="Price Range">
-          <Slider
-            range
-            min={10000}
-            max={800000}
-            defaultValue={[0, 800000]}
-            onChange={handlePriceSliderChange}
-          />
-        </Form.Item>
-        <Form.Item label="Select Brand">
-          {isBrandsLoading ? (
-            "Loading Brands..."
-          ) : (
+        <div className="select-control-item">
+          <h6>Price Range</h6>
+          <Form.Item>
+            <Slider
+              range
+              min={10000}
+              max={800000}
+              defaultValue={[0, 800000]}
+              onChange={handlePriceSliderChange}
+            />
+          </Form.Item>
+        </div>
+
+        <div className="select-control-item">
+        <h6>Select Brand</h6>
+          <Form.Item>
+            {isBrandsLoading ? (
+              "Loading Brands..."
+            ) : (
+              <Radio.Group
+                options={brands}
+                optionType="button"
+                buttonStyle="solid"
+                mode="multiple"
+                onChange={(value) => handleChoicesChange(value, "brand")}
+              />
+            )}
+          </Form.Item>
+        </div>
+
+        <div className="select-control-item">
+        <h6>Processor</h6>
+          <Form.Item>
             <Radio.Group
-              options={brands}
+              options={processors}
               optionType="button"
               buttonStyle="solid"
               mode="multiple"
-              onChange={(value) => handleChoicesChange(value, "brand")}
+              onChange={(value) => handleChoicesChange(value, "processor")}
             />
-          )}
-        </Form.Item>
+          </Form.Item>
+        </div>
 
-        <Form.Item label="Select Processor">
-          <Radio.Group
-            options={processors}
-            optionType="button"
-            buttonStyle="solid"
-            mode="multiple"
-            onChange={(value) => handleChoicesChange(value, "processor")}
-          />
-        </Form.Item>
-        <Form.Item label="RAM">
-          <Slider
-            max={64}
-            min={1}
-            range
-            defaultValue={[1, 64]}
-            onChange={(value) => handleSliderChange(value, "ram")}
-          />
-        </Form.Item>
-        <Form.Item label="Screen size ">
-          <Slider
-            max={50}
-            min={10}
-            range
-            defaultValue={[0, 50]}
-            onChange={(value) => handleSliderChange(value, "screenSize")}
-          />
-        </Form.Item>
+        <div className="select-control-item">
+        <h6>RAM</h6>
+          <Form.Item>
+            <Slider
+              max={64}
+              min={1}
+              range
+              defaultValue={[1, 64]}
+              onChange={(value) => handleSliderChange(value, "ram")}
+            />
+          </Form.Item>
+        </div>
 
-        <Form.Item label="HDD Space">
-          <Slider
-            range
-            max={5000}
-            min={1}
-            defaultValue={[1, 5000]}
-            onChange={(value) => handleSliderChange(value, "ssd")}
-          />
-        </Form.Item>
+        <div className="select-control-item">
+        <h6>Screen</h6>
+          <Form.Item>
+            <Slider
+              max={50}
+              min={10}
+              range
+              defaultValue={[0, 50]}
+              onChange={(value) => handleSliderChange(value, "screenSize")}
+            />
+          </Form.Item>
+        </div>
+
+        <div className="select-control-item">
+        <h6>Hard Disk</h6>
+          <Form.Item>
+            <Slider
+              range
+              max={5000}
+              min={1}
+              defaultValue={[1, 5000]}
+              onChange={(value) => handleSliderChange(value, "ssd")}
+            />
+          </Form.Item>
+        </div>
       </Form>
     </div>
   );
