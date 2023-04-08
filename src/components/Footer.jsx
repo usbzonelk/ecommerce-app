@@ -41,19 +41,43 @@ const Footer = () => {
                         </li>
 
                         <li className="nav-item">
-                            <Link to="/" className="nav-link">Home</Link>
+                            <Link to="/" onClick={() => {
+                                window.scroll({
+                                    top: 0,
+                                    left: 0,
+                                    behavior: "smooth",
+                                });
+                            }} className="nav-link">Home</Link>
                         </li>
 
                         <li className="nav-item">
-                            <Link to="/shop" className="nav-link">Shop</Link>
+                            <Link to="/shop" onClick={() => {
+                                window.scroll({
+                                    top: 0,
+                                    left: 0,
+                                    behavior: "smooth",
+                                });
+                            }} className="nav-link">Shop</Link>
                         </li>
 
                         <li className="nav-item">
-                            <Link to="/contact" className="nav-link">Contact Us</Link>
+                            <Link to="/contact" onClick={() => {
+                                window.scroll({
+                                    top: 0,
+                                    left: 0,
+                                    behavior: "smooth",
+                                });
+                            }} className="nav-link">Contact Us</Link>
                         </li>
 
                         <li className="nav-item">
-                            <Link to="/aboutus" className="nav-link">About Us</Link>
+                            <Link to="/aboutus" onClick={() => {
+                                window.scroll({
+                                    top: 0,
+                                    left: 0,
+                                    behavior: "smooth",
+                                });
+                            }} className="nav-link">About Us</Link>
                         </li>
                     </ul>
 
