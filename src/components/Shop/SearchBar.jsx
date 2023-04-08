@@ -55,13 +55,6 @@ function SearchBar() {
       <Input.Search
         value={searchInput}
         size="large"
-        style={{
-          marginTop: "2rem",
-          padding: "5rem",
-          marginBottom: "2rem",
-          paddingBottom: "1rem",
-          paddingTop: "1rem",
-        }}
         placeholder="Search"
         onSearch={(value) => {
           setSearchString(value);

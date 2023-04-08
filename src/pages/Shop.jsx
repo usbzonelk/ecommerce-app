@@ -5,17 +5,19 @@ import store from "../redux/store";
 import SearchBar from "../components/Shop/SearchBar";
 
 const Shop = () => (
-  <>
-    <Provider store={store}>
-      <SearchBar />
-      <div className="shop">
-        <div className="container">
-          <SearchControls />
-          <ShowShopItems />
-        </div>
+  <Provider store={store}>
+    <div className="shop">
+      <div className="shop-header">
+        <h3>Shop</h3>
+        <SearchBar />
       </div>
-    </Provider>
-  </>
+
+      <div className="container">
+        <SearchControls />
+        <ShowShopItems />
+      </div>
+    </div>
+  </Provider >
 );
 
 export default Shop;
