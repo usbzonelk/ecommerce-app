@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { FaFacebook, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 import { IoCallOutline, IoMailOutline, IoLocationOutline } from 'react-icons/io5';
 import BrandLogoHp from '../images/brand-logo-hp.png';
@@ -6,6 +7,10 @@ import BrandLogoAcer from '../images/brand-logo-acer.png';
 import BrandLogoDell from '../images/brand-logo-dell.png';
 
 const Footer = () => {
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0)
+    });
+
     return (
         <footer>
             <div className="footer-brands">
@@ -36,19 +41,19 @@ const Footer = () => {
                         </li>
 
                         <li className="nav-item">
-                            <a href="#" className="nav-link">Laptops</a>
+                            <Link to="/" className="nav-link">Home</Link>
                         </li>
 
                         <li className="nav-item">
-                            <a href="#" className="nav-link">Softwares</a>
+                            <Link to="/shop" className="nav-link">Shop</Link>
                         </li>
 
                         <li className="nav-item">
-                            <a href="#" className="nav-link">Monitors</a>
+                            <Link to="/contact" className="nav-link">Contact Us</Link>
                         </li>
 
                         <li className="nav-item">
-                            <a href="#" className="nav-link">Gadgets</a>
+                            <Link to="/aboutus" className="nav-link">About Us</Link>
                         </li>
                     </ul>
 
