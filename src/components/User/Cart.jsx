@@ -8,11 +8,10 @@ import {
   calculateSavings,
   calculateSubtotal,
 } from "../../redux/features/cart/cartSlice";
-
+import { Link } from "react-router-dom";
 function Cart() {
   const dispatch = useDispatch();
   let subTotal = useSelector((state) => state.cart.subtotal);
-  console.log("premi", subTotal);
   let savings = useSelector((state) => state.cart.savings);
   const currentCart = useSelector(selectCurrentCart);
   const isLoading = useSelector((state) => state.cart.isLoading);
@@ -48,7 +47,8 @@ function Cart() {
               <table class="w-full">
                 <thead class="border-b-2 border-gray-200 bg-gray-50">
                   <tr>
-                    <th class="w-20 p-3 text-left text-sm font-semibold tracking-wide"></th>
+                    {/*                     <th class="w-20 p-3 text-left text-sm font-semibold tracking-wide"></th>
+                     */}{" "}
                     <th class="p-3 text-left text-sm font-semibold tracking-wide">
                       Laptop
                     </th>
@@ -67,7 +67,7 @@ function Cart() {
                 <tbody class="divide-y divide-gray-100">
                   {currentCart.map((item) => (
                     <tr class="bg-white" id={item.itemID}>
-                      <td class="whitespace-nowrap p-3 text-sm text-gray-700">
+                      {/* <td class="whitespace-nowrap p-3 text-sm text-gray-700">
                         <img
                           src={
                             item.images
@@ -77,9 +77,9 @@ function Cart() {
                           alt="Product Image"
                           class="h-10 w-10 rounded-full"
                         />
-                      </td>
+                      </td> */}
                       <td class="whitespace-nowrap p-3 text-sm text-gray-700">
-                        {item.title ? item.title : "Some Laptop"}
+                        <Link to={`/product/${item.itemID}`}>View Item </Link>
                       </td>
                       <td class="whitespace-nowrap p-3 text-sm text-gray-700">
                         <span class="text-center text-lg font-bold text-blue-500">
