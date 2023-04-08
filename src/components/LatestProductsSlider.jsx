@@ -1,10 +1,13 @@
-import React from 'react';
-import Slider from 'react-slick';
+import React from "react";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Products from '../products';
-
-const LatestProductsSlider = () => {
+import { useGetAllItemsMutation } from "../redux/features/products/itemApiSlice";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+const LaptopsSlider = () => {
+  const [getAllItems, { data, isLoading }] = useGetAllItemsMutation();
+  const [Products, setProducts] = useState([]);
   const settings = {
     dots: true,
     infinite: true,
@@ -20,44 +23,67 @@ const LatestProductsSlider = () => {
           slidesToShow: 4,
           slidesToScroll: 3,
           infinite: true,
-          dots: true
-        }
+          dots: true,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2
-        }
+          initialSlide: 2,
+        },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
-
+  useEffect(() => {
+    getAllItems();
+    if (data) {
+      if ("data" in data) {
+        let dellProd = [];
+        for (const itm in data.data) {
+          if (data.data[itm].brand == "dell" || "Dell") {
+            dellProd.push(data.data[itm]);
+          }
+        }
+        setProducts(dellProd);
+      }
+    }
+  }, []);
   return (
-    <div className='slider-container'>
-      <Slider {...settings}>
-        {Products.map((product) => (
-          <div key={product.itemID} className='slide'>
-            <div className="slide-top">
-              <img src={product.images[0]["url"]} alt={product.title} width='120px' />
+    <>
+      {isLoading && <h1>Loading...</h1>}
+      {Products.length}
+      <div className="slider-container">
+        <Slider {...settings}>
+          {Products.map((product) => (
+            <div key={product.itemID} className="slide">
+              <Link to={`/product/${product.itemID}`}>
+                <div className="slide-top">
+                  <img
+                    src={product.images[0]["url"]}
+                    alt={product.title}
+                    width="120px"
+                  />
+                </div>
+                <div className="slide-bottom">
+                  <h5>{product.title}</h5>
+                  <p>{product.unitPrice}</p>
+                </div>
+              </Link>
             </div>
-            <div className="slide-bottom">
-              <h5>{product.title}</h5>
-              <p>{product.disPrice}</p>
-            </div>
-          </div>
-        ))}
-      </Slider>
-    </div>
+          ))}
+        </Slider>
+      </div>
+    </>
   );
 };
 
-export default LatestProductsSlider;
+export default LaptopsSlider;

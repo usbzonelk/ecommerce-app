@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useGetAllItemsMutation } from "../redux/features/products/itemApiSlice";
 import { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 const LaptopsSlider = () => {
   const [getAllItems, { data, isLoading }] = useGetAllItemsMutation();
   const [Products, setProducts] = useState([]);
@@ -59,17 +59,19 @@ const LaptopsSlider = () => {
         <Slider {...settings}>
           {Products.map((product) => (
             <div key={product.itemID} className="slide">
-              <div className="slide-top">
-                <img
-                  src={product.images[0]["url"]}
-                  alt={product.title}
-                  width="120px"
-                />
-              </div>
-              <div className="slide-bottom">
-                <h5>{product.title}</h5>
-                <p>{product.unitPrice}</p>
-              </div>
+              <Link to={`/product/${product.itemID}`}>
+                <div className="slide-top">
+                  <img
+                    src={product.images[0]["url"]}
+                    alt={product.title}
+                    width="120px"
+                  />
+                </div>
+                <div className="slide-bottom">
+                  <h5>{product.title}</h5>
+                  <p>{product.unitPrice}</p>
+                </div>
+              </Link>
             </div>
           ))}
         </Slider>

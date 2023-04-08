@@ -10,7 +10,6 @@ const HomePage = () => {
       <Banner />
       <LatestProducts />
       <Laptops />
-      <Accessories />
 
     </main>
   );
