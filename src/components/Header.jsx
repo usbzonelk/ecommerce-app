@@ -18,6 +18,7 @@ import {
 import BrandLogo from "../images/brand-logo.png";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import SearchBar from '../components/Shop/SearchBar'
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -46,25 +47,25 @@ const Header = () => {
         <div className="container">
           <ul className="header-social-container">
             <li>
-              <a href="#" className="social-link">
+              <a href="https://facebook.com" target="_blank" className="social-link">
                 <FaFacebook />
               </a>
             </li>
 
             <li>
-              <a href="#" className="social-link">
+              <a href="https://twitter.com" target="_blank" className="social-link">
                 <FaTwitter />
               </a>
             </li>
 
             <li>
-              <a href="#" className="social-link">
+              <a href="https://instagram.com" target="_blank" className="social-link">
                 <FaInstagram />
               </a>
             </li>
 
             <li>
-              <a href="#" className="social-link">
+              <a href="https://linkedin.com" target="_blank" className="social-link">
                 <FaLinkedinIn />
               </a>
             </li>
@@ -201,26 +202,7 @@ const Header = () => {
           </div>
 
           <div className="search-container">
-            {showSearch && (
-              <>
-                <input
-                  type="search"
-                  name="search"
-                  className="search-field"
-                  placeholder="Search"
-                  value={searchValue}
-                  onChange={handleInputChange}
-                  onKeyDown={(event) => {
-                    if (event.keyCode === 13) {
-                      handleSearch();
-                    }
-                  }}
-                />
-                <button className="search-btn" onClick={handleSearch}>
-                  <FaSearch />
-                </button>
-              </>
-            )}
+            {showSearch && <SearchBar/>}
           </div>
         </div>
       </div>
