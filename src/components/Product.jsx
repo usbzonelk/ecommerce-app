@@ -147,7 +147,7 @@ const Product = () => {
             <Title style={{ marginRight: "2rem" }}>
               LKR {item.data.unitPrice}
               <sup style={{ color: "blue", fontSize: "2rem" }}>
-                {item.data.disPrecentage}% OFF
+                {item.data.disPrecentage} OFF
               </sup>
             </Title>
 
