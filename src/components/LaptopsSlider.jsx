@@ -46,9 +46,7 @@ const LaptopsSlider = () => {
   useEffect(() => {
     getAllItems();
     if (data) {
-      if ("data" in data) {
-        setProducts(data.data);
-      }
+      setProducts(data);
     }
   }, []);
   return (

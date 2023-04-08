@@ -46,15 +46,13 @@ const LaptopsSlider = () => {
   useEffect(() => {
     getAllItems();
     if (data) {
-      if ("data" in data) {
-        let dellProd = [];
-        for (const itm in data.data) {
-          if (data.data[itm].brand == "dell" || "Dell") {
-            dellProd.push(data.data[itm]);
-          }
+      let dellProd = [];
+      for (const itm in data.data) {
+        if (data.data[itm].brand == "dell" || "Dell") {
+          dellProd.push(data.data[itm]);
         }
-        setProducts(dellProd);
       }
+      setProducts(dellProd);
     }
   }, []);
   return (
