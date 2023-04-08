@@ -1,6 +1,9 @@
 import { Table, Typography, Form, InputNumber, Button } from "antd";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useGetItemMutation } from "../redux/features/products/itemApiSlice";
+import { useGetItemInfoMutation } from "../redux/features/products/itemApiSlice";
+import NotFound from "./NotFound";
+import ProductLoadingScreen from "./ProductLoadingScreen";
 
 const { Title, Paragraph } = Typography;
 const columns = [
@@ -56,30 +59,37 @@ const data = [
 
 const Product = () => {
   const { id } = useParams();
-  const { data: item, isLoading, isError, error } = useGetItemMutation(id);
+  const [getItemInfo, { data: item, isLoading, error }] =
+    useGetItemInfoMutation();
 
-  const onFinish = (values) => {
-    console.log("Form submitted with values:", values);
-    // add to cart logic here
-  };
+  useEffect(() => {
+    getItemInfo(id);
+  }, [id]);
+
   return (
     <div>
-      {error?.response?.status === 404 && <h1>404</h1>}
-      {isLoading && <h1>Loading...</h1>}
+      {error?.response?.status === 404 && (
+        <>
+          <NotFound />
+        </>
+      )}
+      {isLoading && (
+        <>
+          <ProductLoadingScreen />
+        </>
+      )}
       {!item ? (
-        "404"
+        isLoading ? (
+          ""
+        ) : (
+          <>
+            <NotFound />
+          </>
+        )
       ) : (
         <div style={{ padding: "2rem" }}>
           <Title>{item.data.title}</Title>
-          <Paragraph>
-            {" "}
-            Product is the best learning companion for students of all ages,
-            with a tough, innovative design that’s made to last. As well as a
-            versatile touchscreen display and stylus1, there’s also a 360° hinge
-            and a world-facing camera. It’s packed with clever protective
-            features, including an all-round rubber bumper, spill-resistant
-            keyboard and ultratough hinge.
-          </Paragraph>
+          <Paragraph>{item.data.description}</Paragraph>
           <Table columns={columns} dataSource={data} pagination={false} />
 
           <div

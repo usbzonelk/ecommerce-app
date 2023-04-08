@@ -96,15 +96,9 @@ function Cart() {
                       </td>
                       <td class="whitespace-nowrap p-3 text-sm text-gray-700">
                         <div class="flex items-center justify-center">
-                          <button class="h-6 w-6 rounded-full text-gray-600 hover:bg-gray-200">
-                            <i class="fas fa-minus">-</i>
-                          </button>
                           <span class="px-2 text-center font-semibold">
                             {item.qty}
                           </span>
-                          <button class="h-6 w-6 rounded-full text-gray-600 hover:bg-gray-200">
-                            <i class="fas fa-plus">+</i>
-                          </button>
                         </div>
                       </td>
                       <td class="whitespace-nowrap p-3 text-sm font-bold text-gray-700">
@@ -159,18 +153,12 @@ function Cart() {
                     </span>
                   </div>
                   <div class="flex items-center justify-start">
-                    <button class="mr-2 h-6 w-6 rounded-full text-gray-600 hover:bg-gray-200">
-                      <i class="fas fa-minus">-</i>
-                    </button>
                     <span
                       class="text-center font-semibold text-black"
                       style={{ fontSize: "1.5rem" }}
                     >
                       {item.qty}
                     </span>
-                    <button class="ml-2 h-6 w-6 rounded-full text-gray-600 hover:bg-gray-200">
-                      <i class="fas fa-plus">+</i>
-                    </button>
                   </div>
                 </div>
               ))}

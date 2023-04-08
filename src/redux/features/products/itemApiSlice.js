@@ -14,9 +14,9 @@ export const itemApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
-    getItem: builder.mutation({
+    getItemInfo: builder.mutation({
       query: (id) => ({
-        url: "/item/get-item-byID/?itemID=" + id,
+        url: `/item/get-item-byID/?itemID=${id}`,
         method: "GET",
       }),
       onSuccess: (data) => {
@@ -48,7 +48,7 @@ export const itemApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetAllItemsMutation,
   useGetAllBrandsMutation,
-  useGetItemMutation,
+  useGetItemInfoMutation,
   useGetItemsOnPriceMutation,
   useGetItemsOnSearchMutation,
 } = itemApiSlice;
