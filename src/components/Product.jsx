@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useGetItemInfoMutation } from "../redux/features/products/itemApiSlice";
 import NotFound from "./NotFound";
 import ProductLoadingScreen from "./ProductLoadingScreen";
+import { useAddItemToCartMutation } from "../redux/features/cart/cartApiSlice";
+import Cookies from "js-cookie";
 
 const { Title, Paragraph } = Typography;
 const columns = [
@@ -19,52 +21,93 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: "1",
-    component: "Processor",
-    value: "Intel Core i7",
-  },
-  {
-    key: "2",
-    component: "Hard Disk",
-    value: "512 GB SSD",
-  },
-  {
-    key: "3",
-    component: "RAM",
-    value: "16 GB",
-  },
-  {
-    key: "4",
-    component: "Display",
-    value: '14" FHD IPS Touchscreen',
-  },
-  {
-    key: "5",
-    component: "Graphic Card",
-    value: "NVIDIA GeForce GTX 1650",
-  },
-  {
-    key: "6",
-    component: "Battery",
-    value: "Up to 12 hours",
-  },
-  {
-    key: "7",
-    component: "OS",
-    value: "Windows 10 Pro",
-  },
-];
-
 const Product = () => {
   const { id } = useParams();
+  const [addItemToCart, { data, isAddingCart, errorAddingCart }] =
+    useAddItemToCartMutation();
   const [getItemInfo, { data: item, isLoading, error }] =
     useGetItemInfoMutation();
+  const [dataPg, setDataPg] = useState([
+    {
+      key: "0",
+      component: "Brand",
+      value: "Dell",
+    },
+    {
+      key: "1",
+      component: "Processor",
+      value: "Intel Core i7",
+    },
+    {
+      key: "2",
+      component: "Hard Disk",
+      value: "512 GB SSD",
+    },
+    {
+      key: "3",
+      component: "RAM",
+      value: "16 GB",
+    },
+    {
+      key: "4",
+      component: "Display",
+      value: '14" FHD IPS Touchscreen',
+    },
+  ]);
+
+  const onFinish = (values) => {
+    const uID = Cookies.get("user");
+    if (uID === undefined || !uID) {
+      alert("Please login to add items to cart");
+      return;
+    }
+    const payload = {
+      discountPercentage: values.discountPercentage,
+      itemId: id,
+      quantity: values.quantity,
+      unitPrice: values.unitPrice,
+      userId: uID,
+    };
+    addItemToCart(payload);
+  };
 
   useEffect(() => {
     getItemInfo(id);
   }, [id]);
+
+  useEffect(() => {
+    if (item) {
+      if ("data" in item) {
+        setDataPg([
+          {
+            key: "0",
+            component: "Brand",
+            value: item.data.brand,
+          },
+          {
+            key: "1",
+            component: "Processor",
+            value: item.data.processor,
+          },
+          {
+            key: "2",
+            component: "Hard Disk",
+            value: item.data.ssd,
+          },
+          {
+            key: "3",
+            component: "RAM",
+            value: item.data.ram,
+          },
+          {
+            key: "4",
+            component: "Display",
+            value: item.data.screenSize,
+          },
+        ]);
+      }
+    }
+  }, [item]);
 
   return (
     <div>
@@ -90,7 +133,7 @@ const Product = () => {
         <div style={{ padding: "2rem" }}>
           <Title>{item.data.title}</Title>
           <Paragraph>{item.data.description}</Paragraph>
-          <Table columns={columns} dataSource={data} pagination={false} />
+          <Table columns={columns} dataSource={dataPg} pagination={false} />
 
           <div
             style={{
@@ -119,6 +162,22 @@ const Product = () => {
                 style={{ paddingRight: "4rem" }}
               >
                 <InputNumber min={1} max={10} />
+              </Form.Item>
+              <Form.Item
+                name="discountPercentage"
+                label=""
+                style={{ display: "none" }}
+                initialValue={item.data.disPrecentage}
+              >
+                <Input type="hidden" />
+              </Form.Item>
+              <Form.Item
+                name="unitPrice"
+                label=""
+                style={{ display: "none" }}
+                initialValue={item.data.unitPrice}
+              >
+                <Input type="hidden" />
               </Form.Item>
               <Form.Item>
                 <Button type="dashed" htmlType="submit">
