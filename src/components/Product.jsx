@@ -1,4 +1,4 @@
-import { Table, Typography, Form, InputNumber, Button } from "antd";
+import { Table, Typography, Form, InputNumber, Button, Input } from "antd";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetItemInfoMutation } from "../redux/features/products/itemApiSlice";
@@ -180,7 +180,7 @@ const Product = () => {
                 <Input type="hidden" />
               </Form.Item>
               <Form.Item>
-                <Button type="dashed" htmlType="submit">
+                <Button type="dashed" htmlType="submit" loading={isAddingCart}>
                   Add to Cart
                 </Button>
               </Form.Item>

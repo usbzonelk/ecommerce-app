@@ -15,7 +15,25 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    signup: builder.mutation({
+      query: (body) => ({
+        url: "/sign-up/signUp-user/",
+        method: "PUT",
+        body: body,
+      }),
+    }),
+    verify: builder.mutation({
+      query: (otp, uID) => ({
+        url: `/sign-up/otp-verification-user?OTP=${otp}&userID=${uID}`,
+        method: "PUT",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation } = authApiSlice;
+export const {
+  useLoginMutation,
+  useLogoutMutation,
+  useSignupMutation,
+  useVerifyMutation,
+} = authApiSlice;

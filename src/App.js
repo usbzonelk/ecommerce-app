@@ -18,6 +18,7 @@ import Cart from "./components/User/Cart";
 import Product from "./components/Product";
 import AdminDashboard from "./pages/AdminDashboard";
 import Logout from "./pages/Logout";
+import Otp from "./components/Otp";
 
 const App = () => {
   return (
@@ -44,7 +45,14 @@ const App = () => {
               </Provider>
             }
           />
-          <Route path="/signup" element={<SignUp />} />
+          <Route
+            path="/signup"
+            element={
+              <Provider store={store}>
+                <SignUp />
+              </Provider>
+            }
+          />
 
           <Route
             element={
@@ -71,7 +79,6 @@ const App = () => {
                 </Provider>
               }
             />
-            
           </Route>
           <Route
             path="/product/:id"
@@ -93,13 +100,21 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route
-              path="/admin"
-              element={
-                <Provider store={store}>
-                  <AdminDashboard />
-                </Provider>
-              }
-            />
+            path="/verify/:uID"
+            element={
+              <Provider store={store}>
+                <Otp />
+              </Provider>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <Provider store={store}>
+                <AdminDashboard />
+              </Provider>
+            }
+          />
           <Route path="/" element={<HomePage />} />
         </Routes>
 
