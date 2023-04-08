@@ -56,7 +56,8 @@ const Login = () => {
         email: email,
         password: password,
       }).unwrap();
-      tokenData = tokenData.data.split("token")[1];
+      console.log("tokenData", tokenData);
+      tokenData = tokenData.split("token")[1];
       console.log("tt", tokenData);
 
       const allUserTypeMaps = {

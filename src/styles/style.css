@@ -11265,27 +11265,61 @@ button {
 
 .shop {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.shop h5, .shop .h5 {
+.shop .shop-header {
+  width: 80vw;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.shop .shop-header h3, .shop .shop-header .h3 {
   font-weight: 500;
-  padding: 10px;
+  padding-left: 40px;
 }
-.shop .categories-list {
-  list-style: none;
+.shop .shop-header .search-container {
+  width: inherit;
+}
+.shop .shop-header .search-container .ant-input-group-wrapper {
+  padding: 1rem 1rem 1rem 10rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.shop .container {
+  width: 80vw;
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+}
+.shop .search-controls {
   margin: 0 10px;
   padding: 0;
 }
-.shop .categories-list li {
-  margin: 10px;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.4);
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5px);
-  color: #333;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
+.shop .search-controls .select-control-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.shop .search-controls .select-control-item .ant-form-item {
+  width: 150px;
+}
+.shop .search-controls .select-control-item .ant-form-item .ant-slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+}
+.shop .search-controls .select-control-item .ant-form-item .ant-radio-group {
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .shop .product-list {
   position: relative;
@@ -11522,6 +11556,9 @@ footer .footer-nav-list .nav-item-contact .nav-link {
   footer .footer-nav-list .nav-item-contact .nav-link {
     justify-content: flex-start;
   }
+}
+footer .footer-nav-list .nav-item-contact .content {
+  margin: 0;
 }
 footer .footer-nav .social-link {
   display: flex;
