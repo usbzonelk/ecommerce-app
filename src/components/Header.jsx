@@ -78,11 +78,11 @@ const Header = () => {
           </div>
 
           <div className="header-user-actions">
-            <button className="action-btn">
-              <Link to="/dashboard" className="user-action">
+            <Link to="/dashboard" className="user-action">
+              <button className="action-btn">
                 <IoPersonOutline />
-              </Link>
-            </button>
+              </button>
+            </Link>
 
             <Link to="/cart">
               <button className="action-btn">
