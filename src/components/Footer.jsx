@@ -36,19 +36,19 @@ const Footer = () => {
                         </li>
 
                         <li className="nav-item">
-                            <a href="#" className="nav-link">Laptops</a>
+                            <a href="#" className="nav-link">Home</a>
                         </li>
 
                         <li className="nav-item">
-                            <a href="#" className="nav-link">Softwares</a>
+                            <a href="#" className="nav-link">Shop</a>
                         </li>
 
                         <li className="nav-item">
-                            <a href="#" className="nav-link">Monitors</a>
+                            <a href="#" className="nav-link">Contact Us</a>
                         </li>
 
                         <li className="nav-item">
-                            <a href="#" className="nav-link">Gadgets</a>
+                            <a href="#" className="nav-link">About Us</a>
                         </li>
                     </ul>
 
