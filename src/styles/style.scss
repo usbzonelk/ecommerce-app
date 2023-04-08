@@ -370,6 +370,16 @@ button {
                 text-decoration: none;
                 padding: 10px 20px;
                 border-radius: 20px;
+                transition: var(--transition-timing);
+
+                &:hover {
+                    color: white;
+                    background-color: hsl(0, 0%, 30%);
+                }
+                
+                a {
+                    color: var(--text-color);
+                }
             }
         }
 
@@ -771,11 +781,16 @@ button {
         text-decoration: none;
         padding: 10px 20px;
         border-radius: 20px;
-        margin: 40px 200px;
+        margin: 20px 200px;
+        transition: var(--transition-timing);
 
         &:hover {
             color: white;
             background-color: hsl(0, 0%, 30%);
+        }
+
+        a {
+            color: var(--text-color);
         }
     }
 }
