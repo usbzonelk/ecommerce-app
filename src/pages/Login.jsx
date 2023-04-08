@@ -52,10 +52,11 @@ const Login = () => {
     }
     let tokenData = "";
     try {
-      tokenData = await login({
+      const { data } = await {
         email: email,
         password: password,
-      }).unwrap();
+      }.unwrap();
+      tokenData = data;
       console.log("tokenData", tokenData);
       tokenData = tokenData.split("token")[1];
       console.log("tt", tokenData);
