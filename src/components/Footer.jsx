@@ -153,7 +153,7 @@ const Footer = () => {
             <div className="footer-bottom">
                 <div className="container">
                     <p>
-                        Copyright &copy; <a href="#">Anon</a> all rights reserved.
+                        Copyright &copy; <a href="#">Orrex</a> all rights reserved.
                     </p>
                 </div>
             </div>
