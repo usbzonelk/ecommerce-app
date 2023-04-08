@@ -81,6 +81,7 @@ const Login = () => {
       }
       nav("/");
     } catch (err) {
+      console.log(err);
       if (!err?.originalStatus) {
         message.error("Could not connect to server");
       } else if (err.originalStatus === 400) {
