@@ -1,5 +1,6 @@
 import React from 'react';
 import BannerImg from '../images/banner-img.png';
+import {Link} from 'react-router-dom';
 
 const Banner = () => {
     return (
@@ -14,7 +15,7 @@ const Banner = () => {
                     professional, gamer, or simply looking for a reliable 
                     machine for everyday use, we've got you covered
                     </p>
-                    <a href="/shop" className="banner-btn">Shop Now</a>
+                    <Link to="/shop" className="banner-btn">Shop Now</Link>
                 </div>
 
                 <img src={BannerImg} alt="Banner image" className="banner-img" />

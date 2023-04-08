@@ -120,9 +120,9 @@ const Header = () => {
 
       <div className="header-main">
         <div className="container">
-          <a href="#" className="header-logo">
+          <Link to='/' className="header-logo">
             <img src={BrandLogo} alt="Anon's logo" width="180" height="80" />
-          </a>
+          </Link>
 
           <nav className="nav-menu">
             <div className="container">
