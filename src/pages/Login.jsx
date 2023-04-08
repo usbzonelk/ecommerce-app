@@ -52,7 +52,7 @@ const Login = () => {
     }
     let tokenData = "";
     try {
-      await login({
+      const { data } = await login({
         email: email,
         password: password,
       }).unwrap();
