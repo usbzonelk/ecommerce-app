@@ -26,9 +26,9 @@ const RequireAuth = () => {
       }
 
       let uID = null;
-      if (adminId in decodedToken.type) {
+      if ("adminId" in decodedToken.type) {
         uID = decodedToken.type.adminId;
-      } else if (userId in decodedToken.type) {
+      } else if ("userId" in decodedToken.type) {
         uID = decodedToken.type.userId;
       }
       dispatch(setCurrentUser(uID));
