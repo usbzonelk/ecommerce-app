@@ -11,7 +11,7 @@ const SuccessMessage = () => {
             </div>
 
             <p>
-                <a href="./Login">Click here</a> to login.
+                <a href="./login">Click here</a> to login.
             </p>
         </div>
     );
