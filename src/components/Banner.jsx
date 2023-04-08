@@ -14,7 +14,7 @@ const Banner = () => {
                     professional, gamer, or simply looking for a reliable 
                     machine for everyday use, we've got you covered
                     </p>
-                    <a href="#" className="banner-btn">Shop Now</a>
+                    <a href="/shop" className="banner-btn">Shop Now</a>
                 </div>
 
                 <img src={BannerImg} alt="Banner image" className="banner-img" />

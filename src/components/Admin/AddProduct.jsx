@@ -9,10 +9,10 @@ import {
   message,
   Modal,
 } from "antd";
-const { TextArea } = Input;
 import { UploadOutlined } from "@ant-design/icons";
 import { useAddNewItemMutation } from "../../redux/features/users/adminManagement";
 import { useState } from "react";
+const { TextArea } = Input;
 
 const AddProduct = (props) => {
   const [messageApi, contextHolder] = message.useMessage();

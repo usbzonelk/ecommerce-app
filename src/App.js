@@ -72,13 +72,13 @@ const App = () => {
               }
             />
             <Route
-            path="/admin"
-            element={
-              <Provider store={store}>
-                <AdminDashboard />
-              </Provider>
-            }
-          />
+              path="/admin"
+              element={
+                <Provider store={store}>
+                  <AdminDashboard />
+                </Provider>
+              }
+            />
           </Route>
           <Route
             path="/product/:id"
@@ -99,7 +99,7 @@ const App = () => {
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/aboutus" element={<AboutUs />} />
-          
+
           <Route path="/" element={<HomePage />} />
         </Routes>
 
