@@ -2,26 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useGetCartItemsMutation } from "./cartApiSlice";
 
 const initialState = {
-  cart: [
-    {
-      itemID: 28,
-      unitPrice: 45900,
-      disPrecentage: 5.2,
-      qty: 5,
-    },
-    {
-      itemID: 27,
-      unitPrice: 75900,
-      disPrecentage: 8.2,
-      qty: 69,
-    },
-    {
-      itemID: 26,
-      unitPrice: 100000,
-      disPrecentage: 10.2,
-      qty: 88,
-    },
-  ],
+  cart: [],
   selectedCartItem: null,
   isLoadingCart: false,
   error: null,
@@ -36,7 +17,7 @@ export const fetchCartItems = createAsyncThunk(
     const userId = getState().auth.user;
     const token = getState().auth.access;
     const response = await fetch(
-      `http://springBooty.lk/api/v1/user/get-All-Cart-Items/${userId}`,
+      `http://localhost:8085/api/v1/user/get-All-Cart-Items/${userId}`,
       { headers: { Authorization: `Bearer ${token}` } }
     )
       .then((response) => response.json())
@@ -54,7 +35,7 @@ export const deleteCartItems = createAsyncThunk(
       const userId = getState().auth.user;
       const token = getState().auth.access;
       const response = await fetch(
-        `http://springBooty.lk/api/v1/user/delete-order-byId?orderID=${itemId}&userID=${userId}`,
+        `http://localhost:8085/api/v1/user/delete-order-byId?orderID=${itemId}&userID=${userId}`,
         { method: "DELETE", headers: { Authorization: `Bearer ${token}` } }
       );
       if (!response.ok) {
@@ -62,7 +43,7 @@ export const deleteCartItems = createAsyncThunk(
       }
       dispatch(deleteCartItem(itemId));
     } catch (error) {
-      console.error("failed to delete", error);
+      alert("failed to delete", error);
     }
   }
 );
