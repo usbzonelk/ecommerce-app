@@ -1,8 +1,8 @@
-import React from 'react';
-import Slider from 'react-slick';
+import React from "react";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Products from '../products';
+import { useGetAllItemsMutation } from "../redux/features/products/itemApiSlice";
 
 const LaptopsSlider = () => {
   const settings = {
@@ -20,34 +20,38 @@ const LaptopsSlider = () => {
           slidesToShow: 4,
           slidesToScroll: 3,
           infinite: true,
-          dots: true
-        }
+          dots: true,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2
-        }
+          initialSlide: 2,
+        },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
-    <div className='slider-container'>
+    <div className="slider-container">
       <Slider {...settings}>
         {Products.map((product) => (
-          <div key={product.itemID} className='slide'>
+          <div key={product.itemID} className="slide">
             <div className="slide-top">
-              <img src={product.images[0]["url"]} alt={product.title} width='120px' />
+              <img
+                src={product.images[0]["url"]}
+                alt={product.title}
+                width="120px"
+              />
             </div>
             <div className="slide-bottom">
               <h5>{product.title}</h5>

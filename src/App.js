@@ -16,6 +16,8 @@ import { Provider } from "react-redux";
 import RequireAuth from "./redux/auth/RequireAuth";
 import Cart from "./components/User/Cart";
 import Product from "./components/Product";
+import AdminDashboard from "./pages/AdminDashboard";
+import Logout from "./pages/Logout";
 
 const App = () => {
   return (
@@ -69,12 +71,28 @@ const App = () => {
                 </Provider>
               }
             />
+            <Route
+              path="/admin"
+              element={
+                <Provider store={store}>
+                  <AdminDashboard />
+                </Provider>
+              }
+            />
           </Route>
           <Route
             path="/product/:id"
             element={
               <Provider store={store}>
                 <Product />{" "}
+              </Provider>
+            }
+          />
+          <Route
+            path="/logout"
+            element={
+              <Provider store={store}>
+                <Logout />{" "}
               </Provider>
             }
           />
