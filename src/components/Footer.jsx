@@ -122,25 +122,25 @@ const Footer = () => {
                         <li>
                             <ul className="social-link">
                                 <li className="nav-item">
-                                    <a href="#" className="nav-link">
+                                    <a href="https://facebook.com" target="_blank" className="nav-link">
                                         <FaFacebook size={45} />
                                     </a>
                                 </li>
 
                                 <li className="nav-item">
-                                    <a href="#" className="nav-link">
+                                    <a href="https://twitter.com" target="_blank" className="nav-link">
                                         <FaTwitter size={45} />
                                     </a>
                                 </li>
 
                                 <li className="nav-item">
-                                    <a href="#" className="nav-link">
+                                    <a href="https://linkedin.com" target="_blank" className="nav-link">
                                         <FaLinkedinIn size={45} />
                                     </a>
                                 </li>
 
                                 <li className="nav-item">
-                                    <a href="#" className="nav-link">
+                                    <a href="https://instagram.com" target="_blank" className="nav-link">
                                         <FaInstagram size={45} />
                                     </a>
                                 </li>
