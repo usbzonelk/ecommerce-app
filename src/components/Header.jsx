@@ -112,25 +112,25 @@ const Header = () => {
               <ul className="menu-category-list">
                 <li className="menu-category">
                   <Link to="/">
-                    <a className="menu-title">Home</a>
+                    Home
                   </Link>
                 </li>
 
                 <li className="menu-category">
                   <Link to="/shop">
-                    <a className="menu-title">Shop</a>
+                    Shop
                   </Link>
                 </li>
 
                 <li className="menu-category">
                   <Link to="/contact">
-                    <a className="menu-title">Contact</a>
+                    Contact
                   </Link>
                 </li>
 
                 <li className="menu-category">
                   <Link to="/aboutus">
-                    <a className="menu-title">About Us</a>
+                    About Us
                   </Link>
                 </li>
               </ul>
