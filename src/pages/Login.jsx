@@ -24,7 +24,7 @@ const Login = () => {
 
   const logMeIn = allLoginMutations[currentLocation] || null;
 
-  const [login, { isLoading }] = logMeIn();
+  const [login, { data, isLoading }] = logMeIn();
 
   const handleEmailChange = (event) => {
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -52,7 +52,7 @@ const Login = () => {
     }
     let tokenData = "";
     try {
-      const { data } = await login({
+      await login({
         email: email,
         password: password,
       }).unwrap();
