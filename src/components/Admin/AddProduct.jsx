@@ -23,13 +23,17 @@ const AddProduct = (props) => {
   const [imageOption, setImageOption] = useState("upload");
   let submitErr = null;
   const handleSubmit = async (formData) => {
+    const sendFormData = { ...formData };
+    console.log(formData);
+    sendFormData["images"] = [formData.image];
+
     try {
-      await addNewItem(formData);
+      await addNewItem(sendFormData);
     } catch (error) {
       submitErr = error.message;
       console.log(error);
     }
-    console.log("Form data:", formData);
+    console.log("Form data:", sendFormData);
     if (submitErr || isError) {
       messageApi.open({
         type: "error",
@@ -135,6 +139,11 @@ const AddProduct = (props) => {
           >
             <Select>
               <Select.Option value="dell">Dell</Select.Option>
+              <Select.Option value="asus">Asus</Select.Option>
+              <Select.Option value="lenovo">Lenovo</Select.Option>
+              <Select.Option value="apple">Apple</Select.Option>
+              <Select.Option value="acer">Acer</Select.Option>
+              <Select.Option value="msi">MSI</Select.Option>
             </Select>
           </Form.Item>
 
@@ -290,7 +299,7 @@ const AddProduct = (props) => {
           ) : (
             <Form.Item
               label="Image URL"
-              name="images"
+              name="image"
               rules={[
                 {
                   required: true,

@@ -5,8 +5,8 @@ import {
   setCurrentUser,
 } from "../features/authSlice";
 import jwt_decode from "jwt-decode";
-
 import { useGetCartItemsMutation } from "../features/cart/cartApiSlice";
+import Cookies from "js-cookie";
 
 const RequireAuth = () => {
   const token = useSelector(selectCurrentAccessToken);
@@ -24,9 +24,17 @@ const RequireAuth = () => {
       if (decodedToken.exp < currentTime) {
         return false;
       }
-      const userID = decodedToken.id;
-      /*       dispatch(setCurrentUser(userID));
-       */
+
+      let uID = null;
+      if (adminId in decodedToken.type) {
+        uID = decodedToken.type.adminId;
+      } else if (userId in decodedToken.type) {
+        uID = decodedToken.type.userId;
+      }
+      dispatch(setCurrentUser(uID));
+      Cookies.set("user", uID, { expires: 7 });
+      sessionStorage.setItem("user", uID);
+
       return true;
     } catch (error) {
       console.error(error);

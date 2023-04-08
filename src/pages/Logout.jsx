@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { logOut as logoutSessions } from "../redux/features/authSlice";
 import { useLogoutAdminMutation } from "../redux/features/users/adminManagement";
 import { useLogoutMutation } from "../redux/features/users/loginUser";
+import { Spin } from "antd";
 
 import Cookies from "js-cookie";
 const Logout = () => {
   const currentLocation = useLocation().pathname;
   const userType = useSelector((state) => state.auth.user_type);
+  const dispatch = useDispatch();
 
   const allLogOutMutations = {
     user: useLogoutMutation,
@@ -19,9 +21,10 @@ const Logout = () => {
 
   const [logout, { isLoading }] = logMeOut();
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     if (logMeOut) {
-      await logout();
+      logout();
+      dispatch(logoutSessions());
     }
   };
   useEffect(() => {
@@ -31,11 +34,16 @@ const Logout = () => {
     Cookies.remove("token");
     Cookies.remove("user");
     Cookies.remove("type");
-    logout();
+    handleLogout();
     window.location.href = "/";
   });
 
-  return <div></div>;
+  return (
+    <div>
+      {" "}
+      <Spin size="large" />
+    </div>
+  );
 };
 
 export default Logout;
