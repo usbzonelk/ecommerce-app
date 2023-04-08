@@ -2,7 +2,20 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useGetCartItemsMutation } from "./cartApiSlice";
 
 const initialState = {
-  cart: [],
+  cart: [
+    {
+      itemID: 80,
+      unitPrice: 499000,
+      disPrecentage: 2.2,
+      qty: 1,
+    },
+    {
+      itemID: 84,
+      unitPrice: 389000,
+      disPrecentage: 3.1,
+      qty: 2,
+    },
+  ],
   selectedCartItem: null,
   isLoadingCart: false,
   error: null,
