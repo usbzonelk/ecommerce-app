@@ -10850,6 +10850,8 @@ button {
   background-color: #333333;
 }
 .header-top .container {
+  width: 100%;
+  height: 45px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -10994,6 +10996,7 @@ button {
 }
 .header-main .menu-view .container {
   display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
   justify-content: center;
@@ -11004,12 +11007,30 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0;
 }
 .header-main .menu-view .container .mobile-menu-nav-list-text {
   text-transform: uppercase;
   font-weight: 500;
   color: var(--text-color);
   cursor: pointer;
+}
+.header-main .menu-view .container .mobile-menu-search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header-main .menu-view .container .mobile-menu-search-container .search-field {
+  max-width: 90%;
+  color: #333333;
+  font-weight: 500;
+  padding: 4px;
+  border: 1px solid #333333;
+  border-radius: 7px;
+  outline: none;
+}
+.header-main .menu-view .container .mobile-menu-search-container .search-btn {
+  margin-left: -25px;
 }
 .header-main .search-container .search-field {
   max-width: 90%;
@@ -11030,9 +11051,10 @@ button {
 }
 
 .banner {
-  margin-top: 20px;
+  margin-top: 40px;
 }
 .banner .container {
+  width: 80vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11081,9 +11103,11 @@ button {
 }
 
 .products {
-  margin-top: 40px;
+  margin-top: 50px;
 }
 .products .container {
+  width: 80vw;
+  height: 280px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11106,7 +11130,7 @@ button {
 }
 .products .container .slider-container {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 .products .container .slider-container .slide {
   padding: 10px;
@@ -11116,7 +11140,7 @@ button {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  height: 300px;
+  height: 200px;
 }
 .products .container .slider-container .slide .slide-top img {
   width: 100%;
