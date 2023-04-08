@@ -14,7 +14,11 @@ const Otp = () => {
     console.log(otp);
     const id = uID;
     try {
-      verify(otp, id);
+      const bdy = {
+        otp: otp,
+        uID: id,
+      };
+      verify(bdy);
       if (isSuccess) {
         alert("Account has been verified. Please login.");
       }

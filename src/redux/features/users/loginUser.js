@@ -23,8 +23,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     verify: builder.mutation({
-      query: (otp, uID) => ({
-        url: `/sign-up/otp-verification-user?OTP=${otp}&userID=${uID}`,
+      query: (body) => ({
+        url: `/sign-up/otp-verification-user?OTP=${body.otp}&userID=${body.uID}`,
         method: "PUT",
       }),
     }),
