@@ -1,14 +1,18 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCurrentAccessToken } from "../features/authSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectCurrentAccessToken,
+  setCurrentUser,
+} from "../features/authSlice";
 import jwt_decode from "jwt-decode";
+import { useGetCartItemsMutation } from "../features/cart/cartApiSlice";
 import Cookies from "js-cookie";
-
-console.log("authFX",Cookies.get("token"));
 
 const RequireAuth = () => {
   const token = useSelector(selectCurrentAccessToken);
   const location = useLocation();
+
+  const dispatch = useDispatch();
 
   console.log("token:", token);
   console.log("location:", location);
@@ -20,6 +24,17 @@ const RequireAuth = () => {
       if (decodedToken.exp < currentTime) {
         return false;
       }
+
+      let uID = null;
+      if ("adminId" in decodedToken.type) {
+        uID = decodedToken.type.adminId;
+      } else if ("userId" in decodedToken.type) {
+        uID = decodedToken.type.userId;
+      }
+      dispatch(setCurrentUser(uID));
+      Cookies.set("user", uID, { expires: 7 });
+      sessionStorage.setItem("user", uID);
+
       return true;
     } catch (error) {
       console.error(error);
@@ -31,6 +46,8 @@ const RequireAuth = () => {
 
   return isAuthenticated ? (
     <Outlet />
+  ) : location.pathname === "/admin" ? (
+    <Navigate to="/admin-login" state={{ from: location }} replace />
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />
   );

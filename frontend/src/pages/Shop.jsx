@@ -1,29 +1,23 @@
-import React from 'react';
-import ProductList from '../components/ProductList';
+import SearchControls from "../components/Shop/SearchControls";
+import ShowShopItems from "../components/Shop/ShowShopItems";
+import { Provider } from "react-redux";
+import store from "../redux/store";
+import SearchBar from "../components/Shop/SearchBar";
 
-const Shop = () => {
-    return (
-        <section className='shop'>
-            <div className="container">
-                <div className="row">
-                    <div className="col-4">
-                        <h5>Categories</h5>
-                        <ul className='categories-list'>
-                            <li>HP</li>
-                            <li>Dell</li>
-                            <li>Acer</li>
-                            <li>Accessories</li>
-                        </ul>
-                    </div>
+const Shop = () => (
+  <Provider store={store}>
+    <div className="shop">
+      <div className="shop-header">
+        <h3>Shop</h3>
+        <SearchBar />
+      </div>
 
-                    <div className="col-8">
-                        <h5>Products</h5>
-                        <ProductList/>
-                    </div>
-                </div>
-            </div>
-        </section>
-    )
-}
+      <div className="container">
+        <SearchControls />
+        <ShowShopItems />
+      </div>
+    </div>
+  </Provider >
+);
 
-export default Shop
+export default Shop;

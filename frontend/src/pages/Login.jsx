@@ -1,19 +1,30 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { LoadingOutlined } from "@ant-design/icons";
 import { message } from "antd";
+
 import { useLoginMutation } from "../redux/features/users/loginUser";
+import { useAdminLoginMutation } from "../redux/features/users/loginAdmin";
+
 import Cookies from "js-cookie";
 
 const Login = () => {
   const nav = useNavigate();
+  const currentLocation = useLocation().pathname;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
   const [validEmail, setValidEmail] = useState(false);
 
-  const [login, { isLoading }] = useLoginMutation();
+  const allLoginMutations = {
+    "/login": useLoginMutation,
+    "/admin-login": useAdminLoginMutation,
+  };
+
+  const logMeIn = allLoginMutations[currentLocation] || null;
+
+  const [login, { data, isLoading }] = useLoginMutation();
 
   const handleEmailChange = (event) => {
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -41,20 +52,36 @@ const Login = () => {
     }
     let tokenData = "";
     try {
-      tokenData = await login({
+      await login({
         email: email,
         password: password,
       }).unwrap();
-      tokenData = tokenData.data.split("token")[1];
+      tokenData = data;
+      console.log("tokenData", tokenData);
+      tokenData = tokenData.split("token")[1];
       console.log("tt", tokenData);
+
+      const allUserTypeMaps = {
+        "/login": "user",
+        "/admin-login": "admin",
+      };
+
+      const userType = allUserTypeMaps[currentLocation] || null;
 
       if (rememberMe) {
         Cookies.set("token", tokenData, { expires: 7 });
+        Cookies.set("type", userType, { expires: 7 });
+        localStorage.removeItem("type");
+        localStorage.removeItem("token");
       } else {
         sessionStorage.setItem("token", tokenData);
+        sessionStorage.setItem("type", userType);
+        Cookies.remove("token");
+        Cookies.remove("type");
       }
-      nav("/dashboard");
+      nav("/");
     } catch (err) {
+      console.log(err);
       if (!err?.originalStatus) {
         message.error("Could not connect to server");
       } else if (err.originalStatus === 400) {
@@ -79,7 +106,9 @@ const Login = () => {
         </div>
 
         <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-          <p className="h2 bold mb-5 mx-md-1">Login</p>
+          <p className="h2 bold mb-5 mx-md-1">
+            {currentLocation === "/login" ? "Login" : "Admin Login"}
+          </p>
 
           <form onSubmit={handleSubmit}>
             <div className="form-outline mb-4">
@@ -128,8 +157,13 @@ const Login = () => {
               )}
             </button>
             <hr />
-            Don't You Have An Account? &nbsp;
-            <Link to="/signup">Create an account</Link>
+
+            {currentLocation === "/login" ? (
+              <p>
+                Don't You Have An Account?{" "}
+                <Link to="/signup">Create an account</Link>
+              </p>
+            ) : null}
           </form>
         </div>
       </div>

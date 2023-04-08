@@ -5,27 +5,46 @@ import {
   InputNumber,
   Radio,
   Select,
-  Switch,
   Upload,
   message,
+  Modal,
 } from "antd";
-const { TextArea } = Input;
 import { UploadOutlined } from "@ant-design/icons";
-
+import { useAddNewItemMutation } from "../../redux/features/users/adminManagement";
 import { useState } from "react";
+const { TextArea } = Input;
 
-const AddProduct = () => {
+const AddProduct = (props) => {
   const [messageApi, contextHolder] = message.useMessage();
+  const { visible, onCancel } = props;
+  const [addNewItem, { isLoading, isError, error }] = useAddNewItemMutation();
 
   const [componentSize, setComponentSize] = useState("large");
-  const [imageOption, setImageOption] = useState("upload"); // default to upload option
+  const [imageOption, setImageOption] = useState("upload");
+  let submitErr = null;
+  const handleSubmit = async (formData) => {
+    const sendFormData = { ...formData };
+    console.log(formData);
+    sendFormData["images"] = [formData.image];
 
-  const handleSubmit = (formData) => {
-    console.log("Form data:", formData);
-    messageApi.open({
-      type: "success",
-      content: "Password Changed Successfully",
-    });
+    try {
+      await addNewItem(sendFormData);
+    } catch (error) {
+      submitErr = error.message;
+      console.log(error);
+    }
+    console.log("Form data:", sendFormData);
+    if (submitErr || isError) {
+      messageApi.open({
+        type: "error",
+        content: submitErr || error.message,
+      });
+    } else {
+      messageApi.open({
+        type: "success",
+        content: "Product was added Successfully",
+      });
+    }
   };
 
   const validatePositiveInteger = (rule, value) => {
@@ -73,228 +92,234 @@ const AddProduct = () => {
 
   return (
     <>
-      {contextHolder}
-      <Form
-        onFinish={handleSubmit}
-        labelCol={{
-          span: 7,
-        }}
-        wrapperCol={{
-          span: 18,
-        }}
-        layout="horizontal"
-        initialValues={{
-          size: componentSize,
-        }}
-        size={componentSize}
-        style={{
-          maxWidth: 800,
-        }}
+      <Modal
+        title="Add Product"
+        open={visible}
+        onCancel={onCancel}
+        footer={null}
       >
-        <Form.Item
-          name="title"
-          label="Item title"
-          style={{
-            whiteSpace: "prewrap",
-            wordBreak: "break-word",
+        {contextHolder}
+        <Form
+          onFinish={handleSubmit}
+          labelCol={{
+            span: 7,
           }}
-          rules={[{ required: true, message: "Please enter your input" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Brand"
-          name="brand"
-          style={{
-            whiteSpace: "prewrap",
-            wordBreak: "break-word",
+          wrapperCol={{
+            span: 18,
           }}
-          rules={[{ required: true, message: "Please enter your input" }]}
-        >
-          <Select>
-            <Select.Option value="dell">Dell</Select.Option>
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          name="quantity"
-          label="Stock Quantity"
-          rules={[
-            { required: true, message: "Please enter your input" },
-            { validator: validatePositiveInteger },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-        <Form.Item
-          label="RAM size in GB"
-          name="ram"
-          style={{
-            whiteSpace: "prewrap",
-            wordBreak: "break-word",
+          layout="horizontal"
+          initialValues={{
+            size: componentSize,
           }}
-          rules={[
-            { required: true, message: "Please enter your input" },
-            { validator: validatePositiveInteger },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-        <Form.Item
-          name="processor"
-          label="Processor codename"
+          size={componentSize}
           style={{
-            whiteSpace: "prewrap",
-            wordBreak: "break-word",
+            maxWidth: 800,
+            margin: "auto 0.5rem",
           }}
-          rules={[{ required: true, message: "Please enter your input" }]}
         >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Screen size in inches"
-          name="screenSize"
-          style={{
-            whiteSpace: "prewrap",
-            wordBreak: "break-word",
-          }}
-          rules={[
-            { required: true, message: "Please enter your input" },
-            { validator: validatePositiveNumber },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-        <Form.Item
-          label="HDD size in GB"
-          name="ssd"
-          style={{
-            whiteSpace: "prewrap",
-            wordBreak: "break-word",
-          }}
-          rules={[
-            { required: true, message: "Please enter your input" },
-            { validator: validatePositiveInteger },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-        <Form.Item
-          label="Original Price"
-          name="unitPrice"
-          style={{
-            whiteSpace: "prewrap",
-            wordBreak: "break-word",
-          }}
-          rules={[
-            { required: true, message: "Please enter your input" },
-            { validator: validatePositiveNumber },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-        <Form.Item
-          label="Discount Percentage"
-          name="disPrecentage"
-          style={{
-            whiteSpace: "prewrap",
-            wordBreak: "break-word",
-          }}
-          rules={[
-            { required: true, message: "Please enter your input" },
-            { validator: validatePositiveNumber },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-        <Form.Item
-          label="Discounted Price"
-          name="disPrice"
-          style={{
-            whiteSpace: "prewrap",
-            wordBreak: "break-word",
-          }}
-          rules={[
-            { required: true, message: "Please enter your input" },
-            { validator: validatePositiveNumber },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-
-        <Form.Item
-          label="Switch"
-          valuePropName="checked"
-          rules={[{ required: true, message: "Please enter your input" }]}
-        >
-          <Switch />
-        </Form.Item>
-        <Form.Item
-          label="Item Description"
-          name="description"
-          style={{
-            whiteSpace: "prewrap",
-            wordBreak: "break-word",
-          }}
-          rules={[{ required: true, message: "Please enter your input" }]}
-        >
-          <TextArea
-            placeholder="Enter what you wanna show to the visitors"
-            allowClear
-          />
-        </Form.Item>
-
-        <Form.Item label="Upload Photo" name="uploads-pic">
-          <Radio.Group value={imageOption} onChange={handleImageOptionChange}>
-            {" "}
-            <Radio.Button value="url">Add Link</Radio.Button>
-            <Radio.Button value="upload">Upload Image</Radio.Button>
-          </Radio.Group>
-        </Form.Item>
-
-        {imageOption === "upload" ? (
           <Form.Item
-            label="Upload Image"
-            name="image"
-            valuePropName="fileList"
-            getValueFromEvent={(e) => e.fileList}
+            name="title"
+            label="Item title"
+            style={{
+              whiteSpace: "prewrap",
+              wordBreak: "break-word",
+            }}
+            rules={[{ required: true, message: "Please enter your input" }]}
           >
-            <Upload
-              name="image"
-              action="https://upload.imagekit.io/api/v1/files/upload"
-              headers={{
-                Authorization: "6d207e02198a847aa98d0a2a901485a5",
-              }}
-              listType="picture"
-              showUploadList={true}
-              onChange={handleImageUpload}
-            >
-              <Button icon={<UploadOutlined />}>Upload Image</Button>
-            </Upload>
+            <Input />
           </Form.Item>
-        ) : (
           <Form.Item
-            label="Image URL"
-            name="images"
+            label="Brand"
+            name="brand"
+            style={{
+              whiteSpace: "prewrap",
+              wordBreak: "break-word",
+            }}
+            rules={[{ required: true, message: "Please enter your input" }]}
+          >
+            <Select>
+              <Select.Option value="dell">Dell</Select.Option>
+              <Select.Option value="asus">Asus</Select.Option>
+              <Select.Option value="lenovo">Lenovo</Select.Option>
+              <Select.Option value="apple">Apple</Select.Option>
+              <Select.Option value="acer">Acer</Select.Option>
+              <Select.Option value="msi">MSI</Select.Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name="quantity"
+            label="Stock Quantity"
             rules={[
-              {
-                required: true,
-                message: "Please enter an image URL",
-              },
+              { required: true, message: "Please enter your input" },
+              { validator: validatePositiveInteger },
             ]}
           >
-            <Input placeholder="Enter Image URL" />
+            <InputNumber />
           </Form.Item>
-        )}
+          <Form.Item
+            label="RAM size in GB"
+            name="ram"
+            style={{
+              whiteSpace: "prewrap",
+              wordBreak: "break-word",
+            }}
+            rules={[
+              { required: true, message: "Please enter your input" },
+              { validator: validatePositiveInteger },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+          <Form.Item
+            name="processor"
+            label="Processor codename"
+            style={{
+              whiteSpace: "prewrap",
+              wordBreak: "break-word",
+            }}
+            rules={[{ required: true, message: "Please enter your input" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Screen size in inches"
+            name="screenSize"
+            style={{
+              whiteSpace: "prewrap",
+              wordBreak: "break-word",
+            }}
+            rules={[
+              { required: true, message: "Please enter your input" },
+              { validator: validatePositiveNumber },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+          <Form.Item
+            label="HDD size in GB"
+            name="ssd"
+            style={{
+              whiteSpace: "prewrap",
+              wordBreak: "break-word",
+            }}
+            rules={[
+              { required: true, message: "Please enter your input" },
+              { validator: validatePositiveInteger },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+          <Form.Item
+            label="Original Price"
+            name="unitPrice"
+            style={{
+              whiteSpace: "prewrap",
+              wordBreak: "break-word",
+            }}
+            rules={[
+              { required: true, message: "Please enter your input" },
+              { validator: validatePositiveNumber },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+          <Form.Item
+            label="Discount Percentage"
+            name="disPrecentage"
+            style={{
+              whiteSpace: "prewrap",
+              wordBreak: "break-word",
+            }}
+            rules={[
+              { required: true, message: "Please enter your input" },
+              { validator: validatePositiveNumber },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+          <Form.Item
+            label="Discounted Price"
+            name="disPrice"
+            style={{
+              whiteSpace: "prewrap",
+              wordBreak: "break-word",
+            }}
+            rules={[
+              { required: true, message: "Please enter your input" },
+              { validator: validatePositiveNumber },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
 
-        <Form.Item label="">
-          <div style={{ textAlign: "center" }}>
-            <Button type="primary" htmlType="submit">
-              Add Item
-            </Button>
-          </div>
-        </Form.Item>
-      </Form>
+          <Form.Item
+            label="Item Description"
+            name="description"
+            style={{
+              whiteSpace: "prewrap",
+              wordBreak: "break-word",
+            }}
+            rules={[{ required: true, message: "Please enter your input" }]}
+          >
+            <TextArea
+              placeholder="Enter what you wanna show to the visitors"
+              allowClear
+            />
+          </Form.Item>
+
+          <Form.Item label="Upload Photo" name="uploads-pic">
+            <Radio.Group value={imageOption} onChange={handleImageOptionChange}>
+              {" "}
+              <Radio.Button value="url">Add Link</Radio.Button>
+              <Radio.Button value="upload">Upload Image</Radio.Button>
+            </Radio.Group>
+          </Form.Item>
+
+          {imageOption === "upload" ? (
+            <Form.Item
+              label="Upload Image"
+              name="image"
+              valuePropName="fileList"
+              getValueFromEvent={(e) => e.fileList}
+            >
+              <Upload
+                name="image"
+                action="https://upload.imagekit.io/api/v1/files/upload"
+                headers={{
+                  Authorization: "6d207e02198a847aa98d0a2a901485a5",
+                }}
+                listType="picture"
+                showUploadList={true}
+                onChange={handleImageUpload}
+              >
+                <Button icon={<UploadOutlined />}>Upload Image</Button>
+              </Upload>
+            </Form.Item>
+          ) : (
+            <Form.Item
+              label="Image URL"
+              name="image"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter an image URL",
+                },
+              ]}
+            >
+              <Input placeholder="Enter Image URL" />
+            </Form.Item>
+          )}
+
+          <Form.Item label="">
+            <div style={{ textAlign: "center" }}>
+              <Button type="dashed" htmlType="submit" loading={isLoading}>
+                Add Item
+              </Button>
+            </div>
+          </Form.Item>
+        </Form>
+      </Modal>
     </>
   );
 };

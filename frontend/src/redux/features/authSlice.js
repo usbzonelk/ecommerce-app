@@ -4,7 +4,8 @@ import Cookies from "js-cookie";
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: null,
+    user_type: sessionStorage.getItem("type") || Cookies.get("type") || null,
+    user: sessionStorage.getItem("user") || Cookies.get("user") || null,
     access: sessionStorage.getItem("token") || Cookies.get("token") || null,
   },
   reducers: {
@@ -13,14 +14,18 @@ const authSlice = createSlice({
       state.user = user_name;
       state.access = access;
     },
+    setCurrentUser: (state, action) => {
+      state.user = action.payload;
+    },
     logOut: (state, action) => {
       state.user = null;
       state.access = null;
+      state.user_type = null;
     },
   },
 });
 
-export const { setCredentials, logOut } = authSlice.actions;
+export const { setCredentials, logOut, setCurrentUser } = authSlice.actions;
 
 export default authSlice.reducer;
 

@@ -1,0 +1,92 @@
+[
+    {
+        "itemID": 1,
+        "unitPrice": 100,
+        "disPercentage": 1000,
+        "disPrice": 100,
+        "images": [
+            {
+                "ref":"reference",
+                "url":"https://i.pcmag.com/imagery/reviews/02lcg0Rt9G3gSqCpWhFG0o1-2..v1656623239.jpg"
+            }
+            
+        ],
+        "brand": "Lenovo",
+        "title": "Ideapad"
+    },
+    {
+        "itemID": 2,
+        "unitPrice": 100,
+        "disPercentage": 1000,
+        "disPrice": 100,
+        "images": [
+            {
+                "ref":"reference",
+                "url":"https://img.etimg.com/photo/msid-93619818/apple-laptops.jpg"
+            }
+            
+        ],
+        "brand": "Lenovo",
+        "title": "Ideapad"
+    },
+    {
+        "itemID": 3,
+        "unitPrice": 100,
+        "disPercentage": 1000,
+        "disPrice": 100,
+        "images": [
+            {
+                "ref":"reference",
+                "url":"https://www.91-cdn.com/hub/wp-content/uploads/2022/07/Top-laptop-brands-in-India-1200x675.jpg"
+            }
+            
+        ],
+        "brand": "Lenovo",
+        "title": "Ideapad"
+    },
+    {
+        "itemID": 1,
+        "unitPrice": 100,
+        "disPercentage": 1000,
+        "disPrice": 100,
+        "images": [
+            {
+                "ref":"reference",
+                "url":"https://i.pcmag.com/imagery/reviews/02lcg0Rt9G3gSqCpWhFG0o1-2..v1656623239.jpg"
+            }
+            
+        ],
+        "brand": "Lenovo",
+        "title": "Ideapad"
+    },
+    {
+        "itemID": 2,
+        "unitPrice": 100,
+        "disPercentage": 1000,
+        "disPrice": 100,
+        "images": [
+            {
+                "ref":"reference",
+                "url":"https://img.etimg.com/photo/msid-93619818/apple-laptops.jpg"
+            }
+            
+        ],
+        "brand": "Lenovo",
+        "title": "Ideapad"
+    },
+    {
+        "itemID": 3,
+        "unitPrice": 100,
+        "disPercentage": 1000,
+        "disPrice": 100,
+        "images": [
+            {
+                "ref":"reference",
+                "url":"https://www.91-cdn.com/hub/wp-content/uploads/2022/07/Top-laptop-brands-in-India-1200x675.jpg"
+            }
+            
+        ],
+        "brand": "Lenovo",
+        "title": "Ideapad"
+    }
+]

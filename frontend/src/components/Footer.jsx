@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { FaFacebook, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 import { IoCallOutline, IoMailOutline, IoLocationOutline } from 'react-icons/io5';
 import BrandLogoHp from '../images/brand-logo-hp.png';
@@ -6,6 +7,10 @@ import BrandLogoAcer from '../images/brand-logo-acer.png';
 import BrandLogoDell from '../images/brand-logo-dell.png';
 
 const Footer = () => {
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0)
+    });
+
     return (
         <footer>
             <div className="footer-brands">
@@ -36,19 +41,43 @@ const Footer = () => {
                         </li>
 
                         <li className="nav-item">
-                            <a href="#" className="nav-link">Laptops</a>
+                            <Link to="/" onClick={() => {
+                                window.scroll({
+                                    top: 0,
+                                    left: 0,
+                                    behavior: "smooth",
+                                });
+                            }} className="nav-link">Home</Link>
                         </li>
 
                         <li className="nav-item">
-                            <a href="#" className="nav-link">Softwares</a>
+                            <Link to="/shop" onClick={() => {
+                                window.scroll({
+                                    top: 0,
+                                    left: 0,
+                                    behavior: "smooth",
+                                });
+                            }} className="nav-link">Shop</Link>
                         </li>
 
                         <li className="nav-item">
-                            <a href="#" className="nav-link">Monitors</a>
+                            <Link to="/contact" onClick={() => {
+                                window.scroll({
+                                    top: 0,
+                                    left: 0,
+                                    behavior: "smooth",
+                                });
+                            }} className="nav-link">Contact Us</Link>
                         </li>
 
                         <li className="nav-item">
-                            <a href="#" className="nav-link">Gadgets</a>
+                            <Link to="/aboutus" onClick={() => {
+                                window.scroll({
+                                    top: 0,
+                                    left: 0,
+                                    behavior: "smooth",
+                                });
+                            }} className="nav-link">About Us</Link>
                         </li>
                     </ul>
 
@@ -93,25 +122,25 @@ const Footer = () => {
                         <li>
                             <ul className="social-link">
                                 <li className="nav-item">
-                                    <a href="#" className="nav-link">
+                                    <a href="https://facebook.com" target="_blank" className="nav-link">
                                         <FaFacebook size={45} />
                                     </a>
                                 </li>
 
                                 <li className="nav-item">
-                                    <a href="#" className="nav-link">
+                                    <a href="https://twitter.com" target="_blank" className="nav-link">
                                         <FaTwitter size={45} />
                                     </a>
                                 </li>
 
                                 <li className="nav-item">
-                                    <a href="#" className="nav-link">
+                                    <a href="https://linkedin.com" target="_blank" className="nav-link">
                                         <FaLinkedinIn size={45} />
                                     </a>
                                 </li>
 
                                 <li className="nav-item">
-                                    <a href="#" className="nav-link">
+                                    <a href="https://instagram.com" target="_blank" className="nav-link">
                                         <FaInstagram size={45} />
                                     </a>
                                 </li>
@@ -124,7 +153,7 @@ const Footer = () => {
             <div className="footer-bottom">
                 <div className="container">
                     <p>
-                        Copyright &copy; <a href="#">Anon</a> all rights reserved.
+                        Copyright &copy; <a href="#">Orrex</a> all rights reserved.
                     </p>
                 </div>
             </div>
