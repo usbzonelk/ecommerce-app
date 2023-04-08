@@ -576,13 +576,36 @@ button {
 
 .shop {
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    h5 {
-        font-weight: 500;
-        padding: 10px;
+    .shop-header {
+        width: 80vw;
+        height: 100px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        h3 {
+            font-weight: 500;
+            padding-left: 40px;
+        }
+
+        .search-container{
+            width: inherit;
+
+            .ant-input-group-wrapper{
+                padding: 1rem 1rem 1rem 10rem;
+                margin-top: 2rem;          
+                margin-bottom: 2rem;
+            }
+        }
     }
 
-    .container{
+    .container {
         width: 80vw;
         display: flex;
         flex-direction: row;
@@ -601,7 +624,7 @@ button {
 
             .ant-form-item {
                 width: 150px;
-               
+
                 .ant-slider {
                     display: flex;
                     justify-content: center;
