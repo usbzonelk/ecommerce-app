@@ -24,7 +24,7 @@ const Login = () => {
 
   const logMeIn = allLoginMutations[currentLocation] || null;
 
-  const [login, { data, isLoading }] = useLoginMutation();
+  const [login, { data1, isLoading }] = useLoginMutation();
 
   const handleEmailChange = (event) => {
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
