@@ -3,8 +3,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useGetAllItemsMutation } from "../redux/features/products/itemApiSlice";
-
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 const LaptopsSlider = () => {
+  const [getAllItems, { data, isLoading }] = useGetAllItemsMutation();
+  const [Products, setProducts] = useState([]);
   const settings = {
     dots: true,
     infinite: true,
@@ -40,27 +43,40 @@ const LaptopsSlider = () => {
       },
     ],
   };
-
+  useEffect(() => {
+    getAllItems();
+    if (data) {
+      if ("data" in data) {
+        setProducts(data.data);
+      }
+    }
+  }, []);
   return (
-    <div className="slider-container">
-      <Slider {...settings}>
-        {Products.map((product) => (
-          <div key={product.itemID} className="slide">
-            <div className="slide-top">
-              <img
-                src={product.images[0]["url"]}
-                alt={product.title}
-                width="120px"
-              />
+    <>
+      {isLoading && <h1>Loading...</h1>}
+      {Products.length}
+      <div className="slider-container">
+        <Slider {...settings}>
+          {Products.map((product) => (
+            <div key={product.itemID} className="slide">
+              <Link to={`/product/${product.itemID}`}>
+                <div className="slide-top">
+                  <img
+                    src={product.images[0]["url"]}
+                    alt={product.title}
+                    width="120px"
+                  />
+                </div>
+                <div className="slide-bottom">
+                  <h5>{product.title}</h5>
+                  <p>{product.unitPrice}</p>
+                </div>
+              </Link>
             </div>
-            <div className="slide-bottom">
-              <h5>{product.title}</h5>
-              <p>{product.disPrice}</p>
-            </div>
-          </div>
-        ))}
-      </Slider>
-    </div>
+          ))}
+        </Slider>
+      </div>
+    </>
   );
 };
 
