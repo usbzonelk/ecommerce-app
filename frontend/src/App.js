@@ -36,7 +36,6 @@ const App = () => {
               </Provider>
             }
           />
-
           <Route
             path="/admin-login"
             element={
@@ -53,33 +52,31 @@ const App = () => {
               </Provider>
             }
           />
-
           <Route
             element={
               <Provider store={store}>
                 <RequireAuth />{" "}
               </Provider>
             }
-          >
-            {/*             <Route path="/shop" element={<Shop />} />
-             */}{" "}
-            <Route
-              path="/cart"
-              element={
-                <Provider store={store}>
-                  <Cart />{" "}
-                </Provider>
-              }
-            />
-            <Route
-              path="/dashboard"
-              element={
-                <Provider store={store}>
-                  <UserDashboard />
-                </Provider>
-              }
-            />
-          </Route>
+          ></Route>
+          {/*             <Route path="/shop" element={<Shop />} />
+           */}{" "}
+          <Route
+            path="/cart"
+            element={
+              <Provider store={store}>
+                <Cart />{" "}
+              </Provider>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <Provider store={store}>
+                <UserDashboard />
+              </Provider>
+            }
+          />
           <Route
             path="/product/:id"
             element={
