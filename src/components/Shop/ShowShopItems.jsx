@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const ShowShopItems = () => {
-  //let productItems = useSelector((state) => state.items.items);
+  let productItems = useSelector((state) => state.items.items);
   let isLoading = useSelector((state) => state.items.isLoadingItms);
 
-  console.log(isLoading);
+  console.log(isLoading, productItems);
 
-  const productItems = [
+  /* const productItems = [
     {
       itemID: 1,
       title: "Product 1",
@@ -41,7 +41,7 @@ const ShowShopItems = () => {
       unitPrice: "Category 3",
       imageUrl: ["https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"],
     },
-  ];
+  ]; */
   console.log(productItems[0]);
   return (
     <div
