@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RequestMapping(path = "api/v1/admin")
 public class AdminController {
     @Autowired
@@ -117,7 +117,7 @@ public class AdminController {
                 throw new UnauthorizedException("token are deactive");
             } else {
                 authentication.authentication(authenticationHeader);
-                String text = adminService.deleteUser(userid);
+                String text = adminService.deleteUser(userid,authenticationHeader);
                 return new ResponseEntity<StandardResponse>(
                         new StandardResponse
                                 (
@@ -138,22 +138,22 @@ public class AdminController {
     }
 
     @DeleteMapping(path = "/delete-item",
-                  params = {"userID", "adminID"}
+                  params = { "adminID","itemID"}
                   )
-    public ResponseEntity<StandardResponse> removeItem(@RequestParam(value = "userID") int userid,
-                                                       @RequestParam(value = "adminID") int adminid,
+    public ResponseEntity<StandardResponse> removeItem(@RequestParam(value = "adminID") int adminid,
+                                                       @RequestParam(value = "itemID") int itemID,
                                                        @RequestHeader("Authentication") String authenticationHeader
     ) {
         if (existRevokedToken.checkToken(authenticationHeader,adminid)) {
             throw new UnauthorizedException("token are deactive");
         } else {
             authentication.authentication(authenticationHeader);
-            String text = adminService.deleteItem(userid);
+            String text = adminService.deleteItem(itemID);
             return new ResponseEntity<StandardResponse>(
                     new StandardResponse
                             (
                                     200,
-                                    "customer id = " + userid + " deleted!",
+                                    "item id = " + itemID + " deleted!",
                                     text
                             ), HttpStatus.OK);
         }

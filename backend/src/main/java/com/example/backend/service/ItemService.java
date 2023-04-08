@@ -13,7 +13,7 @@ public interface ItemService {
 
     List<ItemBrandNameResponseDTO> getAllBrandNames();
 
-    ItemResponseDTO getItemByID(int itemID);
+    ItemDTO getItemByID(int itemID);
 
     List<ItemResponseDTO> getAllItems();
 

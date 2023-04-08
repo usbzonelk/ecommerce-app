@@ -64,7 +64,7 @@ public class SignUpServiceIMPL implements SignUpService {
         userRepo.save(user);
         msg = "user name = " + userRegRequestDTO.getUserName() + " is sign up successfully"+ "user id = "+ userRepo.getByEmail(userRegRequestDTO.getEmail()).getUserId() ;
         //send email
-        emailSenderService.sendEmail(userRegRequestDTO.getEmail(),"OTP verification ","Your OTP is : "+OTP+" . Use this OTP to SignIN");
+        emailSenderService.sendEmail(userRegRequestDTO.getEmail(),"OTP verification ","Your OTP is : "+OTP+" . Use this OTP to SignIN",userRepo.getByEmail(user.getEmail()).getUserId());
         return msg ;
     }
 
@@ -83,7 +83,7 @@ public class SignUpServiceIMPL implements SignUpService {
         );
         if(!adminRepo.existsByEmail(admin.getEmail())){
             adminRepo.save(admin);
-            emailSenderService.sendEmail(adminRegRequestDTO.getEmail(),"OTP verification ","Your OTP is : "+OTP+" . Use this OTP to SignIN");
+            emailSenderService.sendEmail(adminRegRequestDTO.getEmail(),"OTP verification ","Your OTP is : "+OTP+" . Use this OTP to SignIN",adminRepo.getByEmail(admin.getEmail()).getAdminId());
             return admin.getAdminName()+" is saved . admin id = "+adminRepo.getByEmail(adminRegRequestDTO.getEmail()).getAdminId() ;
         }else{
             return admin.getAdminName()+" is already registered " ;

@@ -10,13 +10,13 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 @Component
 public class JwtUtils {
-    private static long expiryDuration= 60 * 60 *5;
+    private static long expiryDuration= 60 * 60 * 60 *24;
     public static String secret = "static variable";
     public String genarateJWT(User user){
 
         //claims
         long militime = System.currentTimeMillis();
-        long expiryTime=militime + expiryDuration * 1000;
+        long expiryTime=militime + expiryDuration * 3;
         Date issueAt = new Date(militime);
         Date expiryAt = new Date(expiryTime);
         Claims claims = Jwts.claims().setIssuer(user.getPassword())
@@ -40,7 +40,7 @@ public class JwtUtils {
     public String genarateJWTForAdmin(Admin admin){
         //claims
         long militime = System.currentTimeMillis();
-        long expiryTime=militime + expiryDuration * 1000;
+        long expiryTime=militime + expiryDuration * 3;
         Date issueAt = new Date(militime);
         Date expiryAt = new Date(expiryTime);
         Claims claims = Jwts.claims().setIssuer(admin.getPassword())

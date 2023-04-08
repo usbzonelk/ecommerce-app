@@ -17,10 +17,11 @@ public class EmailSenderServiceIMPL implements EmailSenderService {
 
     public void sendEmail(String receiver,
                           String subject ,
-                          String body
+                          String body,
+                          int id
                          ) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
-        String url="dummy url"; // TODO: 3/26/2023 need to add exact link  
+        String url="localhost:3000/verify/"+id;
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true, "UTF-8");
         mimeMessageHelper.setFrom("erandachamith322@gmail.com");
         mimeMessageHelper.setTo(receiver);

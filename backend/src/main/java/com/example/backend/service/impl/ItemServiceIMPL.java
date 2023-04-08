@@ -45,7 +45,8 @@ public class ItemServiceIMPL implements ItemService {
                         i.getSsd(),
                         i.getRam(),
                         i.getScreenSize(),
-                        i.getTitle()
+                        i.getTitle(),
+                        i.getQuantity()
                 );
                 itemDTOS.add(itemDTO);
             }return itemDTOS;
@@ -80,19 +81,25 @@ public class ItemServiceIMPL implements ItemService {
     }
 
     @Override
-    public ItemResponseDTO getItemByID(int itemID) {
+    public ItemDTO getItemByID(int itemID) {
         if(itemRepo.existsById(itemID)){
             Item item = itemRepo.getById(itemID);
-            ItemResponseDTO itemResponseDTO = new ItemResponseDTO(
-                item.getItemID(),
-                item.getUnitPrice(),
-                item.getDisPrecentage(),
-                item.getDisPrice(),
-                item.getImages(),
-                item.getBrand(),
-                item.getTitle()
+            ItemDTO itemDTO = new ItemDTO(
+                    item.getDescription(),
+                    item.getUnitPrice(),
+                    item.getDisPrecentage(),
+                    item.getDisPrice(),
+                    item.getAvailability(),
+                    item.getImages(),
+                    item.getProcessor(),
+                    item.getBrand(),
+                    item.getSsd(),
+                    item.getRam(),
+                    item.getScreenSize(),
+                    item.getTitle(),
+                    item.getQuantity()
             );
-            return itemResponseDTO;
+            return itemDTO;
         }else {
             throw new NotFoundException("Item not found id = "+itemID);
         }
