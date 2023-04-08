@@ -31,7 +31,13 @@ const AboutUs = () => {
             </p>
 
             <button className="about-us-btn">
-                <Link to="/contact">
+                <Link to="/contact" onClick={() => {
+                    window.scroll({
+                        top: 0,
+                        left: 0,
+                        behavior: "smooth",
+                    });
+                }}>
                     Contact Us
                 </Link>
             </button>

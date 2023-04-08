@@ -16,8 +16,14 @@ const Banner = () => {
                         machine for everyday use, we've got you covered
                     </p>
 
-                    <button  className="banner-btn">
-                        <Link to="/shop">
+                    <button className="banner-btn">
+                        <Link to="/shop" onClick={() => {
+                            window.scroll({
+                                top: 0,
+                                left: 0,
+                                behavior: "smooth",
+                            });
+                        }}>
                             Shop Now
                         </Link>
                     </button>
